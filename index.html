@@ -244,7 +244,43 @@
             <p>
                 Un passionné des nouvelles technologies qui transforme les idées en innovations ! 🚀 J’adore repousser les limites du possible. Découvre mon univers embarque avec moi dans cette aventure numérique !
             </p>
+<div class="dropdown-bibliotheque" style="position: relative; display: inline-block;">
+    <!-- Le Bouton Principal -->
+    <button id="btn-biblio" style="background-color: #2b6cb0; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; cursor: pointer; font-size: 16px;">
+        Ma bibliothèque numérique ▾
+    </button>
+    
+    <!-- La liste des livres (cachée par défaut) -->
+    <div id="menu-biblio" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); background-color: white; min-width: 280px; box-shadow: 0px 8px 16px rgba(0,0,0,0.15); z-index: 1000; border-radius: 5px; margin-top: 5px; overflow: hidden; border: 1px solid #e2e8f0;">
+        <a href="le-fils-de-migrants.html" target="_blank" style="color: #2d3748; padding: 14px 16px; text-decoration: none; display: block; font-family: Arial, sans-serif; font-size: 14px; text-align: left; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7fafc'" onmouseout="this.style.backgroundColor='transparent'">
+            📖 Le fils de migrants de l'exil au rejet
+        </a>
+        <a href="carnet-de-sagesse.html" target="_blank" style="color: #2d3748; padding: 14px 16px; text-decoration: none; display: block; font-family: Arial, sans-serif; font-size: 14px; text-align: left; border-top: 1px solid #edf2f7; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f7fafc'" onmouseout="this.style.backgroundColor='transparent'">
+            🧠 Carnet de sagesse
+        </a>
+    </div>
+</div>
 
+<script>
+    // Gestion propre de l'affichage au survol et au clic
+    const btnBiblio = document.getElementById('btn-biblio');
+    const menuBiblio = document.getElementById('menu-biblio');
+    const conteneur = document.querySelector('.dropdown-bibliotheque');
+
+    function afficherMenu() { menuBiblio.style.display = 'block'; }
+    function cacherMenu() { menuBiblio.style.display = 'none'; }
+
+    // Événements pour ordinateurs (survol)
+    conteneur.addEventListener('mouseenter', afficherMenu);
+    conteneur.addEventListener('mouseleave', cacherMenu);
+
+    // Événement pour mobiles (clic)
+    btnBiblio.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuBiblio.style.display = menuBiblio.style.display === 'block' ? 'none' : 'block';
+    });
+    document.addEventListener('click', cacherMenu);
+</script>
 		<a href="livre.html" target="_blank" style="display: inline-block; padding: 12px 24px; background-color: #2b6cb0; color: white; text-decoration: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; margin-top: 15px;">
     Ma bibliothéque numérique
 </a>
