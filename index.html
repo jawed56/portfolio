@@ -248,23 +248,51 @@
             </p>
       <!-- ==================== BLOC BOUTON BIBLIOTHÈQUE ==================== -->
 <!-- Exemple de structure pour votre menu déroulant -->
-<div class="dropdown">
-    <button class="dropdown-button">Ma bibliothèque numérique ▾</button>
-    <div class="dropdown-content">
-        <!-- Livre 1 -->
-        <a href="de-lexil-au-rejet.pdf" target="_blank">De l'exil au rejet (PDF)</a>
+<div style="text-align: center; margin: 25px 0;">
+    <div class="dropdown-bibliotheque" style="position: relative; display: inline-block; z-index: 9999;">
         
-        <!-- Livre 2 -->
-        <a href="le-gout-de-linterdit.pdf" target="_blank">Le goût de l'interdit (PDF)</a>
+        <button id="btn-biblio" style="background-color: #2b6cb0; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; cursor: pointer; font-size: 16px;">
+            Ma bibliothèque numérique ▾
+        </button>
         
-        <!-- Document 3 (Version HTML et PDF) -->
-        <a href="les-modeles-motivationnels.html" target="_blank">Les modèles motivationnels (Web)</a>
-        <a href="les-modeles-motivationnels.pdf" target="_blank">Les modèles motivationnels (PDF)</a>
-        
-        <!-- Livre 4 -->
-        <a href="opposant-ou-ennemi.pdf" target="_blank">Opposant ou ennemi (PDF)</a>
+        <div id="menu-biblio" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); background-color: white; min-width: 280px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 5px; margin-top: 5px; border: 1px solid #e2e8f0; padding: 5px 0; font-family: Arial, sans-serif;">
+            
+            <a href="de-lexil-au-rejet.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📕 De l'exil au rejet (PDF)</a>
+            
+            <a href="le-gout-de-linterdit.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📙 Le goût de l'interdit (PDF)</a>
+            
+            <a href="les-modeles-motivationnels.html" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2b6cb0; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">🌐 Les modèles motivationnels (Web)</a>
+            
+            <a href="les-modeles-motivationnels.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📘 Les modèles motivationnels (PDF)</a>
+            
+            <a href="opposant-ou-ennemi.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; font-size: 14px; font-weight: bold; text-align: left;">📗 Opposant ou ennemi (PDF)</a>
+            
+        </div>
     </div>
 </div>
+
+<script>
+    (function() {
+        const btn = document.getElementById('btn-biblio');
+        const menu = document.getElementById('menu-biblio');
+        const box = document.querySelector('.dropdown-bibliotheque');
+
+        if (btn && menu && box) {
+            // Option 1 : Ouvre et ferme au survol de la souris (Ordinateur)
+            box.addEventListener('mouseenter', () => menu.style.display = 'block');
+            box.addEventListener('mouseleave', () => menu.style.display = 'none');
+            
+            // Option 2 : Ouvre et ferme au clic (Mobile et Tablette)
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            });
+            
+            // Ferme le menu automatiquement si on clique n'importe où ailleurs sur la page
+            document.addEventListener('click', () => menu.style.display = 'none');
+        }
+    })();
+</script>
 <!-- ==================== FIN DU BLOC ==================== -->
 			
 			<section id="contact">
