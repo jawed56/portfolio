@@ -221,18 +221,48 @@
 
 	
     <div class="audio-container">
-         <div id="audio-overlay">
-            <p>Cliquez pour écouter :</p>
-            <button id="play-audio">Activer le son</button>
-        </div>
-        <audio id="radio-player" controls>
-            <!-- Si le flux ne fonctionne pas sur GitHub Pages à cause de CORS, remplacez cette URL par un flux qui autorise les requêtes cross-origin -->
-	    <source src="http://radios.rtbf.be/laprem1ere-128.mp3" type="audio/mpeg">
-	    <source src="https://stream.europe1.fr/europe1.mp3" type="audio/mpeg">
-	    <source src="http://radios.rtbf.be/pure-128.mp3" type="audio/mpeg">
-          Votre navigateur ne prend pas en charge l'élément audio. Essayez un autre navigateur ou vérifiez votre connexion.
-        </audio>
-    </div>
+  <div id="audio-overlay">
+    <p>Cliquez pour écouter :</p>
+    <button id="play-audio">Activer le son</button>
+  </div>
+
+  <!-- Lecteur audio -->
+  <audio id="radio-player" controls></audio>
+
+  <!-- Menu déroulant des stations -->
+  <div id="stations">
+    <label for="station-select">Choisissez une station :</label>
+    <select id="station-select">
+      <option value="">-- Sélectionnez --</option>
+      <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
+      <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
+      <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
+    </select>
+  </div>
+</div>
+
+<script>
+  const player = document.getElementById('radio-player');
+  const playOverlay = document.getElementById('play-audio');
+  const stationSelect = document.getElementById('station-select');
+
+  // Activer le son (utile pour débloquer l'autoplay)
+  playOverlay.addEventListener('click', () => {
+    if (player.src) {
+      player.play();
+    }
+  });
+
+  // Changement de station via le menu déroulant
+  stationSelect.addEventListener('change', () => {
+    const url = stationSelect.value;
+    if (url) {
+      player.src = url;
+      player.play();
+    }
+  });
+</script>
+
     <div class="container">
         <section id="home">
             <h1>Page en construction</h1>
