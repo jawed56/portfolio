@@ -239,6 +239,13 @@
       <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
     </select>
   </div>
+
+  <!-- Boutons rapides -->
+  <div id="station-buttons">
+    <button data-url="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</button>
+    <button data-url="https://stream.europe1.fr/europe1.mp3">Europe 1</button>
+    <button data-url="http://radios.rtbf.be/pure-128.mp3">Pure</button>
+  </div>
 </div>
 
 <script>
@@ -261,7 +268,17 @@
       player.play();
     }
   });
+
+  // Changement de station via les boutons rapides
+  document.querySelectorAll('#station-buttons button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      player.src = btn.dataset.url;
+      player.play();
+      stationSelect.value = btn.dataset.url; // synchronise le menu
+    });
+  });
 </script>
+
 
     <div class="container">
         <section id="home">
