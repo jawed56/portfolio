@@ -5,248 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Rabah Loudjani</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             color: #ffffff;
-            line-height: 1.2;
             background: linear-gradient(45deg, #4b0082, #ff00ff, #ff1493, #ff4500);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            font-size: 12px;
         }
-        nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1em;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-        }
-        nav ul li {
-            margin: 0 1.5em;
-        }
-        nav ul li a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-        nav ul li a:hover {
-            color: #ff1493;
-        }
+        nav { background: rgba(0,0,0,0.85); padding: 1em; position: sticky; top: 0; z-index: 100; }
+        nav ul { list-style: none; display: flex; justify-content: center; }
+        nav ul li { margin: 0 1.5em; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        nav ul li a:hover { color: #ff1493; }
+
         .container {
-            max-width:1200px;
-            margin: 2em auto;
-            padding: 2em;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-        }
-        #home {
-            text-align: center;
-            padding: 3em 1em;
-            color: #ffffff;
-        }
-        #home h1 {
-            font-size: 2.8em;
-            margin-bottom: 0.2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        #home p {
-            font-size: 1.2em;
-            margin-bottom: 1em;
-        }
-        #home .cta-button {
-            display: inline-block;
-            padding: 0.8em 1.5em;
-            background: #ff1493;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        #home .cta-button:hover {
-            background: #ff4500;
-        }
-        #about {
-            text-align: center;
-        }
-        #about h2 {
-            color: #1e90ff;
-            margin-bottom: 1em;
-        }
-        #about .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1em;
-            border: 3px solid #ff1493;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-        #about p {
-            color: #000000;
-        }
-        #contact h2 {
-            color: #1e90ff;
-            margin-bottom: 1em;
-        }
-        #contact p {
-            color: #000000;
-        }
-        #contact .contact-info {
-            margin-bottom: 1em;
-        }
-        #contact .contact-info a {
-            text-decoration: none;
-        }
-        #contact .contact-info a.email {
-            color: #0000FF;
-        }
-        #contact .contact-info a.whatsapp {
-            color: #000000;
-        }
-        #contact .contact-info a.github {
-            color: #f5c518;
-        }
-        #contact form {
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-        }
-        #contact form input,
-        #contact form textarea {
-            padding: 0.8em;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.8);
-            color: #000000;
-        }
-        #contact form button {
-            padding: 0.8em;
-            background: #ff1493;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        #contact form button:hover {
-            background: #ff4500;
-        }
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
-            text-align: center;
-            padding: 1em;
-            margin-top: auto;
-        }
-        footer a.email {
-            color: #f5c518;
-            text-decoration: none;
+            max-width:1200px; margin: 2em auto; padding: 2em;
+            background: rgba(255,255,255,0.2); border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(5px);
         }
 
-        /* Audio Container */
         .audio-container {
-            text-align: center;
-            padding: 3em;
-            position: sticky;
-            top: 70px;
-            z-index: 99;
+            text-align: center; padding: 3em; position: sticky; top: 70px; z-index: 99;
             background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: rgba(0, 0, 0, 0.5);
-            background-blend-mode: overlay;
+            background-size: cover; background-position: center; background-blend-mode: overlay;
         }
 
-        /* === AGENT IA === */
+        /* ==================== AGENT IA ==================== */
         #ai-agent {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 380px;
-            background: rgba(20, 20, 40, 0.95);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            z-index: 1000;
-            border: 2px solid #ff1493;
+            position: fixed; bottom: 20px; right: 20px; width: 390px;
+            background: rgba(15, 15, 35, 0.97); border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden;
+            z-index: 1000; border: 2px solid #ff1493;
         }
         #ai-header {
-            background: linear-gradient(90deg, #4b0082, #ff1493);
-            padding: 12px 16px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: linear-gradient(90deg, #4b0082, #ff1493, #ff4500);
+            padding: 14px 18px; color: white; display: flex; align-items: center; gap: 12px;
             cursor: pointer;
         }
-        #ai-header h3 {
-            margin: 0;
-            font-size: 1.1em;
-        }
+        #ai-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(45deg, #ff1493, #00ffff); display: flex; align-items: center; justify-content: center; font-size: 24px; }
         #ai-chat {
-            height: 420px;
-            overflow-y: auto;
-            padding: 16px;
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            background: #0f0f1e;
+            height: 460px; overflow-y: auto; padding: 18px; display: none; flex-direction: column; gap: 14px;
+            background: #0a0a1f;
         }
         .ai-message {
-            max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.4;
+            max-width: 85%; padding: 13px 17px; border-radius: 20px; line-height: 1.45;
         }
-        .ai-user {
-            align-self: flex-end;
-            background: #ff1493;
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-        .ai-bot {
-            align-self: flex-start;
-            background: #2a2a4a;
-            color: #e0e0ff;
-            border-bottom-left-radius: 4px;
-        }
+        .ai-user { align-self: flex-end; background: #ff1493; color: white; }
+        .ai-bot { align-self: flex-start; background: #1e1e3a; color: #e0e0ff; }
+        .thinking { font-style: italic; opacity: 0.7; }
+
         #ai-input-area {
-            display: none;
-            padding: 12px;
-            background: #1a1a2e;
-            gap: 8px;
+            display: none; padding: 14px; background: #11112b; gap: 10px;
         }
         #ai-input {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 25px;
-            background: #2a2a4a;
-            color: white;
+            flex: 1; padding: 14px 18px; border: none; border-radius: 30px;
+            background: #1e1e3a; color: white;
         }
         #ai-send {
-            background: #ff1493;
-            color: white;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
+            background: linear-gradient(45deg, #ff1493, #ff4500); color: white;
+            border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.4em;
         }
     </style>
 </head>
@@ -260,10 +79,7 @@
     </nav>
 
     <div class="audio-container">
-        <div id="audio-overlay">
-            <p>Cliquez pour écouter :</p>
-            <button id="play-audio">Activer le son</button>
-        </div>
+        <div id="audio-overlay"><p>Cliquez pour écouter :</p><button id="play-audio">Activer le son</button></div>
         <audio id="radio-player" controls></audio>
         <div id="stations">
             <label for="station-select">Choisissez une station :</label>
@@ -281,26 +97,25 @@
             <h1>Page en construction</h1>
             <h1>Bienvenue</h1>
             <div style="text-align: center; margin: 25px 0;">
-                <img src="photo.jpg" alt="Photo de profil" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #2b6cb0; box-shadow: 0px 4px 12px rgba(0,0,0,0.15);">
+                <img src="photo.jpg" alt="Photo de profil" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #2b6cb0;">
             </div>
             <p>Passionné par les nouvelles technologies</p>
         </section>
 
         <section id="about">
-            <p>Un passionné des nouvelles technologies qui transforme les idées en innovations ! 🚀 J’adore repousser les limites du possible. Découvre mon univers embarque avec moi dans cette aventure numérique !</p>
-
-            <!-- Bibliothèque -->
-            <div style="text-align: center; margin: 25px 0;">
-                <div class="dropdown-bibliotheque" style="position: relative; display: inline-block; z-index: 9999;">
-                    <button id="btn-biblio" style="background-color: #2b6cb0; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; cursor: pointer; font-size: 16px;">
+            <p>Un passionné des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div class="dropdown-bibliotheque" style="position: relative; display: inline-block;">
+                    <button id="btn-biblio" style="background:#2b6cb0; color:white; padding:12px 24px; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">
                         Ma bibliothèque numérique ▾
                     </button>
-                    <div id="menu-biblio" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); background-color: white; min-width: 280px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 5px; margin-top: 5px; border: 1px solid #e2e8f0; padding: 5px 0; font-family: Arial, sans-serif;">
-                        <a href="de-lexil-au-rejet.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📕 De l'exil au rejet (PDF)</a>
-                        <a href="le-gout-de-linterdit.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📙 Le goût de l'interdit (PDF)</a>
-                        <a href="les-modeles-motivationnels.html" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2b6cb0; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">🌐 Les modèles motivationnels (Web)</a>
-                        <a href="les-modeles-motivationnels.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📘 Les modèles motivationnels (PDF)</a>
-                        <a href="opposant-ou-ennemi.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; font-size: 14px; font-weight: bold; text-align: left;">📗 Opposant ou ennemi (PDF)</a>
+                    <div id="menu-biblio" style="display:none; position:absolute; left:50%; transform:translateX(-50%); background:white; min-width:280px; box-shadow:0 8px 16px rgba(0,0,0,0.2); border-radius:5px; padding:5px 0;">
+                        <a href="de-lexil-au-rejet.pdf" target="_blank" style="display:block; padding:12px 16px; color:#2d3748; text-decoration:none;">📕 De l'exil au rejet</a>
+                        <a href="le-gout-de-linterdit.pdf" target="_blank" style="display:block; padding:12px 16px; color:#2d3748; text-decoration:none;">📙 Le goût de l'interdit</a>
+                        <a href="les-modeles-motivationnels.html" target="_blank" style="display:block; padding:12px 16px; color:#2b6cb0; text-decoration:none;">🌐 Les modèles motivationnels</a>
+                        <a href="les-modeles-motivationnels.pdf" target="_blank" style="display:block; padding:12px 16px; color:#2d3748; text-decoration:none;">📘 Les modèles motivationnels</a>
+                        <a href="opposant-ou-ennemi.pdf" target="_blank" style="display:block; padding:12px 16px; color:#2d3748; text-decoration:none;">📗 Opposant ou ennemi</a>
                     </div>
                 </div>
             </div>
@@ -309,23 +124,18 @@
         <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-info">
-                <p>WhatsApp : <a href="https://wa.me/+" class="whatsapp">+</a></p>
-                <p>Facebook : <a href="https://www.facebook.com/lesedentaire.23" target="_blank" style="color: #1877f2; text-decoration: underline; font-weight: bold;">Facebook</a></p>
-                <p>GitHub : <a href="https://github.com/jawed56" class="github">GitHub</a></p>
+                <p>Facebook : <a href="https://www.facebook.com/lesedentaire.23" target="_blank">Facebook</a></p>
+                <p>GitHub : <a href="https://github.com/jawed56" target="_blank">GitHub</a></p>
             </div>
-            <form>
-                <input type="text" placeholder="Rabah Loudjani" required>
-                <textarea placeholder="Merci pour la visite" rows="5" required></textarea>
-                <button type="submit">Envoyer</button>
-            </form>
         </section>
     </div>
 
-    <!-- ==================== AGENT IA ==================== -->
+    <!-- AGENT IA -->
     <div id="ai-agent">
         <div id="ai-header">
-            <strong>🤖 Agent IA Rabah</strong>
-            <span style="margin-left:auto; font-size:0.8em; opacity:0.9;">En ligne</span>
+            <div id="ai-avatar">🧠</div>
+            <h3>Agent IA Rabah</h3>
+            <div id="ai-status" style="margin-left:auto; font-size:0.8em;">En ligne</div>
         </div>
         <div id="ai-chat"></div>
         <div id="ai-input-area">
@@ -334,74 +144,32 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2025 Rabah Loudjani.</p>
-    </footer>
+    <footer><p>© 2025 Rabah Loudjani.</p></footer>
 
     <script>
-        // === Radio Script ===
-        const player = document.getElementById('radio-player');
-        const playOverlay = document.getElementById('play-audio');
-        const stationSelect = document.getElementById('station-select');
+        // ==================== TA CLÉ GROQ ====================
+        const GROQ_API_KEY = "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";
 
-        playOverlay.addEventListener('click', () => {
-            if (player.src) player.play();
+        // ==================== Radio & Bibliothèque ====================
+        document.getElementById('play-audio').addEventListener('click', () => document.getElementById('radio-player').play());
+        
+        document.getElementById('station-select').addEventListener('change', function() {
+            if (this.value) document.getElementById('radio-player').src = this.value;
         });
 
-        stationSelect.addEventListener('change', () => {
-            const url = stationSelect.value;
-            if (url) {
-                player.src = url;
-                player.play();
-            }
-        });
-
-        // === Bibliothèque Dropdown ===
         (function() {
             const btn = document.getElementById('btn-biblio');
             const menu = document.getElementById('menu-biblio');
-            const box = document.querySelector('.dropdown-bibliotheque');
-
-            if (btn && menu && box) {
-                box.addEventListener('mouseenter', () => menu.style.display = 'block');
-                box.addEventListener('mouseleave', () => menu.style.display = 'none');
-                
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+            if (btn && menu) {
+                btn.addEventListener('click', (e) => { 
+                    e.stopPropagation(); 
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; 
                 });
-                
                 document.addEventListener('click', () => menu.style.display = 'none');
             }
         })();
 
-        // === AGENT IA ===
-        const knowledge = {
-            nom: "Rabah Loudjani",
-            passions: "nouvelles technologies, innovation, psychologie, motivation"
-        };
-
-        const responses = {
-            greeting: ["Salut ! 👋 Comment puis-je t'aider ?", "Bonjour ! Ravi de te voir ici."],
-            about: ["Je suis Rabah Loudjani, passionné par les nouvelles technologies et l'innovation."],
-            livres: ["Tu peux consulter ma bibliothèque numérique juste au-dessus. Plusieurs ouvrages sont disponibles en PDF."],
-            contact: ["Tu peux me joindre via WhatsApp, Facebook ou GitHub."],
-            default: ["Bonne question ! Peux-tu m'en dire plus ?", "Intéressant... Dis-m'en davantage."]
-        };
-
-        function getResponse(message) {
-            const lower = message.toLowerCase();
-            if (lower.includes("bonjour") || lower.includes("salut") || lower.includes("hello")) 
-                return responses.greeting[Math.floor(Math.random()*responses.greeting.length)];
-            if (lower.includes("qui es") || lower.includes("toi") || lower.includes("rabah")) 
-                return responses.about[0];
-            if (lower.includes("livre") || lower.includes("pdf") || lower.includes("bibli")) 
-                return responses.livres[0];
-            if (lower.includes("contact") || lower.includes("joindre") || lower.includes("whatsapp")) 
-                return responses.contact[0];
-            return responses.default[Math.floor(Math.random()*responses.default.length)];
-        }
-
+        // ==================== IA GROQ ====================
         const chat = document.getElementById('ai-chat');
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
@@ -409,39 +177,71 @@
         const inputArea = document.getElementById('ai-input-area');
         let isOpen = false;
 
+        function addMessage(sender, text, isThinking = false) {
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'}`;
+            if (isThinking) msg.classList.add('thinking');
+            msg.textContent = text;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        async function callGroqAPI(userMessage) {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "llama3-8b-8192",
+                    messages: [
+                        {
+                            role: "system",
+                            content: "Tu es l'assistant IA personnel de Rabah Loudjani. Tu es amical, professionnel et passionné par les nouvelles technologies, l'innovation et la psychologie. Tu connais très bien ses livres : De l'exil au rejet, Le goût de l'interdit, Les modèles motivationnels, Opposant ou ennemi."
+                        },
+                        { role: "user", content: userMessage }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 600
+                })
+            });
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage('user', message);
+            input.value = '';
+
+            const thinkingMsg = addMessage('bot', "Je réfléchis...", true);
+
+            try {
+                const reply = await callGroqAPI(message);
+                chat.removeChild(thinkingMsg);
+                addMessage('bot', reply);
+            } catch (error) {
+                chat.removeChild(thinkingMsg);
+                addMessage('bot', "Erreur de connexion à l'IA. Vérifie ta clé API.");
+            }
+        }
+
         header.addEventListener('click', () => {
             isOpen = !isOpen;
             chat.style.display = isOpen ? 'flex' : 'none';
             inputArea.style.display = isOpen ? 'flex' : 'none';
             
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis l'agent IA de Rabah. Comment puis-je t'aider aujourd'hui ?");
+                addMessage("bot", "Bonjour ! Je suis maintenant connecté à une vraie IA. Comment puis-je t'aider aujourd'hui ? 🚀");
             }
         });
 
-        function addMessage(sender, text) {
-            const msg = document.createElement('div');
-            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'}`;
-            msg.textContent = text;
-            chat.appendChild(msg);
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        sendBtn.addEventListener('click', () => {
-            if (!input.value.trim()) return;
-            addMessage('user', input.value);
-            const userMsg = input.value;
-            input.value = '';
-            
-            setTimeout(() => {
-                const reply = getResponse(userMsg);
-                addMessage('bot', reply);
-            }, 700);
-        });
-
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendBtn.click();
-        });
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
     </script>
 </body>
 </html>
