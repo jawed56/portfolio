@@ -18,7 +18,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-	    font-size: 12px;
+            font-size: 12px;
         }
         nav {
             background: rgba(0, 0, 0, 0.8);
@@ -156,6 +156,8 @@
             color: #f5c518;
             text-decoration: none;
         }
+
+        /* Audio Container */
         .audio-container {
             text-align: center;
             padding: 3em;
@@ -169,44 +171,82 @@
             background-color: rgba(0, 0, 0, 0.5);
             background-blend-mode: overlay;
         }
-        .radio-message {
-            color: #ffffff;
-            font-size: 0.5em;
-            font-weight: bold;
-            margin-bottom: 1em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+
+        /* === AGENT IA === */
+        #ai-agent {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 380px;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 1000;
+            border: 2px solid #ff1493;
         }
-        audio {
-            display: none;
-            margin: 0.5em auto;
-            width: 300px;
-            border-radius: 5px;
-            background: rgba(255, 255, 125, 0.2);
-            padding: 0.5em;
-        }
-        #audio-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1em;
-            border-radius: 5px;
-            margin: 0.5em auto;
-            max-width: 300px;
-        }
-        #audio-overlay p {
-            color: #ffffff;
-            font-size: 0.9em;
-            margin-bottom: 0.5em;
-        }
-        #play-audio {
-            padding: 0.5em 1em;
-            background: #ff1493;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
+        #ai-header {
+            background: linear-gradient(90deg, #4b0082, #ff1493);
+            padding: 12px 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             cursor: pointer;
-            transition: background 0.3s;
         }
-        #play-audio:hover {
-            background: #ff4500;
+        #ai-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        #ai-chat {
+            height: 420px;
+            overflow-y: auto;
+            padding: 16px;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            background: #0f0f1e;
+        }
+        .ai-message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+        }
+        .ai-user {
+            align-self: flex-end;
+            background: #ff1493;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .ai-bot {
+            align-self: flex-start;
+            background: #2a2a4a;
+            color: #e0e0ff;
+            border-bottom-left-radius: 4px;
+        }
+        #ai-input-area {
+            display: none;
+            padding: 12px;
+            background: #1a1a2e;
+            gap: 8px;
+        }
+        #ai-input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #2a2a4a;
+            color: white;
+        }
+        #ai-send {
+            background: #ff1493;
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -219,169 +259,188 @@
         </ul>
     </nav>
 
-	
     <div class="audio-container">
-  <div id="audio-overlay">
-    <p>Cliquez pour écouter :</p>
-    <button id="play-audio">Activer le son</button>
-  </div>
-
-  <!-- Lecteur audio -->
-  <audio id="radio-player" controls></audio>
-
-  <!-- Menu déroulant des stations -->
-  <div id="stations">
-    <label for="station-select">Choisissez une station :</label>
-    <select id="station-select">
-      <option value="">-- Sélectionnez --</option>
-      <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
-      <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
-      <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
-    </select>
-  </div>
-</div>
-
-<script>
-  const player = document.getElementById('radio-player');
-  const playOverlay = document.getElementById('play-audio');
-  const stationSelect = document.getElementById('station-select');
-
-  // Activer le son (utile pour débloquer l'autoplay)
-  playOverlay.addEventListener('click', () => {
-    if (player.src) {
-      player.play();
-    }
-  });
-
-  // Changement de station via le menu déroulant
-  stationSelect.addEventListener('change', () => {
-    const url = stationSelect.value;
-    if (url) {
-      player.src = url;
-      player.play();
-    }
-  });
-</script>
-
+        <div id="audio-overlay">
+            <p>Cliquez pour écouter :</p>
+            <button id="play-audio">Activer le son</button>
+        </div>
+        <audio id="radio-player" controls></audio>
+        <div id="stations">
+            <label for="station-select">Choisissez une station :</label>
+            <select id="station-select">
+                <option value="">-- Sélectionnez --</option>
+                <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
+                <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
+                <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
+            </select>
+        </div>
+    </div>
 
     <div class="container">
         <section id="home">
             <h1>Page en construction</h1>
             <h1>Bienvenue</h1>
-<div style="text-align: center; margin: 25px 0;">
-    <img src="photo.jpg" alt="Photo de profil" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #2b6cb0; box-shadow: 0px 4px 12px rgba(0,0,0,0.15);">
-</div>
-			<p>Passionné par les nouvelles technologies</p>
+            <div style="text-align: center; margin: 25px 0;">
+                <img src="photo.jpg" alt="Photo de profil" style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #2b6cb0; box-shadow: 0px 4px 12px rgba(0,0,0,0.15);">
+            </div>
+            <p>Passionné par les nouvelles technologies</p>
         </section>
+
         <section id="about">
-        <!-- Si possible, hébergez cette image dans votre dépôt GitHub (par exemple, assets/images/profile-pic.jpg) -->
-          Un passionné des nouvelles technologies qui transforme les idées en innovations ! 🚀 J’adore repousser les limites du possible. Découvre mon univers embarque avec moi dans cette aventure numérique !
-            </p>
-      <!-- ==================== BLOC BOUTON BIBLIOTHÈQUE ==================== -->
-<!-- Exemple de structure pour votre menu déroulant -->
-<div style="text-align: center; margin: 25px 0;">
-    <div class="dropdown-bibliotheque" style="position: relative; display: inline-block; z-index: 9999;">
-        
-        <button id="btn-biblio" style="background-color: #2b6cb0; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; cursor: pointer; font-size: 16px;">
-            Ma bibliothèque numérique ▾
-        </button>
-        
-        <div id="menu-biblio" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); background-color: white; min-width: 280px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 5px; margin-top: 5px; border: 1px solid #e2e8f0; padding: 5px 0; font-family: Arial, sans-serif;">
-            
-            <a href="de-lexil-au-rejet.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📕 De l'exil au rejet (PDF)</a>
-            
-            <a href="le-gout-de-linterdit.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📙 Le goût de l'interdit (PDF)</a>
-            
-            <a href="les-modeles-motivationnels.html" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2b6cb0; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">🌐 Les modèles motivationnels (Web)</a>
-            
-            <a href="les-modeles-motivationnels.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📘 Les modèles motivationnels (PDF)</a>
-            
-            <a href="opposant-ou-ennemi.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; font-size: 14px; font-weight: bold; text-align: left;">📗 Opposant ou ennemi (PDF)</a>
-            
-        </div>
-    </div>
-</div>
+            <p>Un passionné des nouvelles technologies qui transforme les idées en innovations ! 🚀 J’adore repousser les limites du possible. Découvre mon univers embarque avec moi dans cette aventure numérique !</p>
 
-<script>
-    (function() {
-        const btn = document.getElementById('btn-biblio');
-        const menu = document.getElementById('menu-biblio');
-        const box = document.querySelector('.dropdown-bibliotheque');
+            <!-- Bibliothèque -->
+            <div style="text-align: center; margin: 25px 0;">
+                <div class="dropdown-bibliotheque" style="position: relative; display: inline-block; z-index: 9999;">
+                    <button id="btn-biblio" style="background-color: #2b6cb0; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-family: Arial, sans-serif; font-weight: bold; cursor: pointer; font-size: 16px;">
+                        Ma bibliothèque numérique ▾
+                    </button>
+                    <div id="menu-biblio" style="display: none; position: absolute; left: 50%; transform: translateX(-50%); background-color: white; min-width: 280px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 5px; margin-top: 5px; border: 1px solid #e2e8f0; padding: 5px 0; font-family: Arial, sans-serif;">
+                        <a href="de-lexil-au-rejet.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📕 De l'exil au rejet (PDF)</a>
+                        <a href="le-gout-de-linterdit.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📙 Le goût de l'interdit (PDF)</a>
+                        <a href="les-modeles-motivationnels.html" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2b6cb0; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">🌐 Les modèles motivationnels (Web)</a>
+                        <a href="les-modeles-motivationnels.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; border-bottom: 1px solid #edf2f7; font-size: 14px; font-weight: bold; text-align: left;">📘 Les modèles motivationnels (PDF)</a>
+                        <a href="opposant-ou-ennemi.pdf" target="_blank" style="display: block; padding: 12px 16px; text-decoration: none; color: #2d3748; font-size: 14px; font-weight: bold; text-align: left;">📗 Opposant ou ennemi (PDF)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        if (btn && menu && box) {
-            // Option 1 : Ouvre et ferme au survol de la souris (Ordinateur)
-            box.addEventListener('mouseenter', () => menu.style.display = 'block');
-            box.addEventListener('mouseleave', () => menu.style.display = 'none');
-            
-            // Option 2 : Ouvre et ferme au clic (Mobile et Tablette)
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-            });
-            
-            // Ferme le menu automatiquement si on clique n'importe où ailleurs sur la page
-            document.addEventListener('click', () => menu.style.display = 'none');
-        }
-    })();
-</script>
-<!-- ==================== FIN DU BLOC ==================== -->
-			
-			<section id="contact">
+        <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-info">
-			            
-				<p>WhatsApp : <a href="https://wa.me/+" class="whatsapp">+</a></p>
-				<p>
-    Facebook : <a href="https://www.facebook.com/lesedentaire.23" target="_blank" style="color: #1877f2; text-decoration: underline; font-weight: bold;">Facebook</a>
-</p>
+                <p>WhatsApp : <a href="https://wa.me/+" class="whatsapp">+</a></p>
+                <p>Facebook : <a href="https://www.facebook.com/lesedentaire.23" target="_blank" style="color: #1877f2; text-decoration: underline; font-weight: bold;">Facebook</a></p>
                 <p>GitHub : <a href="https://github.com/jawed56" class="github">GitHub</a></p>
             </div>
             <form>
                 <input type="text" placeholder="Rabah Loudjani" required>
-                                <textarea placeholder="Merci pour la visite" rows="5" required></textarea>
+                <textarea placeholder="Merci pour la visite" rows="5" required></textarea>
                 <button type="submit">Envoyer</button>
             </form>
         </section>
     </div>
 
+    <!-- ==================== AGENT IA ==================== -->
+    <div id="ai-agent">
+        <div id="ai-header">
+            <strong>🤖 Agent IA Rabah</strong>
+            <span style="margin-left:auto; font-size:0.8em; opacity:0.9;">En ligne</span>
+        </div>
+        <div id="ai-chat"></div>
+        <div id="ai-input-area">
+            <input type="text" id="ai-input" placeholder="Pose-moi une question...">
+            <button id="ai-send">↑</button>
+        </div>
+    </div>
+
     <footer>
-        <p>© 2025 Rabah Loudjani. 
-     
+        <p>© 2025 Rabah Loudjani.</p>
+    </footer>
+
     <script>
-        const audio = document.getElementById('radio-player');
-        const overlay = document.getElementById('audio-overlay');
-        const playButton = document.getElementById('play-audio');
+        // === Radio Script ===
+        const player = document.getElementById('radio-player');
+        const playOverlay = document.getElementById('play-audio');
+        const stationSelect = document.getElementById('station-select');
 
-        audio.addEventListener('loadeddata', () => {
-            console.log("Flux audio chargé avec succès !");
+        playOverlay.addEventListener('click', () => {
+            if (player.src) player.play();
         });
 
-        audio.addEventListener('error', (e) => {
-            console.error("Erreur lors du chargement du flux audio : ", e);
-            alert("Impossible de charger le flux audio. Vérifiez votre connexion ou l'URL du flux.");
-        });
-
-        audio.addEventListener('play', () => {
-            console.log("Lecture démarrée ! Mute activé : ", audio.muted);
-        });
-
-        audio.addEventListener('volumechange', () => {
-            console.log("État du volume changé. Mute activé : ", audio.muted);
-            if (!audio.muted) {
-                console.log("Son activé ! Volume : ", audio.volume);
+        stationSelect.addEventListener('change', () => {
+            const url = stationSelect.value;
+            if (url) {
+                player.src = url;
+                player.play();
             }
         });
 
-        playButton.addEventListener('click', () => {
-            console.log("Bouton 'Activer la radio' cliqué !");
-            audio.style.display = 'block';
-            overlay.style.display = 'none';
-            audio.play().then(() => {
-                console.log("Lecture lancée avec succès !");
-            }).catch(error => {
-                console.error("Erreur lors de la lecture : ", error);
-                alert("Une erreur s'est produite lors de la lecture. Vérifiez la console pour plus de détails.");
-            });
+        // === Bibliothèque Dropdown ===
+        (function() {
+            const btn = document.getElementById('btn-biblio');
+            const menu = document.getElementById('menu-biblio');
+            const box = document.querySelector('.dropdown-bibliotheque');
+
+            if (btn && menu && box) {
+                box.addEventListener('mouseenter', () => menu.style.display = 'block');
+                box.addEventListener('mouseleave', () => menu.style.display = 'none');
+                
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+                });
+                
+                document.addEventListener('click', () => menu.style.display = 'none');
+            }
+        })();
+
+        // === AGENT IA ===
+        const knowledge = {
+            nom: "Rabah Loudjani",
+            passions: "nouvelles technologies, innovation, psychologie, motivation"
+        };
+
+        const responses = {
+            greeting: ["Salut ! 👋 Comment puis-je t'aider ?", "Bonjour ! Ravi de te voir ici."],
+            about: ["Je suis Rabah Loudjani, passionné par les nouvelles technologies et l'innovation."],
+            livres: ["Tu peux consulter ma bibliothèque numérique juste au-dessus. Plusieurs ouvrages sont disponibles en PDF."],
+            contact: ["Tu peux me joindre via WhatsApp, Facebook ou GitHub."],
+            default: ["Bonne question ! Peux-tu m'en dire plus ?", "Intéressant... Dis-m'en davantage."]
+        };
+
+        function getResponse(message) {
+            const lower = message.toLowerCase();
+            if (lower.includes("bonjour") || lower.includes("salut") || lower.includes("hello")) 
+                return responses.greeting[Math.floor(Math.random()*responses.greeting.length)];
+            if (lower.includes("qui es") || lower.includes("toi") || lower.includes("rabah")) 
+                return responses.about[0];
+            if (lower.includes("livre") || lower.includes("pdf") || lower.includes("bibli")) 
+                return responses.livres[0];
+            if (lower.includes("contact") || lower.includes("joindre") || lower.includes("whatsapp")) 
+                return responses.contact[0];
+            return responses.default[Math.floor(Math.random()*responses.default.length)];
+        }
+
+        const chat = document.getElementById('ai-chat');
+        const input = document.getElementById('ai-input');
+        const sendBtn = document.getElementById('ai-send');
+        const header = document.getElementById('ai-header');
+        const inputArea = document.getElementById('ai-input-area');
+        let isOpen = false;
+
+        header.addEventListener('click', () => {
+            isOpen = !isOpen;
+            chat.style.display = isOpen ? 'flex' : 'none';
+            inputArea.style.display = isOpen ? 'flex' : 'none';
+            
+            if (isOpen && chat.children.length === 0) {
+                addMessage("bot", "Bonjour ! Je suis l'agent IA de Rabah. Comment puis-je t'aider aujourd'hui ?");
+            }
+        });
+
+        function addMessage(sender, text) {
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'}`;
+            msg.textContent = text;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', () => {
+            if (!input.value.trim()) return;
+            addMessage('user', input.value);
+            const userMsg = input.value;
+            input.value = '';
+            
+            setTimeout(() => {
+                const reply = getResponse(userMsg);
+                addMessage('bot', reply);
+            }, 700);
+        });
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBtn.click();
         });
     </script>
 </body>
