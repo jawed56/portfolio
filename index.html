@@ -85,11 +85,12 @@
             </div>
         </section>
 
-                      <section id="contact">
+        <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-info">
                 <p>Téléphone / WhatsApp : <a href="https://wa.me/213771468669">+213 771 46 86 69</a></p>
-                <p>Email : <a href="mailto:loudjani.r@gmail.com">loudjani.r@gmail.com</a></p>
+                <p>Email : <strong>loudjani.r@gmail.com</strong> 
+                   <small>(<a href="mailto:loudjani.r@gmail.com" target="_blank" rel="noopener noreferrer">envoyer un message</a>)</small></p>
                 <p>Facebook : <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a></p>
                 <p>GitHub : <a href="https://github.com/jawed56" target="_blank">github.com/jawed56</a></p>
             </div>
@@ -163,7 +164,7 @@
                             role: "system", 
                             content: `Tu es l'assistant IA de Rabah Loudjani.
                             Coordonnées : Téléphone/WhatsApp +213771468669, Email loudjani.r@gmail.com, Facebook https://www.facebook.com/rabah.badil/
-                            Livres : "De l'exil au rejet" (xénophobie intériorisée chez fils de migrants), "Le goût de l'interdit" (désir sexuel à l'ère numérique), "Les modèles motivationnels" (pyramide de Maslow et modèles de motivation), "Opposant ou ennemi" (opposition vs hostilité envers la nation).
+                            Livres : "De l'exil au rejet" (xénophobie intériorisée), "Le goût de l'interdit" (désir sexuel numérique), "Les modèles motivationnels" (Maslow), "Opposant ou ennemi" (opposition politique).
                             Sois précis et amical.` 
                         },
                         { role: "user", content: userMessage }
@@ -190,7 +191,7 @@
                 addMessage('bot', reply);
             } catch (error) {
                 chat.removeChild(thinking);
-                addMessage('bot', "❌ Erreur de connexion à l'IA. Vérifie ta connexion internet.", "error");
+                addMessage('bot', "❌ Erreur de connexion à l'IA.", "error");
             }
         }
 
@@ -199,7 +200,7 @@
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis ton assistant IA. Comment puis-je t'aider aujourd'hui ?");
+                addMessage("bot", "Bonjour ! Je suis ton assistant IA. Comment puis-je t'aider ?");
             }
         });
 
