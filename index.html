@@ -89,8 +89,7 @@
             <h2>Contactez-moi</h2>
             <div class="contact-info">
                 <p>Téléphone / WhatsApp : <a href="https://wa.me/213771468669">+213 771 46 86 69</a></p>
-                <p>Email : <strong>loudjani.r@gmail.com</strong> 
-                   <small>(<a href="mailto:loudjani.r@gmail.com" target="_blank" rel="noopener noreferrer">envoyer un message</a>)</small></p>
+                <p>Email : <strong>loudjani.r@gmail.com</strong> <small>(<a href="mailto:loudjani.r@gmail.com">envoyer un message</a>)</small></p>
                 <p>Facebook : <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a></p>
                 <p>GitHub : <a href="https://github.com/jawed56" target="_blank">github.com/jawed56</a></p>
             </div>
@@ -116,112 +115,107 @@
     </footer>
 
     <script>
-        <script>
-    const GROQ_API_KEY = "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";
+        const GROQ_API_KEY = "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";
 
-    // Radio
-    document.getElementById('play-audio').addEventListener('click', () => document.getElementById('radio-player').play());
-    document.getElementById('station-select').addEventListener('change', function() {
-        if (this.value) document.getElementById('radio-player').src = this.value;
-    });
-
-    // Bibliothèque
-    (function() {
-        const btn = document.getElementById('btn-biblio');
-        const menu = document.getElementById('menu-biblio');
-        if (btn && menu) {
-            btn.addEventListener('click', (e) => { 
-                e.stopPropagation(); 
-                menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; 
-            });
-            document.addEventListener('click', () => menu.style.display = 'none');
-        }
-    })();
-
-    // ==================== AGENT IA ====================
-    const chat = document.getElementById('ai-chat');
-    const input = document.getElementById('ai-input');
-    const sendBtn = document.getElementById('ai-send');
-    const header = document.getElementById('ai-header');
-    let isOpen = false;
-
-    function addMessage(sender, text, extraClass = '') {
-        const msg = document.createElement('div');
-        msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
-        msg.textContent = text;
-        chat.appendChild(msg);
-        chat.scrollTop = chat.scrollHeight;
-        return msg;
-    }
-
-    async function callGroqAPI(userMessage) {
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { 
-                "Authorization": `Bearer ${GROQ_API_KEY}`, 
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
-                messages: [
-                    { 
-                        role: "system", 
-                        content: `Tu es l'assistant IA personnel de Rabah Loudjani.
-
-                        Tes livres exacts :
-                        - "De l'exil au rejet" : Livre sur l'expérience des fils de migrants, la xénophobie intériorisée, les blessures identitaires et le chemin vers la réconciliation.
-                        - "Le goût de l'interdit" : Livre sur le désir sexuel à l'ère numérique, le mécanisme du tabou, la dopamine et la transgression.
-                        - "Les modèles motivationnels" : Étude détaillée de la pyramide de Maslow et des principaux modèles de motivation en psychologie et management.
-                        - "Opposant ou ennemi" : Essai sur la différence entre opposition légitime et hostilité envers sa propre nation.
-
-                        Coordonnées :
-                        - Téléphone/WhatsApp : +213771468669
-                        - Email : loudjani.r@gmail.com
-                        - Facebook : https://www.facebook.com/rabah.badil/
-
-                        Réponds toujours de façon précise, amicale et en français.` 
-                    },
-                    { role: "user", content: userMessage }
-                ],
-                temperature: 0.65,
-                max_tokens: 800
-            })
+        // Radio
+        document.getElementById('play-audio').addEventListener('click', () => document.getElementById('radio-player').play());
+        document.getElementById('station-select').addEventListener('change', function() {
+            if (this.value) document.getElementById('radio-player').src = this.value;
         });
 
-        if (!response.ok) throw new Error("Erreur de connexion");
-        const data = await response.json();
-        return data.choices[0].message.content;
-    }
+        // Bibliothèque
+        (function() {
+            const btn = document.getElementById('btn-biblio');
+            const menu = document.getElementById('menu-biblio');
+            if (btn && menu) {
+                btn.addEventListener('click', (e) => { 
+                    e.stopPropagation(); 
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; 
+                });
+                document.addEventListener('click', () => menu.style.display = 'none');
+            }
+        })();
 
-    async function sendMessage() {
-        const message = input.value.trim();
-        if (!message) return;
-        addMessage('user', message);
-        input.value = '';
-        const thinking = addMessage('bot', "Je réfléchis...", "thinking");
+        // Agent IA
+        const chat = document.getElementById('ai-chat');
+        const input = document.getElementById('ai-input');
+        const sendBtn = document.getElementById('ai-send');
+        const header = document.getElementById('ai-header');
+        let isOpen = false;
 
-        try {
-            const reply = await callGroqAPI(message);
-            chat.removeChild(thinking);
-            addMessage('bot', reply);
-        } catch (error) {
-            chat.removeChild(thinking);
-            addMessage('bot', "❌ Erreur de connexion à l'IA.", "error");
+        function addMessage(sender, text, extraClass = '') {
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
+            msg.textContent = text;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+            return msg;
         }
-    }
 
-    header.addEventListener('click', () => {
-        isOpen = !isOpen;
-        chat.style.display = isOpen ? 'flex' : 'none';
-        document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
-        if (isOpen && chat.children.length === 0) {
-            addMessage("bot", "Bonjour ! Je suis ton assistant IA. Comment puis-je t'aider ?");
+        async function callGroqAPI(userMessage) {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    model: "llama-3.1-8b-instant",
+                    messages: [
+                        { 
+                            role: "system", 
+                            content: `Tu es l'assistant IA personnel de Rabah Loudjani.
+
+                            Tes livres exacts :
+                            - "De l'exil au rejet" : Livre sur l'expérience des fils de migrants, la xénophobie intériorisée, les blessures identitaires et le chemin vers la réconciliation.
+                            - "Le goût de l'interdit" : Livre sur le désir sexuel à l'ère numérique, le mécanisme du tabou, la dopamine et la transgression.
+                            - "Les modèles motivationnels" : Étude détaillée de la pyramide de Maslow et des principaux modèles de motivation en psychologie et management.
+                            - "Opposant ou ennemi" : Essai sur la différence entre opposition légitime et hostilité envers sa propre nation.
+
+                            Coordonnées :
+                            - Téléphone/WhatsApp : +213771468669
+                            - Email : loudjani.r@gmail.com
+                            - Facebook : https://www.facebook.com/rabah.badil/
+
+                            Réponds toujours de façon précise, amicale et en français.` 
+                        },
+                        { role: "user", content: userMessage }
+                    ],
+                    temperature: 0.65,
+                    max_tokens: 800
+                })
+            });
+
+            if (!response.ok) throw new Error("Erreur de connexion");
+            const data = await response.json();
+            return data.choices[0].message.content;
         }
-    });
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-</script>
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+            addMessage('user', message);
+            input.value = '';
+            const thinking = addMessage('bot', "Je réfléchis...", "thinking");
+
+            try {
+                const reply = await callGroqAPI(message);
+                chat.removeChild(thinking);
+                addMessage('bot', reply);
+            } catch (error) {
+                chat.removeChild(thinking);
+                addMessage('bot', "❌ Erreur de connexion à l'IA.", "error");
+            }
+        }
+
+        header.addEventListener('click', () => {
+            isOpen = !isOpen;
+            chat.style.display = isOpen ? 'flex' : 'none';
+            document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
+            if (isOpen && chat.children.length === 0) {
+                addMessage("bot", "Bonjour ! Je suis ton assistant IA. Comment puis-je t'aider ?");
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
     </script>
 </body>
 </html>
