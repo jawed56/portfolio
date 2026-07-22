@@ -6,27 +6,45 @@
     <title>Portfolio Rabah Loudjani</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; color: #ffffff; background: linear-gradient(45deg, #4b0082, #ff00ff, #ff1493, #ff4500); min-height: 100vh; display: flex; flex-direction: column; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #ffffff;
+            background: linear-gradient(45deg, #4b0082, #ff00ff, #ff1493, #ff4500);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         nav { background: rgba(0,0,0,0.85); padding: 1em; position: sticky; top: 0; z-index: 100; }
         nav ul { list-style: none; display: flex; justify-content: center; }
         nav ul li { margin: 0 1.5em; }
         nav ul li a { color: white; text-decoration: none; font-weight: bold; }
         nav ul li a:hover { color: #ff1493; }
 
-        .container { max-width:1200px; margin: 2em auto; padding: 2em; background: rgba(255,255,255,0.2); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .container { max-width:1200px; margin: 2em auto; padding: 2em; background: rgba(255,255,255,0.2); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(5px); }
 
+        /* Agent IA */
         #ai-agent {
             position: fixed; bottom: 20px; right: 20px; width: 390px;
             background: rgba(15, 15, 35, 0.97); border-radius: 18px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; z-index: 1000; border: 2px solid #ff1493;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden;
+            z-index: 1000; border: 2px solid #ff1493;
         }
-        #ai-header { background: linear-gradient(90deg, #4b0082, #ff1493); padding: 14px 18px; color: white; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        #ai-header {
+            background: linear-gradient(90deg, #4b0082, #ff1493, #ff4500);
+            padding: 14px 18px; color: white; display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
         #ai-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(45deg, #ff1493, #00ffff); display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        #ai-chat { height: 460px; overflow-y: auto; padding: 18px; display: none; flex-direction: column; gap: 14px; background: #0a0a1f; }
-        .ai-message { max-width: 85%; padding: 13px 17px; border-radius: 20px; line-height: 1.45; }
+        
+        #ai-chat {
+            height: 460px; overflow-y: auto; padding: 18px; display: none; flex-direction: column; gap: 14px;
+            background: #0a0a1f;
+        }
+        .ai-message {
+            max-width: 85%; padding: 13px 17px; border-radius: 20px; line-height: 1.45;
+        }
         .ai-user { align-self: flex-end; background: #ff1493; color: white; }
         .ai-bot { align-self: flex-start; background: #1e1e3a; color: #e0e0ff; }
-        .error { background: #440000; color: #ff6666; }
+        .error { background: #440000 !important; color: #ffaaaa; }
     </style>
 </head>
 <body>
@@ -40,12 +58,13 @@
 
     <div class="container">
         <section id="home">
-            <h1>Bienvenue sur mon Portfolio</h1>
+            <h1>Bienvenue</h1>
             <p>Passionné par les nouvelles technologies</p>
         </section>
+        <!-- Ajoute ici tes autres sections (about, contact, bibliothèque) -->
     </div>
 
-    <!-- Agent IA -->
+    <!-- === AGENT IA === -->
     <div id="ai-agent">
         <div id="ai-header">
             <div id="ai-avatar">🧠</div>
@@ -54,8 +73,8 @@
         </div>
         <div id="ai-chat"></div>
         <div id="ai-input-area" style="display:none; padding:14px; background:#11112b; gap:10px;">
-            <input type="text" id="ai-input" placeholder="Pose-moi une question..." style="flex:1; padding:14px; border:none; border-radius:30px; background:#1e1e3a; color:white;">
-            <button id="ai-send" style="background:#ff1493; color:white; border:none; width:48px; height:48px; border-radius:50%; cursor:pointer;">↑</button>
+            <input type="text" id="ai-input" placeholder="Pose-moi une question..." style="flex:1; padding:14px 18px; border:none; border-radius:30px; background:#1e1e3a; color:white;">
+            <button id="ai-send" style="background:linear-gradient(#ff1493,#ff4500); color:white; border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; font-size:1.4em;">↑</button>
         </div>
     </div>
 
@@ -68,41 +87,40 @@
         const header = document.getElementById('ai-header');
         let isOpen = false;
 
-        function addMessage(sender, text, className = '') {
+        function addMessage(sender, text, extraClass = '') {
             const msg = document.createElement('div');
-            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${className}`;
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
             msg.textContent = text;
             chat.appendChild(msg);
             chat.scrollTop = chat.scrollHeight;
             return msg;
         }
 
-        async function testAndCallAPI(message) {
-            try {
-                const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${GROQ_API_KEY}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        model: "llama3-8b-8192",
-                        messages: [{ role: "user", content: message }],
-                        max_tokens: 500
-                    })
-                });
+        async function callGroqAPI(userMessage) {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "llama-3.1-8b-instant",   // ← Modèle actuel et rapide
+                    messages: [
+                        { role: "system", content: "Tu es l'assistant IA de Rabah Loudjani. Sois amical, utile et professionnel." },
+                        { role: "user", content: userMessage }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 600
+                })
+            });
 
-                if (!res.ok) {
-                    const errorText = await res.text();
-                    throw new Error(`HTTP ${res.status} - ${errorText}`);
-                }
-
-                const data = await res.json();
-                return data.choices[0].message.content;
-            } catch (err) {
-                console.error("Erreur API complète :", err);
-                throw err;
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error?.message || "Erreur inconnue");
             }
+
+            const data = await response.json();
+            return data.choices[0].message.content;
         }
 
         async function sendMessage() {
@@ -115,22 +133,23 @@
             const thinking = addMessage('bot', "Je réfléchis...", "thinking");
 
             try {
-                const reply = await testAndCallAPI(message);
+                const reply = await callGroqAPI(message);
                 chat.removeChild(thinking);
                 addMessage('bot', reply);
             } catch (error) {
                 chat.removeChild(thinking);
-                addMessage('bot', `❌ Erreur : ${error.message}`, "error");
+                addMessage('bot', `❌ ${error.message}`, "error");
             }
         }
 
+        // Ouverture du chat
         header.addEventListener('click', () => {
             isOpen = !isOpen;
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
             
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis connecté à une vraie IA. Testons...");
+                addMessage("bot", "Bonjour ! Je suis maintenant connecté avec un modèle récent. Comment puis-je t'aider ? 🚀");
             }
         });
 
