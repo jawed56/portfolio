@@ -157,43 +157,7 @@
             chat.scrollTop = chat.scrollHeight;
             return msg;
         }
-async function callGroqAPI(userMessage) {
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { 
-                "Authorization": `Bearer ${GROQ_API_KEY}`, 
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
-                messages: [
-                    { 
-                        role: "system", 
-                        content: `Tu es l'assistant IA personnel de Rabah Loudjani.
 
-                        Tes livres exacts :
-                        - "De l'exil au rejet" : Livre sur l'expérience des fils de migrants, la xénophobie intériorisée, les blessures identitaires et le chemin vers la réconciliation.
-                        - "Le goût de l'interdit" : Livre sur le désir sexuel à l'ère numérique, le mécanisme du tabou, la dopamine et la transgression.
-                        - "Les modèles motivationnels" : Étude détaillée de la pyramide de Maslow et des principaux modèles de motivation en psychologie et management.
-                        - "Opposant ou ennemi" : Essai sur la différence entre opposition légitime et hostilité envers sa propre nation.
-
-                        Coordonnées :
-                        - Téléphone/WhatsApp : +213771468669
-                        - Email : loudjani.r@gmail.com
-                        - Facebook : https://www.facebook.com/rabah.badil/
-
-                        Réponds toujours de façon précise, amicale et en français.` 
-                    },
-                    { role: "user", content: userMessage }
-                ],
-                temperature: 0.65,
-                max_tokens: 800
-            })
-        });
-
-        if (!response.ok) throw new Error("Erreur de connexion");
-        const data = await response.json();
-        return data.choices[0].message.content;
         // Synthèse vocale (lecture de la réponse)
         function speak(text) {
             const utterance = new SpeechSynthesisUtterance(text);
