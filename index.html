@@ -104,8 +104,9 @@
             <div style="margin-left:auto; font-size:0.8em;">En ligne</div>
         </div>
         <div id="ai-chat"></div>
-        <div id="ai-input-area" style="display:none; padding:14px; background:#11112b; gap:10px;">
+        <div id="ai-input-area" style="display:none; padding:14px; background:#11112b; gap:10px; align-items:center;">
             <input type="text" id="ai-input" placeholder="Pose-moi une question..." style="flex:1; padding:14px 18px; border:none; border-radius:30px; background:#1e1e3a; color:white;">
+            <button id="ai-mic" title="Activer le micro" style="background:#2b6cb0; color:white; border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; font-size:1.2em; display:flex; align-items:center; justify-content:center;">🎙️</button>
             <button id="ai-send" style="background:linear-gradient(#ff1493,#ff4500); color:white; border:none; width:48px; height:48px; border-radius:50%; cursor:pointer; font-size:1.4em;">↑</button>
         </div>
     </div>
@@ -136,10 +137,11 @@
             }
         })();
 
-        // Agent IA
+        // Agent IA - Éléments DOM
         const chat = document.getElementById('ai-chat');
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
+        const micBtn = document.getElementById('ai-mic');
         const header = document.getElementById('ai-header');
         let isOpen = false;
 
@@ -150,6 +152,19 @@
             chat.appendChild(msg);
             chat.scrollTop = chat.scrollHeight;
             return msg;
+        }
+
+        // Synthèse Vocale (Faire parler l'IA)
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel(); // Arrête toute lecture en cours
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'fr-FR';
+            utterance.pitch = 1;
+            utterance.rate = 1;
+
+            window.speechSynthesis.speak(utterance);
         }
 
         async function callGroqAPI(userMessage) {
@@ -199,10 +214,58 @@
                 const reply = await callGroqAPI(message);
                 chat.removeChild(thinking);
                 addMessage('bot', reply);
+                
+                // Synthèse vocale de la réponse
+                speakText(reply);
             } catch (error) {
                 chat.removeChild(thinking);
                 addMessage('bot', "❌ Erreur de connexion à l'IA.", "error");
             }
+        }
+
+        // Reconnaissance Vocale (Micro)
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'fr-FR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            let isListening = false;
+
+            micBtn.addEventListener('click', () => {
+                if (!isListening) {
+                    recognition.start();
+                } else {
+                    recognition.stop();
+                }
+            });
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.style.background = '#ff0000';
+                micBtn.textContent = '🛑';
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.style.background = '#2b6cb0';
+                micBtn.textContent = '🎙️';
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                input.value = transcript;
+                sendMessage();
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Erreur de reconnaissance vocale :", event.error);
+                addMessage('bot', "❌ Erreur micro ou accès refusé.", "error");
+            };
+        } else {
+            micBtn.style.display = 'none';
         }
 
         header.addEventListener('click', () => {
