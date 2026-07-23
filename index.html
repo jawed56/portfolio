@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio Rabah Loudjani — passionné de nouvelles technologies</title>
 
-    <!-- Meta SEO & Open Graph -->
+    <!-- Meta SEO -->
     <meta name="description" content="Portfolio officiel de Rabah Loudjani — passionné de nouvelles technologies. Découvrez ses ouvrages et son assistant IA interactif.">
     <meta name="author" content="Rabah Loudjani">
     <meta property="og:title" content="Portfolio Rabah Loudjani">
-    <meta property="og:description" content="Découvrez les ouvrages et les projets de Rabah Loudjani via son agent IA interactif.">
+    <meta property="og:description" content="Découvrez les ouvrages et l'assistant IA de Rabah Loudjani.">
     <meta property="og:type" content="website">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -27,7 +25,7 @@
             --accent-blue: #3b82f6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,9 +34,8 @@
             font-family: var(--font-sans);
             color: var(--text-main);
             background-color: var(--bg-main);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%);
+            background-image: radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                              radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%);
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
@@ -46,7 +43,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
         nav {
             background: rgba(11, 15, 25, 0.8);
             backdrop-filter: blur(12px);
@@ -57,16 +53,9 @@
             z-index: 100;
         }
         nav ul { list-style: none; display: flex; justify-content: center; gap: 2.5em; }
-        nav ul li a { 
-            color: var(--text-muted); 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
+        nav ul li a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.2s; }
         nav ul li a:hover { color: var(--accent-primary); }
 
-        /* General Container */
         .container { 
             max-width: 1000px; 
             width: 90%;
@@ -76,172 +65,57 @@
             border: 1px solid var(--bg-card-border);
             border-radius: 20px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
-            backdrop-filter: blur(16px); 
         }
 
-        /* Section Intro */
         #home { text-align: center; }
-        #home h1 { 
-            font-size: 2.5rem; 
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5em;
-        }
-        .profile-img-container { margin: 25px 0; }
+        #home h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5em; }
         .profile-img { 
-            width: 150px; 
-            height: 150px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 3px solid var(--accent-secondary);
+            width: 150px; height: 150px; border-radius: 50%; 
+            object-fit: cover; border: 3px solid var(--accent-secondary);
             box-shadow: 0 0 25px rgba(139, 92, 246, 0.3);
         }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; }
 
-        /* Player Radio */
         .audio-container { 
-            text-align: center; 
-            padding: 2em; 
-            margin: 2em auto;
-            max-width: 1000px;
-            width: 90%;
+            text-align: center; padding: 2em; margin: 2em auto;
+            max-width: 1000px; width: 90%;
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid var(--bg-card-border);
             border-radius: 16px;
         }
-        .audio-container select, .audio-container button {
-            background: #1e293b;
-            color: white;
-            border: 1px solid var(--bg-card-border);
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-family: inherit;
-            margin-top: 10px;
-            cursor: pointer;
-        }
 
-        /* Section Bibliothèque */
-        #about { text-align: center; margin-top: 2em; }
         #btn-biblio { 
             background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
-            color: white; 
-            padding: 14px 28px; 
-            border: none; 
-            border-radius: 12px; 
-            font-weight: 700; 
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            color: white; padding: 14px 28px; border: none; border-radius: 12px; 
+            font-weight: 700; cursor: pointer;
         }
-        #btn-biblio:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
-        }
-        .menu-biblio-box {
-            display: none; 
-            margin-top: 15px;
-            background: #151d2a; 
-            border: 1px solid var(--bg-card-border);
-            border-radius: 12px; 
-            padding: 10px 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-        .menu-biblio-box a { 
-            display: block; 
-            padding: 12px 20px; 
-            color: var(--text-main); 
-            text-decoration: none; 
-            text-align: left;
-            transition: background 0.2s;
-        }
-        .menu-biblio-box a:hover { background: rgba(255,255,255,0.05); color: var(--accent-primary); }
 
-        /* Contact Section */
-        #contact { margin-top: 3em; }
-        #contact h2 { font-size: 1.8rem; margin-bottom: 1em; color: var(--text-main); }
-        .contact-card {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-        }
-        .contact-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--bg-card-border);
-            padding: 16px;
-            border-radius: 12px;
-        }
-        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
-
-        /* Agent IA Floating Widget */
         #ai-agent { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            width: min(390px, 92vw); 
-            background: #0f172a; 
-            border-radius: 20px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7); 
-            overflow: hidden; 
-            z-index: 1000; 
-            border: 1px solid var(--bg-card-border); 
+            position: fixed; bottom: 20px; right: 20px; 
+            width: min(390px, 92vw); background: #0f172a; 
+            border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.7); 
+            z-index: 1000; border: 1px solid var(--bg-card-border);
         }
         #ai-header { 
             background: linear-gradient(135deg, #1e1b4b, #311042); 
-            padding: 16px; 
-            color: white; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            cursor: pointer; 
-            border-bottom: 1px solid var(--bg-card-border);
-        }
-        #ai-avatar { 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 20px; 
+            padding: 16px; cursor: pointer; display: flex; align-items: center; gap: 12px;
         }
         #ai-chat { 
-            height: 420px; 
-            overflow-y: auto; 
-            padding: 18px; 
-            display: none; 
-            flex-direction: column; 
-            gap: 14px; 
-            background: #0b0f19; 
+            height: 420px; overflow-y: auto; padding: 18px; 
+            display: none; flex-direction: column; gap: 14px; background: #0b0f19; 
         }
         .ai-message { 
-            max-width: 85%; 
-            padding: 12px 16px; 
-            border-radius: 16px; 
-            line-height: 1.5; 
-            font-size: 0.93rem;
+            max-width: 85%; padding: 12px 16px; border-radius: 16px; line-height: 1.5;
         }
-        .ai-user { align-self: flex-end; background: var(--accent-primary); color: white; border-bottom-right-radius: 4px; }
-        .ai-bot { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
+        .ai-user { align-self: flex-end; background: var(--accent-primary); color: white; }
+        .ai-bot { align-self: flex-start; background: #1e293b; color: #e2e8f0; }
         .error { background: #450a0a !important; color: #fca5a5; }
 
-        /* Animation Ondes Micro */
         .listening-wave {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: #ef4444;
-            border-radius: 50%;
+            display: inline-block; width: 10px; height: 10px;
+            background: #ef4444; border-radius: 50%;
             animation: pulse 1s infinite;
         }
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-
-        footer { text-align: center; padding: 2em; color: var(--text-muted); font-size: 0.9rem; margin-top: auto; }
+        @keyframes pulse { 0% { transform: scale(0.95); } 70% { transform: scale(1.2); } 100% { transform: scale(0.95); } }
     </style>
 </head>
 <body>
@@ -259,104 +133,86 @@
         <audio id="radio-player" controls style="display:none;"></audio>
         <select id="station-select">
             <option value="">-- Choisir une station --</option>
-            <option value="http://audio.bfmtv.com/rmcradio_128.mp3">rmc</option>
-             <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
-            <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
+            <option value="http://audio.bfmtv.com/rmcradio_128.mp3">RMC</option>
+            <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">Franceinfo</option>
             <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
-            <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
         </select>
     </div>
 
     <div class="container">
         <section id="home">
             <h1>Rabah Loudjani</h1>
-            <div class="profile-img-container">
-                <img src="photo.jpg" alt="Photo de profil de Rabah Loudjani" class="profile-img">
-            </div>
+            <img src="photo.jpg" alt="Photo de profil" class="profile-img">
             <p class="subtitle">Passionné par les nouvelles technologies</p>
         </section>
 
         <section id="about">
-            <p style="margin-bottom: 20px;">Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
-            
-            <button id="btn-biblio">
-                Ma bibliothèque numérique ▾
-            </button>
-            <div id="menu-biblio" class="menu-biblio-box">
-                <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>
-                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a>
-                <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>
-                <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>
-                <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>
+            <p>Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
+            <button id="btn-biblio">Ma bibliothèque numérique ▾</button>
+            <div id="menu-biblio" class="menu-biblio-box" style="display:none; margin-top:15px; background:#151d2a; padding:10px; border-radius:12px;">
+                <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a><br>
+                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a><br>
+                <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels</a>
             </div>
         </section>
 
         <section id="contact">
             <h2>Contactez-moi</h2>
-            <div class="contact-card">
-                <div class="contact-item">
-                    <strong>Téléphone / WhatsApp</strong><br>
-                    <a href="https://wa.me/213771468669">+213 771 46 86 69</a>
-                </div>
-                <div class="contact-item">
-                    <strong>Email</strong><br>
-                    <a href="mailto:loudjani.r@gmail.com">loudjani.r@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <strong>Facebook</strong><br>
-                    <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
-                <div class="contact-item">
-                </div>
+            <div style="display:grid; gap:15px;">
+                <div><strong>Téléphone / WhatsApp</strong><br><a href="https://wa.me/213771468669">+213 771 46 86 69</a></div>
+                <div><strong>Email</strong><br><a href="mailto:loudjani.r@gmail.com">loudjani.r@gmail.com</a></div>
+                <div><strong>Facebook</strong><br><a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a></div>
+            </div>
         </section>
     </div>
 
-    <!-- Agent IA Floating -->
+    <!-- Agent IA -->
     <div id="ai-agent">
         <div id="ai-header">
-            <div id="ai-avatar">🧠</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:22px;">🧠</div>
             <div>
-                <h3 style="font-size: 1rem;">Agent IA Rabah</h3>
-                <div style="font-size: 0.75em; color: #4ade80;">● En ligne</div>
+                <h3 style="margin:0;">Agent IA Rabah</h3>
+                <div style="font-size:0.8em;color:#4ade80;">● En ligne</div>
             </div>
         </div>
         <div id="ai-chat"></div>
-        <div id="ai-input-area" style="display:none; padding:12px; background:#0f172a; gap:8px; align-items:center; border-top:1px solid var(--bg-card-border);">
-            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
-            <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
-            <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2em;">↑</button>
+        <div id="ai-input-area" style="display:none;padding:12px;background:#0f172a;border-top:1px solid #334155;display:flex;gap:8px;">
+            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1;padding:14px;border-radius:30px;background:#1e293b;color:white;border:1px solid #475569;outline:none;">
+            <button id="ai-mic" style="width:48px;height:48px;border-radius:50%;background:#3b82f6;border:none;color:white;cursor:pointer;">🎙️</button>
+            <button id="ai-send" style="width:48px;height:48px;border-radius:50%;background:linear-gradient(#8b5cf6,#ec4899);border:none;color:white;cursor:pointer;">↑</button>
         </div>
     </div>
 
-    <footer>
+    <footer style="text-align:center;padding:2em;color:var(--text-muted);margin-top:auto;">
         <p>© 2026 Rabah Loudjani. Tous droits réservés.</p>
     </footer>
 
     <script>
         const GROQ_API_KEY = "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";
-       // Player Audio Radio
-        const radioPlayer = document.getElementById('radio-player');
+
+        // Radio
         document.getElementById('play-audio').addEventListener('click', () => {
-            radioPlayer.style.display = 'block';
-            radioPlayer.play();
+            const player = document.getElementById('radio-player');
+            player.style.display = 'block';
+            player.play();
         });
         document.getElementById('station-select').addEventListener('change', function() {
             if (this.value) {
-                radioPlayer.style.display = 'block';
-                radioPlayer.src = this.value;
-                radioPlayer.play();
+                const player = document.getElementById('radio-player');
+                player.style.display = 'block';
+                player.src = this.value;
+                player.play();
             }
         });
 
-        // Toggle Bibliothèque
-        const btnBiblio = document.getElementById('btn-biblio');
-        const menuBiblio = document.getElementById('menu-biblio');
-        btnBiblio.addEventListener('click', (e) => { 
-            e.stopPropagation(); 
-            menuBiblio.style.display = menuBiblio.style.display === 'block' ? 'none' : 'block'; 
+        // Bibliothèque
+        document.getElementById('btn-biblio').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const menu = document.getElementById('menu-biblio');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
-        document.addEventListener('click', () => menuBiblio.style.display = 'none');
 
-        // Agent IA - DOM
+        // Agent IA
         const chat = document.getElementById('ai-chat');
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
@@ -370,59 +226,6 @@
             msg.textContent = text;
             chat.appendChild(msg);
             chat.scrollTop = chat.scrollHeight;
-            return msg;
-        }
-
-        // Synthèse Vocale (TTS)
-        function speakText(text) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'fr-FR';
-            
-            // Sélection d'une voix française naturelle si disponible
-            const voices = window.speechSynthesis.getVoices();
-            const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
-            if (frVoice) utterance.voice = frVoice;
-
-            window.speechSynthesis.speak(utterance);
-        }
-
-        async function callGroqAPI(userMessage) {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                method: "POST",
-                headers: { "Authorization": `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    model: "llama-3.1-8b-instant",
-                    messages: [
-                        { 
-                            role: "system", 
-                            content: `Tu es l'assistant IA personnel de Rabah Loudjani.
-
-                            Livres et travaux :
-                            - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires.
-                            - "Le goût de l'interdit" : Étude sur le désir sexuel à l'ère numérique, les mécanismes du tabou, la dopamine et la transgression.
-                            - "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels.
-                            - "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale.
-
-                            Informations de contact :
-                            - Téléphone/WhatsApp : +213 771 46 86 69
-                            - Email : loudjani.r@gmail.com
-                            - Facebook : https://www.facebook.com/rabah.badil/
-
-                            Sois toujours courtois, professionnel et synthétique dans tes réponses.` 
-                        },
-                        { role: "user", content: userMessage }
-                    ],
-                    temperature: 0.65,
-                    max_tokens: 600
-                })
-            });
-
-            if (!response.ok) throw new Error("Erreur serveur API");
-            const data = await response.json();
-            return data.choices[0].message.content;
         }
 
         async function sendMessage() {
@@ -430,58 +233,34 @@
             if (!message) return;
             addMessage('user', message);
             input.value = '';
-            const thinking = addMessage('bot', "Je réfléchis...", "thinking");
+            const thinking = addMessage('bot', "Je réfléchis...");
 
             try {
-                const reply = await callGroqAPI(message);
+                const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${GROQ_API_KEY}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        model: "llama-3.1-8b-instant",
+                        messages: [
+                            { role: "system", content: "Tu es l'assistant IA personnel de Rabah Loudjani. Sois courtois, professionnel et synthétique." },
+                            { role: "user", content: message }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 700
+                    })
+                });
+
+                if (!response.ok) throw new Error();
+                const data = await response.json();
                 chat.removeChild(thinking);
-                addMessage('bot', reply);
-                speakText(reply);
-            } catch (error) {
+                addMessage('bot', data.choices[0].message.content);
+            } catch (err) {
                 chat.removeChild(thinking);
-                addMessage('bot', "❌ Une erreur est survenue lors de la connexion à l'IA.", "error");
+                addMessage('bot', "❌ Une erreur est survenue.", "error");
             }
-        }
-
-        // Reconnaissance Vocale (STT)
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-        if (SpeechRecognition) {
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'fr-FR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
-            let isListening = false;
-
-            micBtn.addEventListener('click', () => {
-                if (!isListening) recognition.start();
-                else recognition.stop();
-            });
-
-            recognition.onstart = () => {
-                isListening = true;
-                micBtn.style.background = '#ef4444';
-                micBtn.innerHTML = '<span class="listening-wave"></span>';
-            };
-
-            recognition.onend = () => {
-                isListening = false;
-                micBtn.style.background = '#3b82f6';
-                micBtn.textContent = '🎙️';
-            };
-
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                input.value = transcript;
-                sendMessage();
-            };
-
-            recognition.onerror = (event) => {
-                addMessage('bot', "❌ Accès au micro refusé ou non supporté.", "error");
-            };
-        } else {
-            micBtn.style.display = 'none';
         }
 
         header.addEventListener('click', () => {
@@ -489,7 +268,7 @@
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ?");
+                addMessage('bot', "Bonjour ! Je suis l'assistant IA de Rabah Loudjani. Comment puis-je vous aider ?");
             }
         });
 
