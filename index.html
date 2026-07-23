@@ -11,7 +11,7 @@
     <meta property="og:title" content="Portfolio Rabah Loudjani">
     <meta property="og:description" content="Découvrez les ouvrages et les projets de Rabah Loudjani via son agent IA interactif.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://tonusername.github.io/photo.jpg"> <!-- À remplacer par ton URL réelle -->
+    <meta property="og:image" content="https://long-base-8513.loudjani-r.workers.dev/photo.jpg"> <!-- À adapter si besoin -->
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,6 @@
             line-height: 1.6;
         }
 
-        /* Navigation */
         nav {
             background: rgba(11, 15, 25, 0.8);
             backdrop-filter: blur(12px);
@@ -67,7 +66,6 @@
         }
         nav ul li a:hover { color: var(--accent-primary); }
 
-        /* General Container */
         .container { 
             max-width: 1000px; 
             width: 90%;
@@ -80,7 +78,6 @@
             backdrop-filter: blur(16px); 
         }
 
-        /* Section Intro */
         #home { text-align: center; }
         #home h1 { 
             font-size: 2.5rem; 
@@ -90,7 +87,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5em;
         }
-        .profile-img-container { margin: 25px 0; }
         .profile-img { 
             width: 150px; 
             height: 150px; 
@@ -101,7 +97,6 @@
         }
         .subtitle { color: var(--text-muted); font-size: 1.1rem; }
 
-        /* Player Radio */
         .audio-container { 
             text-align: center; 
             padding: 2em; 
@@ -112,19 +107,7 @@
             border: 1px solid var(--bg-card-border);
             border-radius: 16px;
         }
-        .audio-container select, .audio-container button {
-            background: #1e293b;
-            color: white;
-            border: 1px solid var(--bg-card-border);
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-family: inherit;
-            margin-top: 10px;
-            cursor: pointer;
-        }
 
-        /* Section Bibliothèque */
-        #about { text-align: center; margin-top: 2em; }
         #btn-biblio { 
             background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
             color: white; 
@@ -133,7 +116,6 @@
             border-radius: 12px; 
             font-weight: 700; 
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
         #btn-biblio:hover {
             transform: translateY(-2px);
@@ -153,28 +135,9 @@
             padding: 12px 20px; 
             color: var(--text-main); 
             text-decoration: none; 
-            text-align: left;
-            transition: background 0.2s;
         }
         .menu-biblio-box a:hover { background: rgba(255,255,255,0.05); color: var(--accent-primary); }
 
-        /* Contact Section */
-        #contact { margin-top: 3em; }
-        #contact h2 { font-size: 1.8rem; margin-bottom: 1em; color: var(--text-main); }
-        .contact-card {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-        }
-        .contact-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--bg-card-border);
-            padding: 16px;
-            border-radius: 12px;
-        }
-        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
-
-        /* Agent IA Floating Widget */
         #ai-agent { 
             position: fixed; 
             bottom: 20px; 
@@ -186,26 +149,6 @@
             overflow: hidden; 
             z-index: 1000; 
             border: 1px solid var(--bg-card-border); 
-        }
-        #ai-header { 
-            background: linear-gradient(135deg, #1e1b4b, #311042); 
-            padding: 16px; 
-            color: white; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            cursor: pointer; 
-            border-bottom: 1px solid var(--bg-card-border);
-        }
-        #ai-avatar { 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 20px; 
         }
         #ai-chat { 
             height: 420px; 
@@ -227,7 +170,6 @@
         .ai-bot { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
         .error { background: #450a0a !important; color: #fca5a5; }
 
-        /* Animation Ondes Micro */
         .listening-wave {
             display: inline-block;
             width: 10px;
@@ -311,7 +253,7 @@
         </section>
     </div>
 
-    <!-- Agent IA Floating -->
+    <!-- Agent IA -->
     <div id="ai-agent">
         <div id="ai-header">
             <div id="ai-avatar">🧠</div>
@@ -322,9 +264,9 @@
         </div>
         <div id="ai-chat"></div>
         <div id="ai-input-area" style="display:none; padding:12px; background:#0f172a; gap:8px; align-items:center; border-top:1px solid var(--bg-card-border);">
-            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
-            <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
-            <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2em;">↑</button>
+            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none;">
+            <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer;">🎙️</button>
+            <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer;">↑</button>
         </div>
     </div>
 
@@ -333,10 +275,9 @@
     </footer>
 
     <script>
-        // ================== CONFIGURATION ==================
-        const GROQ_PROXY_URL = "https://VOTRE_WORKER_NAME.workers.dev/groq"; // ← Remplace par l'URL réelle de ton Cloudflare Worker
+        const GROQ_PROXY_URL = "https://long-base-8513.loudjani-r.workers.dev/groq";
 
-        // Player Audio Radio
+        // === Le reste du code (Player, Bibliothèque, Agent IA) ===
         const radioPlayer = document.getElementById('radio-player');
         document.getElementById('play-audio').addEventListener('click', () => {
             radioPlayer.style.display = 'block';
@@ -350,7 +291,6 @@
             }
         });
 
-        // Toggle Bibliothèque
         const btnBiblio = document.getElementById('btn-biblio');
         const menuBiblio = document.getElementById('menu-biblio');
         btnBiblio.addEventListener('click', (e) => { 
@@ -359,7 +299,6 @@
         });
         document.addEventListener('click', () => menuBiblio.style.display = 'none');
 
-        // Agent IA - DOM
         const chat = document.getElementById('ai-chat');
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
@@ -376,15 +315,11 @@
             return msg;
         }
 
-        // Synthèse Vocale (TTS)
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'fr-FR';
-            const voices = window.speechSynthesis.getVoices();
-            const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
-            if (frVoice) utterance.voice = frVoice;
             window.speechSynthesis.speak(utterance);
         }
 
@@ -400,17 +335,9 @@
                             content: `Tu es l'assistant IA personnel de Rabah Loudjani.
 
                             Livres et travaux :
-                            - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires.
-                            - "Le goût de l'interdit" : Étude sur le désir sexuel à l'ère numérique, les mécanismes du tabou, la dopamine et la transgression.
-                            - "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels.
-                            - "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale.
+                            - "De l'exil au rejet", "Le goût de l'interdit", "Les modèles motivationnels", "Opposant ou ennemi".
 
-                            Informations de contact :
-                            - Téléphone/WhatsApp : +213 771 46 86 69
-                            - Email : loudjani.r@gmail.com
-                            - Facebook : https://www.facebook.com/rabah.badil/
-
-                            Sois toujours courtois, professionnel et synthétique dans tes réponses.` 
+                            Sois courtois, professionnel et synthétique.` 
                         },
                         { role: "user", content: userMessage }
                     ],
@@ -419,7 +346,7 @@
                 })
             });
 
-            if (!response.ok) throw new Error("Erreur serveur API");
+            if (!response.ok) throw new Error("Erreur serveur");
             const data = await response.json();
             return data.choices[0].message.content;
         }
@@ -442,14 +369,11 @@
             }
         }
 
-        // Reconnaissance Vocale (STT)
+        // Reconnaissance vocale et autres événements
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
             recognition.lang = 'fr-FR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
             let isListening = false;
 
             micBtn.addEventListener('click', () => {
@@ -470,13 +394,8 @@
             };
 
             recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                input.value = transcript;
+                input.value = event.results[0][0].transcript;
                 sendMessage();
-            };
-
-            recognition.onerror = () => {
-                addMessage('bot', "❌ Accès au micro refusé ou non supporté.", "error");
             };
         } else {
             micBtn.style.display = 'none';
@@ -487,7 +406,7 @@
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ?");
+                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous aider ?");
             }
         });
 
