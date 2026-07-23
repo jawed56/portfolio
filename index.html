@@ -11,6 +11,7 @@
     <meta property="og:title" content="Portfolio Rabah Loudjani">
     <meta property="og:description" content="Découvrez les ouvrages et les projets de Rabah Loudjani via son agent IA interactif.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://tonusername.github.io/photo.jpg"> <!-- À remplacer par ton URL réelle -->
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -260,7 +261,7 @@
         <select id="station-select">
             <option value="">-- Choisir une station --</option>
             <option value="http://audio.bfmtv.com/rmcradio_128.mp3">rmc</option>
-             <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
+            <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
             <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
             <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
             <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
@@ -271,7 +272,7 @@
         <section id="home">
             <h1>Rabah Loudjani</h1>
             <div class="profile-img-container">
-                <img src="photo.jpg" alt="Photo de profil de Rabah Loudjani" class="profile-img">
+                <img src="photo.jpg" alt="Photo de profil de Rabah Loudjani" class="profile-img" width="150" height="150">
             </div>
             <p class="subtitle">Passionné par les nouvelles technologies</p>
         </section>
@@ -305,8 +306,8 @@
                 <div class="contact-item">
                     <strong>Facebook</strong><br>
                     <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
-                <div class="contact-item">
                 </div>
+            </div>
         </section>
     </div>
 
@@ -332,7 +333,8 @@
     </footer>
 
     <script>
-        const GROQ_API_KEY = "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";
+        // ================== CONFIGURATION ==================
+        const GROQ_PROXY_URL = "https://VOTRE_WORKER_NAME.workers.dev/groq"; // ← Remplace par l'URL réelle de ton Cloudflare Worker
 
         // Player Audio Radio
         const radioPlayer = document.getElementById('radio-player');
@@ -378,22 +380,18 @@
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'fr-FR';
-            
-            // Sélection d'une voix française naturelle si disponible
             const voices = window.speechSynthesis.getVoices();
             const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
             if (frVoice) utterance.voice = frVoice;
-
             window.speechSynthesis.speak(utterance);
         }
 
         async function callGroqAPI(userMessage) {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            const response = await fetch(GROQ_PROXY_URL, {
                 method: "POST",
-                headers: { "Authorization": `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     model: "llama-3.1-8b-instant",
                     messages: [
@@ -446,7 +444,6 @@
 
         // Reconnaissance Vocale (STT)
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
             recognition.lang = 'fr-FR';
@@ -478,7 +475,7 @@
                 sendMessage();
             };
 
-            recognition.onerror = (event) => {
+            recognition.onerror = () => {
                 addMessage('bot', "❌ Accès au micro refusé ou non supporté.", "error");
             };
         } else {
