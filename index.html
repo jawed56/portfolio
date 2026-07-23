@@ -17,6 +17,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Google Analytics 4 -->
+    <!-- Remplace G-XXXXXXXXXX par ton vrai ID de mesure -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Plausible Analytics (respectueux de la vie privée) -->
+    <!-- Remplace ton-domaine.com par ton vrai domaine (ex: rabah-loudjani.com) -->
+    <script defer data-domain="ton-domaine.com" src="https://plausible.io/js/script.js"></script>
+
     <style>
         :root {
             --bg-main: #0b0f19;
@@ -260,7 +274,7 @@
         <select id="station-select">
             <option value="">-- Choisir une station --</option>
             <option value="http://audio.bfmtv.com/rmcradio_128.mp3">rmc</option>
-             <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
+            <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
             <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
             <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
             <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
@@ -305,8 +319,8 @@
                 <div class="contact-item">
                     <strong>Facebook</strong><br>
                     <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
-                <div class="contact-item">
                 </div>
+            </div>
         </section>
     </div>
 
@@ -332,7 +346,9 @@
     </footer>
 
     <script>
-        const GROQ_API_KEY = "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";
+        // ⚠️ Clé API Groq masquée pour la sécurité
+        // Remplace par ta clé réelle OU utilise un proxy backend (recommandé)
+        const GROQ_API_KEY = "TA_CLE_GROQ_ICI";
 
         // Player Audio Radio
         const radioPlayer = document.getElementById('radio-player');
@@ -382,7 +398,6 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'fr-FR';
             
-            // Sélection d'une voix française naturelle si disponible
             const voices = window.speechSynthesis.getVoices();
             const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
             if (frVoice) utterance.voice = frVoice;
