@@ -305,8 +305,8 @@
                 <div class="contact-item">
                     <strong>Facebook</strong><br>
                     <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
-                <div class="contact-item">
                 </div>
+            </div>
         </section>
     </div>
 
@@ -332,8 +332,6 @@
     </footer>
 
     <script>
-        const GROQ_API_KEY = "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";
-
         // Player Audio Radio
         const radioPlayer = document.getElementById('radio-player');
         document.getElementById('play-audio').addEventListener('click', () => {
@@ -382,7 +380,6 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'fr-FR';
             
-            // Sélection d'une voix française naturelle si disponible
             const voices = window.speechSynthesis.getVoices();
             const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
             if (frVoice) utterance.voice = frVoice;
@@ -390,40 +387,17 @@
             window.speechSynthesis.speak(utterance);
         }
 
+        // Appel sécurisé via la fonction Serverless locale
         async function callGroqAPI(userMessage) {
-            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            const response = await fetch("/api/chat", {
                 method: "POST",
-                headers: { "Authorization": `Bearer ${GROQ_API_KEY}`, "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    model: "llama-3.1-8b-instant",
-                    messages: [
-                        { 
-                            role: "system", 
-                            content: `Tu es l'assistant IA personnel de Rabah Loudjani.
-
-                            Livres et travaux :
-                            - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires.
-                            - "Le goût de l'interdit" : Étude sur le désir sexuel à l'ère numérique, les mécanismes du tabou, la dopamine et la transgression.
-                            - "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels.
-                            - "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale.
-
-                            Informations de contact :
-                            - Téléphone/WhatsApp : +213 771 46 86 69
-                            - Email : loudjani.r@gmail.com
-                            - Facebook : https://www.facebook.com/rabah.badil/
-
-                            Sois toujours courtois, professionnel et synthétique dans tes réponses.` 
-                        },
-                        { role: "user", content: userMessage }
-                    ],
-                    temperature: 0.65,
-                    max_tokens: 600
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage })
             });
 
             if (!response.ok) throw new Error("Erreur serveur API");
             const data = await response.json();
-            return data.choices[0].message.content;
+            return data.reply;
         }
 
         async function sendMessage() {
