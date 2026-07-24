@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio | Connexion sécurisée</title>
-    <!-- Redirection automatique après 3 secondes -->
+    <!-- Redirection de secours si JavaScript est désactivé -->
     <meta http-equiv="refresh" content="3; url=https://precious-taffy-d2caa1.netlify.app/">
     
+    <!-- Importation d'une police moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top right, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -19,48 +24,68 @@
             height: 100vh;
             margin: 0;
             text-align: center;
+            overflow: hidden;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 90%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 85%;
         }
-        h1 { color: #2c3e50; margin-bottom: 10px; font-size: 24px; }
-        p { color: #7f8c8d; font-size: 16px; line-height: 1.5; }
-        
-        /* Petit effet de chargement animé */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+
+        h1 { 
+            font-size: 28px; 
+            font-weight: 800; 
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        p { 
+            color: rgba(255, 255, 255, 0.8); 
+            font-size: 15px; 
+            line-height: 1.6; 
+        }
+
+        .countdown {
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 15px 0;
+            color: #fff;
         }
 
         .btn {
             display: inline-block;
-            padding: 14px 28px;
-            background-color: #3498db;
-            color: white;
+            margin-top: 20px;
+            padding: 14px 32px;
+            background-color: #ffffff;
+            color: #b21f1f;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+
         .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(41, 128, 185, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+            background-color: #f8f9fa;
         }
     </style>
 </head>
@@ -68,13 +93,31 @@
 
     <div class="card">
         <h1>Bienvenue sur mon Portfolio</h1>
-        <div class="loader"></div>
-        <p>Redirection en cours vers l'expérience complète en ligne...</p>
-        <p style="font-size: 14px; font-style: italic; margin-bottom: 25px;">
-            (Découvrez mon agent IA vocal et textuel intégré)
-        </p>
-        <a href="https://precious-taffy-d2caa1.netlify.app/" class="btn">Accéder directement</a>
+        <p>Initialisation de l'environnement et de l'agent IA (vocal & textuel)...</p>
+        
+        <!-- Zone du décompte dynamique -->
+        <div class="countdown" id="timer">Redirection dans 3s</div>
+        
+        <br>
+        <a href="https://precious-taffy-d2caa1.netlify.app/" class="btn">Entrer immédiatement</a>
     </div>
+
+    <script>
+        // Petit script sympa pour animer le texte du décompte
+        let seconds = 3;
+        const timerElement = document.getElementById('timer');
+        
+        const interval = setInterval(() => {
+            seconds--;
+            if (seconds > 0) {
+                timerElement.textContent = `Redirection dans ${seconds}s`;
+            } else {
+                timerElement.textContent = "Connexion...";
+                clearInterval(interval);
+                window.location.href = "https://precious-taffy-d2caa1.netlify.app/";
+            }
+        }, 1000);
+    </script>
 
 </body>
 </html>
