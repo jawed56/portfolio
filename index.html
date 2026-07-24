@@ -4,22 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio | Connexion sécurisée</title>
-    <!-- Redirection de secours si JavaScript est désactivé -->
     <meta http-equiv="refresh" content="9; url=https://precious-taffy-d2caa1.netlify.app/">
     
-    <!-- Importation d'une police moderne -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --ball-1: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0) 70%);
-            --ball-2: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(236, 72, 153, 0) 70%);
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-gradient);
+            background: #0b0f19; /* Fond sombre uni pour faire ressortir les sphères */
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -32,56 +24,57 @@
             position: relative;
         }
 
-        /* --- SPHÈRES LUMINEUSES FLOTTANTES --- */
+        /* --- SPHÈRES LUMINEUSES BIEN VISIBLES ET EN MOUVEMENT --- */
         .glass-ball {
             position: absolute;
             border-radius: 50%;
-            filter: blur(40px);
+            mix-blend-mode: screen;
+            opacity: 0.6;
             z-index: 1;
             pointer-events: none;
         }
 
         .ball-indigo {
-            width: 500px;
-            height: 500px;
-            background: var(--ball-1);
-            top: -10%;
-            left: -10%;
-            animation: floatIndigo 20s ease-in-out infinite alternate;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #4f46e5 0%, rgba(79, 70, 229, 0) 70%);
+            top: 10%;
+            left: 15%;
+            animation: floatIndigo 12s ease-in-out infinite alternate;
         }
 
         .ball-pink {
-            width: 600px;
-            height: 600px;
-            background: var(--ball-2);
-            bottom: -15%;
-            right: -10%;
-            animation: floatPink 25s ease-in-out infinite alternate;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, #db2777 0%, rgba(219, 39, 119, 0) 70%);
+            bottom: 10%;
+            right: 15%;
+            animation: floatPink 15s ease-in-out infinite alternate;
         }
 
         @keyframes floatIndigo {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(150px, 100px) scale(1.2); }
+            100% { transform: translate(80px, 50px) scale(1.2); }
         }
 
         @keyframes floatPink {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-180px, -120px) scale(0.9); }
+            100% { transform: translate(-80px, -60px) scale(1.1); }
         }
 
-        /* --- CARTE EN VERRE DÉPOLI (GLASSMORPHISM) --- */
+        /* --- CARTE EN VERRE ULTRA-TRANSPARENTE (GLASSMORPHISM CORRIGÉ) --- */
         .card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.03); /* Très transparent pour voir à travers */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); /* Compatibilité Safari/iOS */
+            border: 1px solid rgba(255, 255, 255, 0.12);
             padding: 50px 40px;
-            border-radius: 32px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.2);
             max-width: 460px;
             width: 85%;
-            z-index: 2; /* Passe au-dessus des sphères */
+            z-index: 10; /* Force la carte à passer devant */
             position: relative;
         }
 
@@ -107,48 +100,46 @@
             font-size: 14px;
             font-weight: 600;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 8px 18px;
             border-radius: 50px;
             display: inline-block;
             margin: 10px 0 25px 0;
             color: #c7d2fe;
-            letter-spacing: 0.5px;
         }
 
-        /* --- BOUTON DESIGN --- */
+        /* --- BOUTON DE CONFIANCE --- */
         .btn {
             display: inline-block;
             padding: 14px 36px;
             background: #ffffff;
-            color: #1e1b4b;
+            color: #0b0f19;
             text-decoration: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
             background: #f8f9fa;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sphères lumineuses d'arrière-plan -->
+    <!-- Les deux néons en mouvement -->
     <div class="glass-ball ball-indigo"></div>
     <div class="glass-ball ball-pink"></div>
 
-    <!-- Conteneur principal -->
+    <!-- La carte qui filtre le fond -->
     <div class="card">
         <h1>Bienvenue sur mon Portfolio</h1>
         <p>Initialisation de l'environnement et de l'agent IA (vocal & textuel)...</p>
         
-        <!-- Zone du décompte dynamique -->
         <div class="countdown" id="timer">Redirection dans 9s</div>
         
         <br>
