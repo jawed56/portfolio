@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio | Connexion sécurisée</title>
-    <!-- Redirection de secours si JavaScript est désactivé -->
     <meta http-equiv="refresh" content="9; url=https://precious-taffy-d2caa1.netlify.app/">
     
-    <!-- Importation d'une police moderne -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Fond dégradé subtil pour faire ressortir les émojis */
             --bg-gradient: radial-gradient(circle at top right, #1e293b 0%, #111827 60%, #0f172a 100%);
         }
 
@@ -31,42 +28,42 @@
             position: relative;
         }
 
-        /* --- ÉMOJIS ATTENTIFS FLOTTANTS ET ASYNCHRONES --- */
+        /* --- ÉMOJIS ATTENTIFS COMPACTS ET DYNAMIQUES --- */
         .attentive-emoji {
             position: absolute;
-            font-size: 140px; /* Taille géante des émojis */
-            opacity: 0.15; /* Très transparent pour rester subtil */
-            filter: blur(2px); /* Un léger flou pour les intégrer au fond */
-            z-index: 1; /* Derrière la carte */
-            pointer-events: none; /* Ne pas gêner le clic */
+            font-size: 130px;
+            opacity: 0.18;
+            filter: blur(1px);
+            z-index: 1;
+            pointer-events: none;
         }
 
-        /* Le Robot (représente l'IA) */
+        /* Le Robot - Animation accélérée à 4 secondes */
         .emoji-robot {
             top: 15%;
             left: 10%;
-            animation: floatRobot 18s ease-in-out infinite alternate;
+            animation: floatRobot 4s ease-in-out infinite alternate;
         }
 
-        /* Le Visage Pensif (représente le traitement vocal) */
+        /* Le Visage Pensif - Animation accélérée à 5 secondes */
         .emoji-thinking {
             bottom: 15%;
             right: 10%;
-            animation: floatThinking 22s ease-in-out infinite alternate;
+            animation: floatThinking 5s ease-in-out infinite alternate;
         }
 
-        /* Animations fluides et asynchrones (vitesses différentes) */
+        /* Trajectoires légèrement ajustées pour un effet plus rythmé */
         @keyframes floatRobot {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(120px, 80px) scale(1.1) rotate(15deg); }
+            100% { transform: translate(70px, 50px) scale(1.1) rotate(12deg); }
         }
 
         @keyframes floatThinking {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(-100px, -70px) scale(0.95) rotate(-10deg); }
+            100% { transform: translate(-60px, -45px) scale(0.95) rotate(-8deg); }
         }
 
-        /* --- CARTE EN VERRE DÉPOLI (GLASSMORPHISM) --- */
+        /* --- CARTE EN VERRE DÉPOLI --- */
         .card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(25px);
@@ -78,7 +75,7 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
             max-width: 460px;
             width: 85%;
-            z-index: 2; /* Passe au-dessus des émojis */
+            z-index: 2;
             position: relative;
         }
 
@@ -113,7 +110,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* --- BOUTON DESIGN --- */
         .btn {
             display: inline-block;
             padding: 14px 36px;
@@ -136,16 +132,13 @@
 </head>
 <body>
 
-    <!-- Émojis attentifs géants d'arrière-plan -->
     <div class="attentive-emoji emoji-robot">🤖</div>
     <div class="attentive-emoji emoji-thinking">🤔</div>
 
-    <!-- Conteneur principal (la carte en verre) -->
     <div class="card">
         <h1>Bienvenue sur mon Portfolio</h1>
         <p>Initialisation de l'environnement et de l'agent IA (vocal & textuel)...</p>
         
-        <!-- Zone du décompte dynamique -->
         <div class="countdown" id="timer">Redirection dans 9s</div>
         
         <br>
