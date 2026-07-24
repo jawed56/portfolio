@@ -1,61 +1,113 @@
-const fetch = require('node-fetch'); // Si besoin, ou utilisez le fetch natif de Node.js
+// --- CONFIGURATION DE L'AGENT IA ET DU MICRO ---
 
-exports.handler = async (event, context) => {
-    // Autoriser uniquement les requêtes POST
-    if (event.httpMethod !== "POST") {
-        return { statusCode: 405, body: "Méthode non autorisée" };
+// 1. Gestion du Micro (Reconnaissance Vocale)
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+let estEnTrainDÉcouter = false;
+
+if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'fr-FR'; // Langue française
+    recognition.interimResults = false; // Attendre la fin de la phrase
+    recognition.maxAlternatives = 1;
+
+    // Quand l'utilisateur a fini de parler
+    recognition.onresult = (event) => {
+        const texteReconnu = event.results[0][0].transcript;
+        console.log("Texte capté à la voix :", texteReconnu);
+        
+        // On affiche le texte dans l'interface et on l'envoie à l'IA
+        ajouterMessageInterface(texteReconnu, 'utilisateur');
+        envoyerAIA(texteReconnu);
+    };
+
+    recognition.onend = () => {
+        estEnTrainDÉcouter = false;
+        majBoutonMicro(false);
+    };
+
+    recognition.onerror = (event) => {
+        console.error("Erreur micro :", event.error);
+        estEnTrainDÉcouter = false;
+        majBoutonMicro(false);
+    };
+} else {
+    console.log("La reconnaissance vocale n'est pas supportée par ce navigateur.");
+}
+
+// Fonction pour activer/désactiver le micro au clic
+function basculerMicro() {
+    if (!recognition) {
+        alert("La reconnaissance vocale n'est pas disponible sur votre navigateur (Privilégiez Chrome ou Safari).");
+        return;
     }
 
+    if (estEnTrainDÉcouter) {
+        recognition.stop();
+    } else {
+        estEnTrainDÉcouter = true;
+        majBoutonMicro(true);
+        recognition.start();
+    }
+}
+
+// 2. Communication avec la fonction Netlify (Groq)
+async function envoyerAIA(messageUtilisateur) {
+    afficherIndicateurChargement(true);
+    
     try {
-        const { message } = JSON.parse(event.body);
-        const apiKey = process.env.GROQ_API_KEY;
-
-        if (!apiKey) {
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ error: "La clé API Groq est manquante dans la configuration." })
-            };
-        }
-
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apiKey}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
-                messages: [
-                    { 
-                        role: "system", 
-                        content: `Tu es l'assistant IA personnel de Rabah Loudjani.
-                        Sois toujours courtois, professionnel et synthétique dans tes réponses.
-                        Tu présentes ses ouvrages ("De l'exil au rejet", "Le goût de l'interdit", "Les modèles motivationnels", "Opposant ou ennemi") et donnes ses contacts (Email: loudjani.r@gmail.com, WhatsApp: +213 771 46 86 69).` 
-                    },
-                    { role: "user", content: message }
-                ],
-                temperature: 0.65,
-                max_tokens: 600
-            })
+        const response = await fetch('/.netlify/functions/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: messageUtilisateur }),
         });
 
-        if (!response.ok) {
-            return { statusCode: response.status, body: "Erreur de l'API Groq" };
-        }
-
         const data = await response.json();
-        const reply = data.choices[0].message.content;
+        afficherIndicateurChargement(false);
 
-        return {
-            statusCode: 200,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reply })
-        };
-
+        if (data.reply) {
+            ajouterMessageInterface(data.reply, 'ia');
+            // Optionnel : ajouter ici la synthèse vocale pour faire parler l'IA
+        } else {
+            ajouterMessageInterface("Désolé, j'ai rencontré un problème avec mon API.", 'ia');
+        }
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Erreur interne du serveur" })
-        };
+        console.error("Erreur serveur :", error);
+        afficherIndicateurChargement(false);
+        ajouterMessageInterface("Impossible de joindre l'agent IA pour le moment.", 'ia');
     }
-};
+}
+
+// --- FONCTIONS UTILITAIRES POUR L'INTERFACE ---
+// (À adapter selon les identifiants HTML de votre portfolio)
+
+function ajouterMessageInterface(texte, auteur) {
+    const zoneChat = document.getElementById('chat-box'); // Votre conteneur de messages
+    if(!zoneChat) return;
+
+    const bulle = document.createElement('div');
+    bulle.className = `message ${auteur}`; // Classes CSS pour le style (ex: message-user, message-ia)
+    bulle.textContent = texte;
+    zoneChat.appendChild(bulle);
+    zoneChat.scrollTop = zoneChat.scrollHeight; // Défilement automatique vers le bas
+}
+
+function majBoutonMicro(ecouteEnCours) {
+    const boutonMicro = document.getElementById('btn-micro');
+    if (!boutonMicro) return;
+    
+    if (ecouteEnCours) {
+        boutonMicro.classList.add('recording');
+        boutonMicro.textContent = "🎙️ Écoute en cours...";
+    } else {
+        boutonMicro.classList.remove('recording');
+        boutonMicro.textContent = "🎤 Parler à l'IA";
+    }
+}
+
+function afficherIndicateurChargement(enCours) {
+    const loader = document.getElementById('chat-loader');
+    if (loader) {
+        loader.style.display = enCours ? 'block' : 'none';
+    }
+}
