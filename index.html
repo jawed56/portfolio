@@ -11,11 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            --ball-1: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0) 70%);
+            --ball-2: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, rgba(236, 72, 153, 0) 70%);
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: radial-gradient(circle at top right, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: var(--bg-gradient);
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -25,72 +29,121 @@
             margin: 0;
             text-align: center;
             overflow: hidden;
+            position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- SPHÈRES LUMINEUSES FLOTTANTES --- */
+        .glass-ball {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 1;
+            pointer-events: none;
         }
 
+        .ball-indigo {
+            width: 500px;
+            height: 500px;
+            background: var(--ball-1);
+            top: -10%;
+            left: -10%;
+            animation: floatIndigo 20s ease-in-out infinite alternate;
+        }
+
+        .ball-pink {
+            width: 600px;
+            height: 600px;
+            background: var(--ball-2);
+            bottom: -15%;
+            right: -10%;
+            animation: floatPink 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatIndigo {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(150px, 100px) scale(1.2); }
+        }
+
+        @keyframes floatPink {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-180px, -120px) scale(0.9); }
+        }
+
+        /* --- CARTE EN VERRE DÉPOLI (GLASSMORPHISM) --- */
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            max-width: 450px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            padding: 50px 40px;
+            border-radius: 32px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            max-width: 460px;
             width: 85%;
+            z-index: 2; /* Passe au-dessus des sphères */
+            position: relative;
         }
 
         h1 { 
-            font-size: 28px; 
+            font-size: 30px; 
             font-weight: 800; 
-            margin-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 12px;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 60%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         p { 
-            color: rgba(255, 255, 255, 0.8); 
+            color: rgba(255, 255, 255, 0.75); 
             font-size: 15px; 
             line-height: 1.6; 
+            margin-bottom: 20px;
         }
 
         .countdown {
             font-size: 14px;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
             border-radius: 50px;
             display: inline-block;
-            margin: 15px 0;
-            color: #fff;
+            margin: 10px 0 25px 0;
+            color: #c7d2fe;
+            letter-spacing: 0.5px;
         }
 
+        /* --- BOUTON DESIGN --- */
         .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 14px 32px;
-            background-color: #ffffff;
-            color: #b21f1f;
+            padding: 14px 36px;
+            background: #ffffff;
+            color: #1e1b4b;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: 600;
+            font-size: 15px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
-            background-color: #f8f9fa;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+            background: #f8f9fa;
         }
     </style>
 </head>
 <body>
 
+    <!-- Sphères lumineuses d'arrière-plan -->
+    <div class="glass-ball ball-indigo"></div>
+    <div class="glass-ball ball-pink"></div>
+
+    <!-- Conteneur principal -->
     <div class="card">
         <h1>Bienvenue sur mon Portfolio</h1>
         <p>Initialisation de l'environnement et de l'agent IA (vocal & textuel)...</p>
@@ -103,7 +156,6 @@
     </div>
 
     <script>
-        // Petit script sympa pour animer le texte du décompte
         let seconds = 9;
         const timerElement = document.getElementById('timer');
         
