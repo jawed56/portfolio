@@ -109,7 +109,40 @@
             color: #c7d2fe;
             letter-spacing: 0.5px;
         }
+<!-- ================= ASSISTANT IA PRESTANCE (GLASSMORPHISM) ================= -->
+<section id="assistant-ia" style="padding: 80px 20px; text-align: center; position: relative;">
+    <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; background: linear-gradient(135deg, #ffffff 60%, #c7d2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Discutez avec mon Assistant IA
+    </h2>
+    <p style="color: rgba(255, 255, 255, 0.7); font-size: 15px; margin-bottom: 35px;">
+        Posez vos questions sur mon parcours textuellement ou directement à la voix.
+    </p>
 
+    <!-- Conteneur de Chat en Verre Dépoli -->
+    <div class="ia-chat-container" style="max-width: 550px; margin: 0 auto; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 25px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); text-align: left;">
+        
+        <!-- Zone de discussion (les messages s'ajouteront ici) -->
+        <div id="chat-box" style="height: 300px; overflow-y: auto; padding-right: 10px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 12px;">
+            <!-- Message de bienvenue initial -->
+            <div class="message ia" style="align-self: flex-start; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 16px; border-radius: 16px 16px 16px 4px; color: rgba(255, 255, 255, 0.9); font-size: 14px; max-width: 80%; line-height: 1.5;">
+                Bonjour ! Je suis votre agent IA. Comment puis-je vous aider aujourd'hui ?
+            </div>
+        </div>
+        
+        <!-- Indicateur discret de réflexion -->
+        <div id="chat-loader" style="display: none; font-size: 13px; color: #c7d2fe; margin-bottom: 15px; font-style: italic; padding-left: 5px;">
+            🤖 L'IA analyse votre demande...
+        </div>
+
+        <!-- Zone d'action (Micro) -->
+        <div class="chat-controls" style="display: flex; justify-content: center;">
+            <button id="btn-micro" onclick="basculerMicro()" style="padding: 14px 32px; background: #ffffff; color: #0b0f19; border: none; border-radius: 12px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2); width: 100%;">
+                🎤 Parler à l'IA
+            </button>
+        </div>
+    </div>
+</section>
+<!-- ========================================================================== -->
         .btn {
             display: inline-block;
             padding: 14px 36px;
