@@ -3,198 +3,540 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio | Connexion sécurisée</title>
-    <meta http-equiv="refresh" content="5; url=https://precious-taffy-d2caa1.netlify.app/">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Portfolio Rabah Loudjani — passionné de nouvelles technologies</title>
+
+    <!-- Meta SEO & Open Graph -->
+    <meta name="description" content="Portfolio officiel de Rabah Loudjani — passionné de nouvelles technologies. Découvrez ses ouvrages et son assistant IA interactif.">
+    <meta name="author" content="Rabah Loudjani">
+    <meta property="og:title" content="Portfolio Rabah Loudjani">
+    <meta property="og:description" content="Découvrez les ouvrages et les projets de Rabah Loudjani via son agent IA interactif.">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-gradient: radial-gradient(circle at top right, #1e293b 0%, #111827 60%, #0f172a 100%);
+            --bg-main: #0b0f19;
+            --bg-card: rgba(18, 24, 38, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --accent-primary: #ec4899;
+            --accent-secondary: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-gradient);
-            color: #ffffff;
+            font-family: var(--font-sans);
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-            overflow: hidden;
-            position: relative;
+            line-height: 1.6;
         }
 
-        /* --- ÉMOJIS ATTENTIFS COMPACTS ET DYNAMIQUES --- */
-        .attentive-emoji {
-            position: absolute;
-            font-size: 130px;
-            opacity: 0.18;
-            filter: blur(1px);
-            z-index: 1;
-            pointer-events: none;
+        /* Navigation */
+        nav {
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 1.2em 2em;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2.5em; }
+        nav ul li a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        nav ul li a:hover { color: var(--accent-primary); }
+
+        /* General Container */
+        .container { 
+            max-width: 1000px; 
+            width: 90%;
+            margin: 2.5em auto; 
+            padding: 2.5em; 
+            background: var(--bg-card); 
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); 
+            backdrop-filter: blur(16px); 
         }
 
-        /* Le Robot - Animation accélérée à 3 secondes */
-        .attentive-emoji {
-            top: 15%;
-            left: 10%;
-            animation: floatRobot 3s ease-in-out infinite alternate;
-        }
-
-        /* Le Visage Pensif - Animation accélérée à 3 secondes */
-        .emoji-thinking {
-            bottom: 15%;
-            right: 10%;
-            animation: floatThinking 3s ease-in-out infinite alternate;
-        }
-
-        /* Trajectoires légèrement ajustées pour un effet plus rythmé */
-        @keyframes floatRobot {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(70px, 50px) scale(1.1) rotate(12deg); }
-        }
-
-        @keyframes floatThinking {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            100% { transform: translate(-60px, -45px) scale(0.95) rotate(-8deg); }
-        }
-
-        /* --- CARTE EN VERRE DÉPOLI --- */
-        .card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            padding: 50px 40px;
-            border-radius: 32px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            max-width: 460px;
-            width: 85%;
-            z-index: 2;
-            position: relative;
-        }
-
-        h1 { 
-            font-size: 30px; 
-            font-weight: 800; 
-            margin-top: 0;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 60%, #c7d2fe 100%);
+        /* Section Intro */
+        #home { text-align: center; }
+        #home h1 { 
+            font-size: 2.5rem; 
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5em;
+        }
+        .profile-img-container { margin: 25px 0; }
+        .profile-img { 
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 3px solid var(--accent-secondary);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.3);
+        }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* Player Radio */
+        .audio-container { 
+            text-align: center; 
+            padding: 2em; 
+            margin: 2em auto;
+            max-width: 1000px;
+            width: 90%;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+        }
+        .audio-container select, .audio-container button {
+            background: #1e293b;
+            color: white;
+            border: 1px solid var(--bg-card-border);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            margin-top: 10px;
+            cursor: pointer;
         }
 
-        p { 
-            color: rgba(255, 255, 255, 0.75); 
-            font-size: 15px; 
-            line-height: 1.6; 
-            margin-bottom: 20px;
+        /* Section Bibliothèque */
+        #about { text-align: center; margin-top: 2em; }
+        #btn-biblio { 
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
+            color: white; 
+            padding: 14px 28px; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: 700; 
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        #btn-biblio:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+        }
+        .menu-biblio-box {
+            display: none; 
+            margin-top: 15px;
+            background: #151d2a; 
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px; 
+            padding: 10px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        .menu-biblio-box a { 
+            display: block; 
+            padding: 12px 20px; 
+            color: var(--text-main); 
+            text-decoration: none; 
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .menu-biblio-box a:hover { background: rgba(255,255,255,0.05); color: var(--accent-primary); }
 
-        .countdown {
-            font-size: 14px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 18px;
-            border-radius: 50px;
+        /* Contact Section */
+        #contact { margin-top: 3em; }
+        #contact h2 { font-size: 1.8rem; margin-bottom: 1em; color: var(--text-main); }
+        .contact-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .contact-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--bg-card-border);
+            padding: 16px;
+            border-radius: 12px;
+        }
+        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
+
+        /* Agent IA Floating Widget */
+        #ai-agent { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            width: min(390px, 92vw); 
+            background: #0f172a; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7); 
+            overflow: hidden; 
+            z-index: 1000; 
+            border: 1px solid var(--bg-card-border); 
+        }
+        #ai-header { 
+            background: linear-gradient(135deg, #1e1b4b, #311042); 
+            padding: 16px; 
+            color: white; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            cursor: pointer; 
+            border-bottom: 1px solid var(--bg-card-border);
+        }
+        #ai-avatar { 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 20px; 
+        }
+        #ai-chat { 
+            height: 420px; 
+            overflow-y: auto; 
+            padding: 18px; 
+            display: none; 
+            flex-direction: column; 
+            gap: 14px; 
+            background: #0b0f19; 
+        }
+        .ai-message { 
+            max-width: 85%; 
+            padding: 12px 16px; 
+            border-radius: 16px; 
+            line-height: 1.5; 
+            font-size: 0.93rem;
+        }
+        .ai-user { align-self: flex-end; background: var(--accent-primary); color: white; border-bottom-right-radius: 4px; }
+        .ai-bot { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
+        .error { background: #450a0a !important; color: #fca5a5; }
+
+        /* Animation Ondes Micro */
+        .listening-wave {
             display: inline-block;
-            margin: 10px 0 25px 0;
-            color: #c7d2fe;
-            letter-spacing: 0.5px;
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
         }
-<!-- ================= ASSISTANT IA PRESTANCE (GLASSMORPHISM) ================= -->
-<section id="assistant-ia" style="padding: 80px 20px; text-align: center; position: relative;">
-    <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; background: linear-gradient(135deg, #ffffff 60%, #c7d2fe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        Discutez avec mon Assistant IA
-    </h2>
-    <p style="color: rgba(255, 255, 255, 0.7); font-size: 15px; margin-bottom: 35px;">
-        Posez vos questions sur mon parcours textuellement ou directement à la voix.
-    </p>
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
 
-    <!-- Conteneur de Chat en Verre Dépoli -->
-    <div class="ia-chat-container" style="max-width: 550px; margin: 0 auto; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 25px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); text-align: left;">
-        
-        <!-- Zone de discussion (les messages s'ajouteront ici) -->
-        <div id="chat-box" style="height: 300px; overflow-y: auto; padding-right: 10px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 12px;">
-            <!-- Message de bienvenue initial -->
-            <div class="message ia" style="align-self: flex-start; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 16px; border-radius: 16px 16px 16px 4px; color: rgba(255, 255, 255, 0.9); font-size: 14px; max-width: 80%; line-height: 1.5;">
-                Bonjour ! Je suis votre agent IA. Comment puis-je vous aider ?
-            </div>
-        </div>
-        
-        <!-- Indicateur discret de réflexion -->
-        <div id="chat-loader" style="display: none; font-size: 13px; color: #c7d2fe; margin-bottom: 15px; font-style: italic; padding-left: 5px;">
-            🤖 L'IA analyse votre demande...
-        </div>
+        footer { text-align: center; padding: 2em; color: var(--text-muted); font-size: 0.9rem; margin-top: auto; }
 
-        <!-- Zone d'action (Micro) -->
-        <div class="chat-controls" style="display: flex; justify-content: center;">
-            <button id="btn-micro" onclick="basculerMicro()" style="padding: 14px 32px; background: #ffffff; color: #0b0f19; border: none; border-radius: 12px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.2); width: 100%;">
-                🎤 Parler à l'IA
-            </button>
-        </div>
-    </div>
-</section>
-<!-- ========================================================================== -->
-        .btn {
+        /* Section Projets */
+        #projects {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .projects-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--bg-card-border);
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 350px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-techs span {
+            font-size: 0.8rem;
+            background: #1e293b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            color: var(--text-muted);
+        }
+        .project-btn {
             display: inline-block;
-            padding: 14px 36px;
-            background: #ffffff;
-            color: #111827;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-secondary));
+            color: white;
             text-decoration: none;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 15px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
-            background: #f8f9fa;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="attentive-emoji emoji-thinking">🤔</div>
-    <div class="attentive-emoji emoji-thinking">🤔</div>
+    <nav>
+        <ul>
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#projects">Mes Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="card">
-        <h1>Bienvenue sur mon Portfolio</h1>
-        <p>Initialisation de l'environnement et de l'agent IA (vocal & textuel)...</p>
-        
-        <div class="countdown" id="timer">Redirection dans 5s</div>
-        
-        <br>
-        <a href="https://precious-taffy-d2caa1.netlify.app/" class="btn">Entrer immédiatement</a>
+    <div class="audio-container">
+        <p style="margin-bottom: 8px; color: var(--text-muted);">Station de radio en direct :</p>
+        <button id="play-audio">Activer le son</button>
+        <audio id="radio-player" controls style="display:none;"></audio>
+        <select id="station-select">
+            <option value="">-- Choisir une station --</option>
+            <option value="http://audio.bfmtv.com/rmcradio_128.mp3">rmc</option>
+            <option value="http://icecast.radiofrance.fr/franceinfo-midfi.mp3">franceinfo</option>
+            <option value="http://radios.rtbf.be/laprem1ere-128.mp3">La Première</option>
+            <option value="https://stream.europe1.fr/europe1.mp3">Europe 1</option>
+            <option value="http://radios.rtbf.be/pure-128.mp3">Pure</option>
+        </select>
     </div>
 
+    <div class="container">
+        <section id="home">
+            <h1>Rabah Loudjani</h1>
+            <div class="profile-img-container">
+                <img src="photo.jpg" alt="Photo de profil de Rabah Loudjani" class="profile-img">
+            </div>
+            <p class="subtitle">Passionné par les nouvelles technologies</p>
+        </section>
+
+        <section id="about">
+            <p style="margin-bottom: 20px;">Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
+            
+            <button id="btn-biblio">
+                Ma bibliothèque numérique ▾
+            </button>
+            <div id="menu-biblio" class="menu-biblio-box">
+                <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>
+                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a>
+                <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>
+                <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>
+                <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>
+            </div>
+        </section>
+
+        <!-- SECTION MES PROJETS -->
+        <section id="projects">
+            <h2>Mes Réalisations</h2>
+            <div class="projects-container">
+                <div class="project-card">
+                    <h3>Calculatrice Scientifique</h3>
+                    <p style="color: var(--text-muted); margin: 10px 0 15px 0; font-size: 0.95rem;">
+                        Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.
+                    </p>
+                    <div class="project-techs">
+                        <span>HTML</span> <span>CSS</span> <span>JavaScript</span>
+                    </div>
+                    <a href="https://jawed56.github.io/scientific-calculator/" target="_blank" class="project-btn">Découvrir l'outil</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contactez-moi</h2>
+            <div class="contact-card">
+                <div class="contact-item">
+                    <strong>Téléphone / WhatsApp</strong><br>
+                    <a href="https://wa.me/213771468669">+213 771 46 86 69</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Email</strong><br>
+                    <a href="mailto:loudjani.r@gmail.com">loudjani.r@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Facebook</strong><br>
+                    <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Agent IA Floating -->
+    <div id="ai-agent">
+        <div id="ai-header">
+            <div id="ai-avatar">🧠</div>
+            <div>
+                <h3 style="font-size: 1rem;">Agent IA Rabah</h3>
+                <div style="font-size: 0.75em; color: #4ade80;">● En ligne</div>
+            </div>
+        </div>
+        <div id="ai-chat"></div>
+        <div id="ai-input-area" style="display:none; padding:12px; background:#0f172a; gap:8px; align-items:center; border-top:1px solid var(--bg-card-border);">
+            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
+            <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
+            <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2em;">↑</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Rabah Loudjani. Tous droits réservés.</p>
+    </footer>
+
     <script>
-        let seconds = 5;
-        const timerElement = document.getElementById('timer');
-        
-        const interval = setInterval(() => {
-            seconds--;
-            if (seconds > 0) {
-                timerElement.textContent = `Redirection dans ${seconds}s`;
-            } else {
-                timerElement.textContent = "Connexion...";
-                clearInterval(interval);
-                window.location.href = "https://precious-taffy-d2caa1.netlify.app/";
+        // Player Audio Radio
+        const radioPlayer = document.getElementById('radio-player');
+        document.getElementById('play-audio').addEventListener('click', () => {
+            radioPlayer.style.display = 'block';
+            radioPlayer.play();
+        });
+        document.getElementById('station-select').addEventListener('change', function() {
+            if (this.value) {
+                radioPlayer.style.display = 'block';
+                radioPlayer.src = this.value;
+                radioPlayer.play();
             }
-        }, 1000);
+        });
+
+        // Toggle Bibliothèque
+        const btnBiblio = document.getElementById('btn-biblio');
+        const menuBiblio = document.getElementById('menu-biblio');
+        btnBiblio.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            menuBiblio.style.display = menuBiblio.style.display === 'block' ? 'none' : 'block'; 
+        });
+        document.addEventListener('click', () => menuBiblio.style.display = 'none');
+
+        // Agent IA - DOM
+        const chat = document.getElementById('ai-chat');
+        const input = document.getElementById('ai-input');
+        const sendBtn = document.getElementById('ai-send');
+        const micBtn = document.getElementById('ai-mic');
+        const header = document.getElementById('ai-header');
+        let isOpen = false;
+
+        function addMessage(sender, text, extraClass = '') {
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
+            msg.textContent = text;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+            return msg;
+        }
+
+        // Synthèse Vocale (TTS)
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'fr-FR';
+            
+            const voices = window.speechSynthesis.getVoices();
+            const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
+            if (frVoice) utterance.voice = frVoice;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // APPEL SÉCURISÉ VERS LE SERVEUR BACK-END (VERCEL)
+        async function callGroqAPI(userMessage) {
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage })
+            });
+
+            if (!response.ok) {
+                const errResult = await response.json().catch(() => ({}));
+                throw new Error(errResult.error || "Erreur serveur API");
+            }
+            
+            const data = await response.json();
+            return data.reply;
+        }
+
+        async function sendMessage() {
+            const message = input.value.trim();
+            if (!message) return;
+            addMessage('user', message);
+            input.value = '';
+            const thinking = addMessage('bot', "Je réfléchis...", "thinking");
+
+            try {
+                const reply = await callGroqAPI(message);
+                chat.removeChild(thinking);
+                addMessage('bot', reply);
+                speakText(reply);
+            } catch (error) {
+                chat.removeChild(thinking);
+                addMessage('bot', "❌ Une erreur est survenue lors de la connexion à l'IA.", "error");
+            }
+        }
+
+        // Reconnaissance Vocale (STT)
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'fr-FR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            let isListening = false;
+
+            micBtn.addEventListener('click', () => {
+                if (!isListening) recognition.start();
+                else recognition.stop();
+            });
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.style.background = '#ef4444';
+                micBtn.innerHTML = '<span class="listening-wave"></span>';
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.style.background = '#3b82f6';
+                micBtn.textContent = '🎙️';
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                input.value = transcript;
+                sendMessage();
+            };
+
+            recognition.onerror = (event) => {
+                addMessage('bot', "❌ Accès au micro refusé ou non supporté.", "error");
+            };
+        } else {
+            micBtn.style.display = 'none';
+        }
+
+        header.addEventListener('click', () => {
+            isOpen = !isOpen;
+            chat.style.display = isOpen ? 'flex' : 'none';
+            document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
+            if (isOpen && chat.children.length === 0) {
+                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ?");
+            }
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
     </script>
-<script src="script.js"></script>
-</body>
-</html>
 </body>
 </html>
