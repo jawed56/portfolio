@@ -171,7 +171,8 @@
             padding: 16px;
             border-radius: 12px;
         }
-        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
+        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; font-weight: 600; }
+        .contact-item a:hover { text-decoration: underline; }
 
         /* Agent IA Floating Widget */
         #ai-agent { 
@@ -374,18 +375,22 @@
             </div>
         </section>
 
+        <!-- SECTION CONTACTS OPTIMISÉE -->
         <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-card">
                 <div class="contact-item">
-                    <strong>Téléphone</strong><br>
+                    <strong>Téléphone / WhatsApp</strong><br>
+                    <a href="https://wa.me/213771468669" target="_blank">+213 771 46 86 69</a>
                 </div>
                 <div class="contact-item">
                     <strong>Email</strong><br>
-                  </div>
+                    <a href="mailto:loudjani.r@gmail.com">loudjani.r@gmail.com</a>
+                </div>
                 <div class="contact-item">
                     <strong>Page Facebook</strong><br>
-                  </div>
+                    <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
+                </div>
             </div>
         </section>
     </div>
@@ -486,20 +491,32 @@
             }
         }
 
+        // Reconnaissance Vocale (STT) Setup
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = currentLang === 'ar' ? 'ar-DZ' : 'fr-FR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+        } else {
+            micBtn.style.display = 'none';
+        }
+
         langSelect.addEventListener('change', (e) => {
             currentLang = e.target.value;
             updateUI();
-            // Réinitialiser le message de bienvenue si le chat est vide
             if (chat.children.length <= 1) {
                 chat.innerHTML = '';
                 addMessage("bot", uiText[currentLang].welcome);
             }
-            if (SpeechRecognition) {
+            // Changement dynamique de la langue du micro
+            if (recognition) {
                 recognition.lang = currentLang === 'ar' ? 'ar-DZ' : 'fr-FR';
             }
         });
 
-        // Empêcher la fermeture de la fenêtre au clic sur le sélecteur
         langSelect.addEventListener('click', (e) => {
             e.stopPropagation();
         });
@@ -508,7 +525,6 @@
             const msg = document.createElement('div');
             msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
             
-            // Détection et application du RTL pour l'arabe
             if (currentLang === 'ar') {
                 msg.classList.add('ai-rtl');
             }
@@ -519,7 +535,7 @@
             return msg;
         }
 
-        // Synthèse Vocale (TTS) révisée pour supporter l'arabe
+        // Synthèse Vocale (TTS)
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -541,9 +557,8 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // APPEL SÉCURISÉ VERS LE SERVEUR BACK-END (VERCEL)
+        // API Handler Vercel
         async function callGroqAPI(userMessage) {
-            // Inclusion de la langue ciblée dans la requête pour orienter le modèle de langage
             const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -580,16 +595,8 @@
             }
         }
 
-        // Reconnaissance Vocale (STT) révisée pour supporter l'arabe
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition;
-
-        if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
-            recognition.lang = currentLang === 'ar' ? 'ar-DZ' : 'fr-FR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
+        // Gestion Evenements Micro
+        if (SpeechRecognition && recognition) {
             let isListening = false;
 
             micBtn.addEventListener('click', (e) => {
@@ -619,8 +626,6 @@
             recognition.onerror = (event) => {
                 addMessage('bot', uiText[currentLang].errorMic, "error");
             };
-        } else {
-            micBtn.style.display = 'none';
         }
 
         header.addEventListener('click', () => {
@@ -636,7 +641,6 @@
         sendBtn.addEventListener('click', sendMessage);
         input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
         
-        // Charger les voix système à l'initialisation (fix pour certains navigateurs)
         if ('speechSynthesis' in window) {
             window.speechSynthesis.getVoices();
         }
