@@ -192,9 +192,14 @@
             color: white; 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            justify-content: space-between; 
             cursor: pointer; 
             border-bottom: 1px solid var(--bg-card-border);
+        }
+        .ai-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         #ai-avatar { 
             width: 40px; 
@@ -206,6 +211,24 @@
             justify-content: center; 
             font-size: 20px; 
         }
+        
+        /* Language Selector Inside Widget */
+        .ai-lang-select {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+        }
+        .ai-lang-select option {
+            background: #0f172a;
+            color: white;
+        }
+
         #ai-chat { 
             height: 420px; 
             overflow-y: auto; 
@@ -224,6 +247,7 @@
         }
         .ai-user { align-self: flex-end; background: var(--accent-primary); color: white; border-bottom-right-radius: 4px; }
         .ai-bot { align-self: flex-start; background: #1e293b; color: #e2e8f0; border-bottom-left-radius: 4px; }
+        .ai-bot.rtl, .ai-user.rtl { direction: rtl; text-align: right; font-family: sans-serif; }
         .error { background: #450a0a !important; color: #fca5a5; }
 
         /* Animation Ondes Micro */
@@ -376,16 +400,23 @@
     <!-- Agent IA Floating -->
     <div id="ai-agent">
         <div id="ai-header">
-            <div id="ai-avatar">🧠</div>
-            <div>
-                <h3 style="font-size: 1rem;">Agent IA Rabah</h3>
-                <div style="font-size: 0.75em; color: #4ade80;">● En ligne</div>
+            <div class="ai-header-info" id="ai-toggle-area">
+                <div id="ai-avatar">🧠</div>
+                <div>
+                    <h3 style="font-size: 1rem;">Agent IA Rabah</h3>
+                    <div style="font-size: 0.75em; color: #4ade80;">● En ligne</div>
+                </div>
             </div>
+            <!-- Selecteur de langue -->
+            <select id="ai-lang-select" class="ai-lang-select">
+                <option value="fr">FR 🇫🇷</option>
+                <option value="ar">AR 🇩🇿</option>
+            </select>
         </div>
         <div id="ai-chat"></div>
         <div id="ai-input-area" style="display:none; padding:12px; background:#0f172a; gap:8px; align-items:center; border-top:1px solid var(--bg-card-border);">
-            <input type="text" id="ai-input" placeholder="Posez votre question... / اكتب سؤالك..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
-            <button id="ai-mic" title="Activer le micro (double-clic pour changer de langue)" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
+            <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
+            <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
             <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2em;">↑</button>
         </div>
     </div>
@@ -425,53 +456,45 @@
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
         const micBtn = document.getElementById('ai-mic');
-        const header = document.getElementById('ai-header');
+        const toggleArea = document.getElementById('ai-toggle-area');
+        const langSelect = document.getElementById('ai-lang-select');
         let isOpen = false;
+
+        // Détecter l'arabe pour appliquer les styles RTL si besoin
+        function isArabicText(text) {
+            return /[؀-ۿ]/.test(text);
+        }
 
         function addMessage(sender, text, extraClass = '') {
             const msg = document.createElement('div');
-            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
-            
-            // Support RTL pour l'arabe
-            if (/[\u0600-\u06FF]/.test(text)) {
-                msg.dir = 'rtl';
-                msg.style.textAlign = 'right';
-            }
-            
+            let rtlClass = isArabicText(text) ? 'rtl' : '';
+            msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${rtlClass} ${extraClass}`;
             msg.textContent = text;
             chat.appendChild(msg);
             chat.scrollTop = chat.scrollHeight;
             return msg;
         }
 
-        // Synthèse Vocale (TTS) — support FR + AR
+        // Synthèse Vocale (TTS) supportant le multilingue automatique
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
             const utterance = new SpeechSynthesisUtterance(text);
-            const isArabic = /[\u0600-\u06FF]/.test(text);
-            utterance.lang = isArabic ? 'ar-SA' : 'fr-FR';
-
-            const voices = window.speechSynthesis.getVoices();
-
-            if (isArabic) {
-                const arVoice = voices.find(v => v.lang.startsWith('ar')) 
-                             || voices.find(v => v.lang.includes('ar'));
+            
+            if (isArabicText(text)) {
+                utterance.lang = 'ar-SA';
+                const voices = window.speechSynthesis.getVoices();
+                const arVoice = voices.find(v => v.lang.includes('ar'));
                 if (arVoice) utterance.voice = arVoice;
             } else {
-                const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google'))
-                             || voices.find(v => v.lang.includes('fr'));
+                utterance.lang = 'fr-FR';
+                const voices = window.speechSynthesis.getVoices();
+                const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
                 if (frVoice) utterance.voice = frVoice;
             }
 
             window.speechSynthesis.speak(utterance);
-        }
-
-        // Charger les voix (nécessaire sur certains navigateurs)
-        if ('speechSynthesis' in window) {
-            speechSynthesis.getVoices();
-            speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
         }
 
         async function callGroqAPI(userMessage) {
@@ -483,23 +506,20 @@
                     messages: [
                         { 
                             role: "system", 
-                            content: `Tu es l'assistant IA personnel de Rabah Loudjani.
+                            content: `Tu es l'assistant IA personnel de Rabah Loudjani. Tu es bilingue et dois être capable de comprendre et répondre parfaitement en français et en arabe (العربية) selon la préférence ou la langue choisie par l'utilisateur.
 
-Livres et travaux :
-- "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires.
-- "Le goût de l'interdit" : Étude sur le désir sexuel à l'ère numérique, les mécanismes du tabou, la dopamine et la transgression.
-- "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels.
-- "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale.
+                            Livres et travaux de Rabah Loudjani :
+                            - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires.
+                            - "Le goût de l'interdit" : Étude sur le désir sexuel à l'ère numérique, les mécanismes du tabou, la dopamine et la transgression.
+                            - "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels.
+                            - "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale.
 
-Informations de contact :
-- Téléphone/WhatsApp : +213 771 46 86 69
-- Email : loudjani.r@gmail.com
-- Facebook : https://www.facebook.com/rabah.badil/
+                            Informations de contact :
+                            - Téléphone/WhatsApp : +213 771 46 86 69
+                            - Email : loudjani.r@gmail.com
+                            - Facebook : https://www.facebook.com/rabah.badil/
 
-Règles de langue :
-- Réponds dans la même langue que l'utilisateur (français ou arabe).
-- Si l'utilisateur écrit en arabe (ou mélange arabe/français), réponds principalement en arabe (dialecte algérien ou arabe standard moderne selon le contexte).
-- Sois toujours courtois, professionnel et synthétique dans tes réponses.` 
+                            Sois toujours courtois, professionnel et synthétique dans tes réponses.` 
                         },
                         { role: "user", content: userMessage }
                     ],
@@ -518,7 +538,9 @@ Règles de langue :
             if (!message) return;
             addMessage('user', message);
             input.value = '';
-            const thinking = addMessage('bot', "Je réfléchis... / جاري التفكير...", "thinking");
+            
+            const waitText = langSelect.value === 'ar' ? "...جاري التفكير" : "Je réfléchis...";
+            const thinking = addMessage('bot', waitText, "thinking");
 
             try {
                 const reply = await callGroqAPI(message);
@@ -527,44 +549,33 @@ Règles de langue :
                 speakText(reply);
             } catch (error) {
                 chat.removeChild(thinking);
-                addMessage('bot', "❌ Une erreur est survenue lors de la connexion à l'IA. / حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.", "error");
+                const errorText = langSelect.value === 'ar' ? "❌ حدث خطأ أثناء الاتصال بالذكاء الاصطناعي." : "❌ Une erreur est survenue lors de la connexion à l'IA.";
+                addMessage('bot', errorText, "error");
             }
         }
 
-        // Reconnaissance Vocale (STT) — support FR + AR
+        // Reconnaissance Vocale (STT) adaptative
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
-            recognition.lang = 'fr-FR';
             recognition.continuous = false;
             recognition.interimResults = false;
 
-            let isListening = false;
-            let currentLang = 'fr-FR';
+            // Définir la langue initiale
+            recognition.lang = langSelect.value === 'ar' ? 'ar-DZ' : 'fr-FR';
 
-            // Double-clic sur le micro pour basculer FR ↔ AR
-            micBtn.addEventListener('dblclick', (e) => {
-                e.preventDefault();
-                currentLang = currentLang === 'fr-FR' ? 'ar-SA' : 'fr-FR';
-                recognition.lang = currentLang;
-                micBtn.title = currentLang === 'ar-SA' 
-                    ? 'Micro (arabe) — double-clic pour français' 
-                    : 'Micro (français) — double-clic pour arabe';
-                
-                const msg = currentLang === 'ar-SA' 
-                    ? 'تم تفعيل الميكروفون باللغة العربية 🎙️' 
-                    : 'Micro activé en français 🎙️';
-                addMessage('bot', msg);
+            // Changer la langue d'écoute quand l'utilisateur change le sélecteur
+            langSelect.addEventListener('change', () => {
+                recognition.lang = langSelect.value === 'ar' ? 'ar-DZ' : 'fr-FR';
+                input.placeholder = langSelect.value === 'ar' ? "اسأل سؤالك هنا..." : "Posez votre question...";
             });
 
+            let isListening = false;
+
             micBtn.addEventListener('click', () => {
-                if (!isListening) {
-                    recognition.lang = currentLang;
-                    recognition.start();
-                } else {
-                    recognition.stop();
-                }
+                if (!isListening) recognition.start();
+                else recognition.stop();
             });
 
             recognition.onstart = () => {
@@ -586,18 +597,23 @@ Règles de langue :
             };
 
             recognition.onerror = (event) => {
-                addMessage('bot', "❌ Accès au micro refusé ou non supporté. / تم رفض الوصول إلى الميكروفون.", "error");
+                const micError = langSelect.value === 'ar' ? "❌ تم رفض الوصول إلى الميكروفون." : "❌ Accès au micro refusé ou non supporté.";
+                addMessage('bot', micError, "error");
             };
         } else {
             micBtn.style.display = 'none';
         }
 
-        header.addEventListener('click', () => {
+        // Empêcher le clic sur le select de fermer le widget
+        langSelect.addEventListener('click', (e) => e.stopPropagation());
+
+        toggleArea.addEventListener('click', () => {
             isOpen = !isOpen;
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
             if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ؟\n\nمرحباً! أنا المساعد الصوتي لرباح لودجاني. كيف يمكنني مساعدتك اليوم؟");
+                const welcomeText = langSelect.value === 'ar' ? "مرحباً! أنا المساعد الصوتي لرباح لودجاني. كيف يمكنني مساعدتك اليوم؟" : "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ?";
+                addMessage("bot", welcomeText);
             }
         });
 
