@@ -382,6 +382,10 @@
         <div id="ai-chat"></div>
         <div id="ai-input-area" style="display:none; padding:12px; background:#0f172a; gap:8px; align-items:center; border-top:1px solid var(--bg-card-border);">
             <input type="text" id="ai-input" placeholder="Posez votre question..." style="flex:1; padding:12px 16px; border:1px solid var(--bg-card-border); border-radius:24px; background:#1e293b; color:white; outline:none; font-family:inherit;">
+           <select id="ai-lang-select" style="background:#1e293b; color:white; border:1px solid var(--bg-card-border); padding:8px; border-radius:24px; font-family:inherit; cursor:pointer; font-size:0.85em;">
+    <option value="fr-FR" selected>🇫🇷 FR</option>
+    <option value="ar-DZ">🇩🇿 AR</option>
+</select>
             <button id="ai-mic" title="Activer le micro" style="background:#3b82f6; color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.1em; display:flex; align-items:center; justify-content:center;">🎙️</button>
             <button id="ai-send" style="background:linear-gradient(135deg, var(--accent-secondary), var(--accent-primary)); color:white; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; font-size:1.2em;">↑</button>
         </div>
@@ -434,17 +438,29 @@
 
         // Synthèse Vocale (TTS)
         function speakText(text) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
 
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'fr-FR';
-            
-            const voices = window.speechSynthesis.getVoices();
-            const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
-            if (frVoice) utterance.voice = frVoice;
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Détection automatique de la langue (arabe ou français)
+    const isArabic = /[\u0600-\u06FF]/.test(text);
+    utterance.lang = isArabic ? 'ar-SA' : 'fr-FR';
+    
+    const voices = window.speechSynthesis.getVoices();
+    let selectedVoice;
 
-            window.speechSynthesis.speak(utterance);
+    if (isArabic) {
+        // Cherche une voix arabe disponible (Google ou standard)
+        selectedVoice = voices.find(v => v.lang.includes('ar'));
+    } else {
+        // Cherche une voix française
+        selectedVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
+    }
+
+    if (selectedVoice) utterance.voice = selectedVoice;
+    window.speechSynthesis.speak(utterance);
+}
         }
 
         // APPEL SÉCURISÉ VERS LE SERVEUR BACK-END (VERCEL)
@@ -485,17 +501,17 @@
         // Reconnaissance Vocale (STT)
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-        if (SpeechRecognition) {
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'fr-FR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-
-            let isListening = false;
-
-            micBtn.addEventListener('click', () => {
-                if (!isListening) recognition.start();
-                else recognition.stop();
+      if (SpeechRecognition) {
+          const langSelect = document.getElementById('ai-lang-select');
+micBtn.addEventListener('click', () => {
+    if (!isListening) {
+        // Met à jour la langue au moment où on clique sur le micro
+        recognition.lang = langSelect.value; 
+        recognition.start();
+    } else {
+        recognition.stop();
+    }
+});
             });
 
             recognition.onstart = () => {
@@ -527,8 +543,9 @@
             isOpen = !isOpen;
             chat.style.display = isOpen ? 'flex' : 'none';
             document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
-            if (isOpen && chat.children.length === 0) {
-                addMessage("bot", "Bonjour ! Je suis l'assistant vocal de Rabah Loudjani. Comment puis-je vous renseigner aujourd'hui ?");
+           if (isOpen && chat.children.length === 0) {
+    addMessage("bot", "Bonjour ! Je suis l'assistant de Rabah Loudjani. Comment puis-je vous renseigner ? \n\n مرحبا! أنا المساعد الذكي لرباح لودجاني. كيف يمكنني مساعدتك اليوم؟");
+}
             }
         });
 
