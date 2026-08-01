@@ -293,9 +293,7 @@
         .contact-item a { color: #f8fafc; font-weight: 600; text-decoration: none; word-break: break-all; transition: var(--transition-smooth); }
         .contact-item a:hover { color: var(--accent-blue); }
 
-        /* ==========================================
-           INTERFACE DE L'AGENT IA (DYNAMISÉE)
-        ========================================== */
+        /* INTERFACE DE L'AGENT IA */
         #ai-agent { 
             position: fixed; 
             bottom: 25px; 
@@ -307,7 +305,6 @@
             overflow: hidden; 
             z-index: 1000; 
             border: 1px solid rgba(255, 255, 255, 0.08); 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         #ai-header { 
             background: linear-gradient(135deg, #111424, #1c142c); 
@@ -370,7 +367,7 @@
         .ai-rtl { direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; }
         .error { background: #450a0a !important; color: #fca5a5; border-color: #7f1d1d; }
 
-        /* Suggestions modernisées (Boutons Pilules) */
+        /* Suggestions modernisées */
         #ai-suggestions {
             display: none;
             padding: 10px 18px;
@@ -505,54 +502,54 @@
             <div class="profile-img-container">
                 <img src="photo.jpg" alt="Photo de profil de Rabah Loudjani" class="profile-img">
             </div>
-            <p class="subtitle">[cite: 1]Passionné par les nouvelles technologies et le développement web</p>
+            <p class="subtitle">Passionné par les nouvelles technologies et le développement web</p>
         </section>
 
         <section id="about">
-            <p>[cite: 1]Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
+            <p>Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀</p>
             
             <button id="btn-biblio">
                 Ma bibliothèque numérique ▾
             </button>
             <div id="menu-biblio" class="menu-biblio-box">
-                <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>[cite: 1]
-                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a>[cite: 1]
-                <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>[cite: 1]
-                <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>[cite: 1]
-                <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>[cite: 1]
+                <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>
+                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a>
+                <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>
+                <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>
+                <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>
             </div>
         </section>
 
-        <section id="projects">[cite: 1]
+        <section id="projects">
             <h2>Mes Réalisations</h2>
             <div class="projects-container">
                 <div class="project-card">
-                    <h3>Calculatrice Scientifique</h3>[cite: 1]
+                    <h3>Calculatrice Scientifique</h3>
                     <p style="color: var(--text-muted); margin: 12px 0 20px 0; font-size: 0.95rem;">
-                        Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.[cite: 1]
+                        Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.
                     </p>
                     <div class="project-techs">
-                        <span>HTML</span> <span>CSS</span> <span>JavaScript</span>[cite: 1]
+                        <span>HTML</span> <span>CSS</span> <span>JavaScript</span>
                     </div>
-                    <a href="https://jawed56.github.io/scientific-calculator/" target="_blank" class="project-btn">Découvrir l'outil</a>[cite: 1]
+                    <a href="https://jawed56.github.io/scientific-calculator/" target="_blank" class="project-btn">Découvrir l'outil</a>
                 </div>
             </div>
         </section>
 
-        <section id="contact">[cite: 1]
+        <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-card">
                 <div class="contact-item">
                     <strong>Email</strong><br>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=loudjani.r@gmail.com" target="_blank">loudjani.r@gmail.com</a>[cite: 1]
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=loudjani.r@gmail.com" target="_blank">loudjani.r@gmail.com</a>
                 </div>
                 <div class="contact-item">
-                    <strong>Téléphone</strong><br>
-                    <a href="https://wa.me/213771468669" target="_blank">+213 771 46 86 69</a>[cite: 1]
+                    <strong>Mobile</strong><br>
+                    <a href="https://wa.me/213771468669" target="_blank">+213 771 46 86 69</a>
                 </div>
                 <div class="contact-item">
                     <strong>Page Facebook</strong><br>
-                    <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>[cite: 1]
+                    <a href="https://www.facebook.com/rabah.badil/" target="_blank">rabah.badil</a>
                 </div>
             </div>
         </section>
@@ -562,26 +559,26 @@
     <div id="ai-agent">
         <div id="ai-header">
             <div class="ai-header-info">
-                <div id="ai-avatar">🧠</div>[cite: 1]
+                <div id="ai-avatar">🧠</div>
                 <div>
-                    <h3 style="font-size: 0.95rem; font-weight:700;" id="ai-title">Agent IA Rabah</h3>[cite: 1]
-                    <div style="font-size: 0.75em; color: #4ade80; font-weight:500;" id="ai-status">● En ligne</div>[cite: 1]
+                    <h3 style="font-size: 0.95rem; font-weight:700;" id="ai-title">Agent IA Rabah</h3>
+                    <div style="font-size: 0.75em; color: #4ade80; font-weight:500;" id="ai-status">● En ligne</div>
                 </div>
             </div>
             <select id="ai-lang" class="lang-selector">
-                <option value="fr">FR</option>[cite: 1]
-                <option value="ar">العربية</option>[cite: 1]
-                <option value="en">EN</option>[cite: 1]
+                <option value="fr">FR</option>
+                <option value="ar">العربية</option>
+                <option value="en">EN</option>
             </select>
         </div>
         
-        <div id="ai-chat"></div>[cite: 1]
-        <div id="ai-suggestions"></div>[cite: 1]
+        <div id="ai-chat"></div>
+        <div id="ai-suggestions"></div>
 
         <div id="ai-input-area">
-            <input type="text" id="ai-input" placeholder="Posez votre question...">[cite: 1]
-            <button id="ai-mic" title="Activer le micro">🎙️</button>[cite: 1]
-            <button id="ai-send" title="Envoyer">↑</button>[cite: 1]
+            <input type="text" id="ai-input" placeholder="Posez votre question...">
+            <button id="ai-mic" title="Activer le micro">🎙️</button>
+            <button id="ai-send" title="Envoyer">↑</button>
         </div>
     </div>
 
