@@ -513,7 +513,7 @@
             </button>
             <div id="menu-biblio" class="menu-biblio-box">
                 <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>
-                <a href="le-gout-de-linterdit.pdf" target="_blank">📙 Le goût de l'interdit</a>
+                <a href="cybersecurite-comment-se-proteger.pdf" target="_blank">📙 Cybersécurité comment se protéger</a>
                 <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>
                 <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>
                 <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>
@@ -544,7 +544,7 @@
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=loudjani.r@gmail.com" target="_blank">loudjani.r@gmail.com</a>
                 </div>
                 <div class="contact-item">
-                    <strong>Mobile</strong><br>
+                    <strong>Téléphone / WhatsApp</strong><br>
                     <a href="https://wa.me/213771468669" target="_blank">+213 771 46 86 69</a>
                 </div>
                 <div class="contact-item">
@@ -623,7 +623,7 @@
         let isOpen = false;
         let currentLang = 'fr';
 
-        // Dictionnaire UI et suggestions Trilingues
+        // Dictionnaire UI et suggestions Trilingues mis à jour
         const uiText = {
             fr: {
                 title: "Agent IA Rabah",
@@ -634,7 +634,7 @@
                 errorAPI: "❌ Une erreur est survenue lors de la connexion à l'IA.",
                 errorMic: "❌ Accès au micro refusé ou non supporté.",
                 suggestions: [
-                    "Présente-moi le livre 'Le goût de l'interdit'",
+                    "Présente-moi le livre 'Cybersécurité comment se protéger'",
                     "Quels sont tes projets récents ?",
                     "Comment contacter Rabah ?"
                 ]
@@ -642,13 +642,13 @@
             ar: {
                 title: "العميل الذكي رابح",
                 status: "● متصل",
-                placeholder: "اطرح سؤالك هنا...",
+                placeholder: "اطرح سؤالك hier...",
                 welcome: "مرحباً! أنا المساعد الصوتي لرابح لوجاني. كيف يمكنني مساعدتك اليوم؟",
                 thinking: "جاري التفكير...",
                 errorAPI: "❌ حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.",
                 errorMic: "❌ تم رفض الوصول إلى الميكروفون أو أنه غير مدعوم.",
                 suggestions: [
-                    "حدثني عن كتاب 'طعم المحظور'",
+                    "حدثني عن كتاب 'الأمن السيبراني وكيف تحمي نفسك'",
                     "ما هي مشاريعك الأخيرة؟",
                     "كيف يمكنني الاتصال برابح؟"
                 ]
@@ -662,7 +662,7 @@
                 errorAPI: "❌ An error occurred while connecting to the AI.",
                 errorMic: "❌ Microphone access denied or not supported.",
                 suggestions: [
-                    "Tell me about 'Le goût de l'interdit'",
+                    "Tell me about 'Cybersecurity how to protect yourself'",
                     "What are your recent projects?",
                     "How can I contact Rabah?"
                 ]
@@ -726,7 +726,7 @@
             window.speechSynthesis.cancel();
 
             const cleanedText = text.replace(/\*/g, '');
-            const utterance = new SpeechSynthesisUtterance(cleanedText);
+            const utterance = new SynthesisUtterance(cleanedText);
             const voices = window.speechSynthesis.getVoices();
             
             if (currentLang === 'ar') {
