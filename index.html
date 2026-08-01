@@ -171,8 +171,7 @@
             padding: 16px;
             border-radius: 12px;
         }
-        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; font-weight: 600; }
-        .contact-item a:hover { text-decoration: underline; }
+        .contact-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
 
         /* Agent IA Floating Widget */
         #ai-agent { 
@@ -375,12 +374,11 @@
             </div>
         </section>
 
-        <!-- SECTION CONTACTS OPTIMISÉE -->
-       <section id="contact">
+        <section id="contact">
             <h2>Contactez-moi</h2>
             <div class="contact-card">
                 <div class="contact-item">
-                    <strong>Téléphone</strong><br>
+                    <strong>Téléphone / WhatsApp</strong><br>
                     <a href="https://wa.me/213771468669" target="_blank">+213 771 46 86 69</a>
                 </div>
                 <div class="contact-item">
@@ -408,6 +406,7 @@
             <select id="ai-lang" class="lang-selector">
                 <option value="fr">FR</option>
                 <option value="ar">العربية</option>
+                <option value="en">EN</option>
             </select>
         </div>
         <div id="ai-chat"></div>
@@ -458,7 +457,7 @@
         let isOpen = false;
         let currentLang = 'fr';
 
-        // Dictionnaire des textes de l'interface
+        // Dictionnaire des langues étendu (FR, AR, EN)
         const uiText = {
             fr: {
                 title: "Agent IA Rabah",
@@ -477,6 +476,15 @@
                 thinking: "جاري التفكير...",
                 errorAPI: "❌ حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.",
                 errorMic: "❌ تم رفض الوصول إلى الميكروفون أو أنه غير مدعوم."
+            },
+            en: {
+                title: "Rabah's AI Agent",
+                status: "● Online",
+                placeholder: "Ask your question...",
+                welcome: "Hello! I am Rabah Loudjani's voice assistant. How can I help you today?",
+                thinking: "Thinking...",
+                errorAPI: "❌ An error occurred while connecting to the AI.",
+                errorMic: "❌ Microphone access denied or not supported."
             }
         };
 
@@ -491,19 +499,6 @@
             }
         }
 
-        // Reconnaissance Vocale (STT) Setup
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition;
-
-        if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
-            recognition.lang = currentLang === 'ar' ? 'ar-DZ' : 'fr-FR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
-        } else {
-            micBtn.style.display = 'none';
-        }
-
         langSelect.addEventListener('change', (e) => {
             currentLang = e.target.value;
             updateUI();
@@ -511,9 +506,10 @@
                 chat.innerHTML = '';
                 addMessage("bot", uiText[currentLang].welcome);
             }
-            // Changement dynamique de la langue du micro
-            if (recognition) {
-                recognition.lang = currentLang === 'ar' ? 'ar-DZ' : 'fr-FR';
+            if (SpeechRecognition) {
+                if (currentLang === 'ar') recognition.lang = 'ar-DZ';
+                else if (currentLang === 'en') recognition.lang = 'en-US';
+                else recognition.lang = 'fr-FR';
             }
         });
 
@@ -535,31 +531,33 @@
             return msg;
         }
 
-      // Synthèse Vocale (TTS) nettoyée des astérisques
+        // Synthèse Vocale (TTS) - Nettoyage des astérisques activé
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            // Nettoyage : Supprime tous les astérisques (*) pour éviter qu'ils ne soient prononcés
+            // Retrait des astérisques pour éviter qu'ils ne soient prononcés par l'appareil
             const cleanedText = text.replace(/\*/g, '');
-
             const utterance = new SpeechSynthesisUtterance(cleanedText);
+            const voices = window.speechSynthesis.getVoices();
             
             if (currentLang === 'ar') {
                 utterance.lang = 'ar-SA';
-                const voices = window.speechSynthesis.getVoices();
                 const arVoice = voices.find(v => v.lang.includes('ar'));
                 if (arVoice) utterance.voice = arVoice;
+            } else if (currentLang === 'en') {
+                utterance.lang = 'en-US';
+                const enVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Google')) || voices.find(v => v.lang.includes('en'));
+                if (enVoice) utterance.voice = enVoice;
             } else {
                 utterance.lang = 'fr-FR';
-                const voices = window.speechSynthesis.getVoices();
                 const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
                 if (frVoice) utterance.voice = frVoice;
             }
 
             window.speechSynthesis.speak(utterance);
         }
-        // API Handler Vercel
+
         async function callGroqAPI(userMessage) {
             const response = await fetch("/api/chat", {
                 method: "POST",
@@ -597,8 +595,16 @@
             }
         }
 
-        // Gestion Evenements Micro
-        if (SpeechRecognition && recognition) {
+        // Reconnaissance Vocale (STT) 
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'fr-FR';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
             let isListening = false;
 
             micBtn.addEventListener('click', (e) => {
@@ -628,6 +634,8 @@
             recognition.onerror = (event) => {
                 addMessage('bot', uiText[currentLang].errorMic, "error");
             };
+        } else {
+            micBtn.style.display = 'none';
         }
 
         header.addEventListener('click', () => {
