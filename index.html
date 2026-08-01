@@ -725,8 +725,9 @@
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
+            // Nettoyage des astérisques pour éviter qu'elles ne soient lues à haute voix
             const cleanedText = text.replace(/\*/g, '');
-            const utterance = new SynthesisUtterance(cleanedText);
+            const utterance = new SpeechSynthesisUtterance(cleanedText);
             const voices = window.speechSynthesis.getVoices();
             
             if (currentLang === 'ar') {
@@ -743,6 +744,7 @@
                 if (frVoice) utterance.voice = frVoice;
             }
             window.speechSynthesis.speak(utterance);
+        }
         }
 
         async function callGroqAPI(userMessage) {
