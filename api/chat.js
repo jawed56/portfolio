@@ -1,6 +1,5 @@
 // api/chat.js - Exécuté uniquement côté serveur par Vercel
 export default async function handler(req, res) {
-    // 1. Autoriser uniquement les requêtes POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Méthode non autorisée. Utilisez POST.' });
     }
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Le message est requis.' });
     }
 
-    // 2. Récupérer les clés API stockées dans Vercel
     const apiKey = process.env.GROQ_API_KEY;
     const tavilyKey = process.env.TAVILY_API_KEY;
 
@@ -23,7 +21,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Configuration serveur manquante (Clé API Groq absente).' });
     }
 
-    // 3. Effectuer la recherche sur le Web en temps réel via Tavily
+    // Recherche web facultative (Tavily)
     let webContext = "";
     if (tavilyKey) {
         try {
@@ -46,13 +44,12 @@ export default async function handler(req, res) {
         }
     }
 
-    // 4. Construction du Prompt Système Trilingue (interdiction des astérisques)
     let systemContent = "";
     
     if (targetLang === 'ar') {
-        systemContent = `أنت المساعد الذكي والشخصي لرابح لوجاني (Rabah Loudjani).
-           أجب دائمًا بلغة عربية صحيحة، مهذبة، ومختصرة. 
-           لا تستخدم أبدًا النجمات (*) أو تنسيق Markdown في إجاباتك لجعل الكلمات غليظة.
+        systemContent = `أنت المساعد الذكي والشخصي لرابح لوجاني (Rabah Loudjani)[cite: 1].
+           أجب دائمًا بلغة عربية صحيحة، مهذبة، ومختصرة[cite: 1]. 
+           لا تستخدم أبدًا النجمات (*) أو تنسيق Markdown في إجاباتك لجعل الكلمات غليظة[cite: 1].
 
            مؤلفات وأعمال رابح لوجاني[cite: 1]:
            - "De l'exil au rejet" (من المنفى إلى الرفض): كتاب يستكشف تجربة أبناء المهاجرين، ورفض الذات، والجروح الهوية[cite: 1].
@@ -65,12 +62,12 @@ export default async function handler(req, res) {
            - البريد الإلكتروني: loudjani.r@gmail.com[cite: 1]
            - فيسبوك: https://www.facebook.com/rabah.badil/[cite: 1]
 
-           سياق الإنترنت الحالي (استخدم هذه المعلومات المحدثة للإجابة بدقة):
+           سياق الإنترنت الحالي:
            ${webContext || "لم يتم العثور على معلومات إضافية من الويب."}`;
     } else if (targetLang === 'en') {
-        systemContent = `You are the personal AI and voice assistant for Rabah Loudjani.
-           Always respond in correct, polite, professional and concise English.
-           CRITICAL: Do not use any asterisks (*) or markdown formatting for bold text in your answers.
+        systemContent = `You are the personal AI and voice assistant for Rabah Loudjani[cite: 1].
+           Always respond in correct, polite, professional and concise English[cite: 1].
+           CRITICAL: Do not use any asterisks (*) or markdown formatting for bold text in your answers[cite: 1].
 
            Rabah Loudjani's Books and Works[cite: 1]:
            - "De l'exil au rejet" (From Exile to Rejection): A book exploring the experience of children of immigrants, internalized xenophobia, and identity wounds[cite: 1].
@@ -83,12 +80,12 @@ export default async function handler(req, res) {
            - Email: loudjani.r@gmail.com[cite: 1]
            - Facebook: https://www.facebook.com/rabah.badil/[cite: 1]
 
-           Current Web Search Context (Use this real-time data to construct your response):
+           Current Web Search Context:
            ${webContext || "No additional real-time information found on the web."}`;
     } else {
         systemContent = `Tu es l'assistant IA personnel de Rabah Loudjani[cite: 1].
            Sois toujours courtois, professionnel et synthétique dans tes réponses[cite: 1].
-           IMPORTANT : N'utilise jamais d'astérisques (*) ou de syntaxe Markdown pour mettre du texte en gras dans tes réponses.
+           IMPORTANT : N'utilise jamais d'astérisques (*) ou de syntaxe Markdown pour mettre du texte en gras dans tes réponses[cite: 1].
 
            Livres et travaux de Rabah Loudjani[cite: 1] :
            - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires[cite: 1].
@@ -101,12 +98,11 @@ export default async function handler(req, res) {
            - Email : loudjani.r@gmail.com[cite: 1]
            - Facebook : https://www.facebook.com/rabah.badil/[cite: 1]
 
-           Contexte internet actuel (pour répondre aux questions d'actualité) :
+           Contexte internet actuel :
            ${webContext || "Aucune information supplémentaire trouvée sur le web."}`;
     }
 
     try {
-        // 5. Effectuer l'appel à l'API Groq
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: { 
@@ -133,7 +129,6 @@ export default async function handler(req, res) {
         const data = await response.json();
         const reply = data.choices[0].message.content;
 
-        // 6. Renvoyer la réponse de l'IA au navigateur
         return res.status(200).json({ reply });
 
     } catch (error) {
