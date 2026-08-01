@@ -513,7 +513,7 @@
             </button>
             <div id="menu-biblio" class="menu-biblio-box">
                 <a href="de-lexil-au-rejet.pdf" target="_blank">📕 De l'exil au rejet</a>
-                <a href="cybersécurité-protégez-vous-vraiment.pdf" target="_blank">📙 Cybersécurité : Protégez-vous vraiment</a>
+                <a href="cybersécurité-protégez-vous-vraiment.pdf" target="_blank">📙 Cybersécurité : protégez-vous vraiment</a>
                 <a href="les-modeles-motivationnels.html" target="_blank">🌐 Les modèles motivationnels</a>
                 <a href="les-modeles-motivationnels.pdf" target="_blank">📘 Les modèles motivationnels (PDF)</a>
                 <a href="opposant-ou-ennemi.pdf" target="_blank">📗 Opposant ou ennemi</a>
@@ -623,7 +623,7 @@
         let isOpen = false;
         let currentLang = 'fr';
 
-        // Dictionnaire UI et suggestions Trilingues mis à jour
+        // Dictionnaire UI et suggestions Trilingues
         const uiText = {
             fr: {
                 title: "Agent IA Rabah",
@@ -634,7 +634,7 @@
                 errorAPI: "❌ Une erreur est survenue lors de la connexion à l'IA.",
                 errorMic: "❌ Accès au micro refusé ou non supporté.",
                 suggestions: [
-                    "Présente-moi le livre 'Cybersécurité comment se protéger'",
+                    "Présente-moi le livre 'Cybersécurité : protégez-vous vraiment'",
                     "Quels sont tes projets récents ?",
                     "Comment contacter Rabah ?"
                 ]
@@ -642,13 +642,13 @@
             ar: {
                 title: "العميل الذكي رابح",
                 status: "● متصل",
-                placeholder: "اطرح سؤالك hier...",
-                welcome: "مرحباً! أنا المساعد الصوتي لرابح لوجاني. كيف يمكنني مساعدتك اليوم؟",
+                placeholder: "اطرح سؤالك هنا...",
+                welcome: "مرحباً! أنا المساعد الصوتی لرابح لوجاني. كيف يمكنني مساعدتك اليوم؟",
                 thinking: "جاري التفكير...",
                 errorAPI: "❌ حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.",
                 errorMic: "❌ تم رفض الوصول إلى الميكروفون أو أنه غير مدعوم.",
                 suggestions: [
-                    "حدثني عن كتاب 'الأمن السيبراني وكيف تحمي نفسك'",
+                    "حدثني عن كتاب 'الأمن السيبراني: احمِ نفسك حقاً'",
                     "ما هي مشاريعك الأخيرة؟",
                     "كيف يمكنني الاتصال برابح؟"
                 ]
@@ -662,7 +662,7 @@
                 errorAPI: "❌ An error occurred while connecting to the AI.",
                 errorMic: "❌ Microphone access denied or not supported.",
                 suggestions: [
-                    "Tell me about 'Cybersecurity how to protect yourself'",
+                    "Tell me about 'Cybersecurity: protect yourself really'",
                     "What are your recent projects?",
                     "How can I contact Rabah?"
                 ]
@@ -721,11 +721,12 @@
             return msg;
         }
 
+        // SYNTHÈSE VOCALE CORRIGÉE (TTS)
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            // Nettoyage des astérisques pour éviter qu'elles ne soient lues à haute voix
+            // Retrait des astérisques markdown pour un rendu audio fluide
             const cleanedText = text.replace(/\*/g, '');
             const utterance = new SpeechSynthesisUtterance(cleanedText);
             const voices = window.speechSynthesis.getVoices();
@@ -744,7 +745,6 @@
                 if (frVoice) utterance.voice = frVoice;
             }
             window.speechSynthesis.speak(utterance);
-        }
         }
 
         async function callGroqAPI(userMessage) {
@@ -779,7 +779,7 @@
             }
         }
 
-        // Reconnaissance Vocale (STT)
+        // RECONNAISSANCE VOCALE (STT)
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition;
 
