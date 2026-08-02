@@ -642,7 +642,7 @@
             ar: {
                 title: "العميل الذكي رابح",
                 status: "● متصل",
-                placeholder: "اطرح سؤالك هنا...",
+                placeholder: "اطرح سؤالك hier...",
                 welcome: "مرحباً! أنا المساعد الصوتی لرابح لوجاني. كيف يمكنني مساعدتك اليوم؟",
                 thinking: "جاري التفكير...",
                 errorAPI: "❌ حدث خطأ أثناء الاتصال بالذكاء الاصطناعي.",
@@ -721,7 +721,18 @@
             return msg;
         }
 
-        // SYNTHÈSE VOCALE CORRIGÉE (TTS)
+        // --- GESTION AUDIO MISE À JOUR (COMPATIBILITÉ ANDROID 14 & WINDOWS) ---
+        let mobileVoices = [];
+        function loadVoices() {
+            if ('speechSynthesis' in window) {
+                mobileVoices = window.speechSynthesis.getVoices();
+            }
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+            loadVoices();
+        }
+
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -729,7 +740,9 @@
             // Retrait des astérisques markdown pour un rendu audio fluide
             const cleanedText = text.replace(/\*/g, '');
             const utterance = new SpeechSynthesisUtterance(cleanedText);
-            const voices = window.speechSynthesis.getVoices();
+            
+            // Récupération dynamique des voix système (utile pour Chrome sur Android)
+            const voices = mobileVoices.length > 0 ? mobileVoices : window.speechSynthesis.getVoices();
             
             if (currentLang === 'ar') {
                 utterance.lang = 'ar-SA';
@@ -737,15 +750,27 @@
                 if (arVoice) utterance.voice = arVoice;
             } else if (currentLang === 'en') {
                 utterance.lang = 'en-US';
-                const enVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Google')) || voices.find(v => v.lang.includes('en'));
+                const enVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Android'))) || voices.find(v => v.lang.includes('en'));
                 if (enVoice) utterance.voice = enVoice;
             } else {
                 utterance.lang = 'fr-FR';
-                const frVoice = voices.find(v => v.lang.includes('fr') && v.name.includes('Google')) || voices.find(v => v.lang.includes('fr'));
+                const frVoice = voices.find(v => v.lang.includes('fr') && (v.name.includes('Google') || v.name.includes('Android'))) || voices.find(v => v.lang.includes('fr'));
                 if (frVoice) utterance.voice = frVoice;
             }
+
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
             window.speechSynthesis.speak(utterance);
         }
+
+        // DÉVERROUILLAGE AUDIO MOBILE (User Gesture bypass pour Android 14)
+        document.getElementById('ai-agent').addEventListener('click', () => {
+            if ('speechSynthesis' in window && !window.speechSynthesis.speaking) {
+                const silentUtterance = new SpeechSynthesisUtterance('');
+                window.speechSynthesis.speak(silentUtterance);
+            }
+        }, { once: true });
+        // ------------------------------------------------------------------------
 
         async function callGroqAPI(userMessage) {
             const response = await fetch("/api/chat", {
