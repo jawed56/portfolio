@@ -53,11 +53,12 @@ export default async function handler(req, res) {
            لا تستخدم أبدًا النجمات (*) أو تنسيق Markdown في إجاباتك لجعل الكلمات غليظة[cite: 1].
 
            مؤلفات وأعمال رابح لوجاني[cite: 1]:
-           - "Cybersécurité : Protéger son numérique au quotidien" (الأمن السيبراني: حماية رقميتك يوميًا - أضيف مؤخرًا)[cite: 1]: دليل عملي مبسط من 52 صفحة بدون مصطلحات معقدة، موجه للعامة والمحترفين[cite: 1]. يتناول النظافة الرقمية تحت نظام Windows 11، تأثير الذكاء الاصطناعي (الاحتيال، التزييف العميق، البرمجيات الخبيثة)، استخدام الذكاء الاصطناعي في الدفاع (EDR, XDR, SIEM)، أمن الأجهزة المتصلة (IoT)، بنية الثقة الصفرية (Zero Trust)، والأطر القانونية (RGPD, NIS 2). يتضمن قائمة مرجعية عملية وقاموس مصطلحات[cite: 1].
-           - "De l'exil au rejet" (من المنفى إلى الرفض): كتاب يستكشف تجربة أبناء المهاجرين، ورفض الذات، والجروح الهوية[cite: 1].
-           - "Cybersécurité : protégez-vous vraiment" (الأمن السيبراني: هل تحمي نفسك حقًا): مؤلف سابق حول الأمن الرقمي[cite: 1].
-           - "Les modèles motivationnels" (النماذج التحفيزية): تحليل معمق لهرم ماسلو ونماذج التحفيز (متاح بصيغة HTML وPDF)[cite: 1].
-           - "Opposant ou ennemi" (معارض أم عدو): تفكير في المعارضة السياسية المشروعة مقارنة بالعداء الوطني (متاح بصيغة PDF)[cite: 1].
+           1. "Cyber-Résistance : L'Art du Piège Numérique" (المقاومة السيبرانية: فن الفخ الرقمي - إصدار 2026)[cite: 2]: دليل وقائي وبيداغوجي يفكك أساليب المهاجمين مثل الهندسة الاجتماعية، الاحتيال عبر رموز استجابة سريعة (Quishing)، وخداع الامتداد المزدوج للملفات[cite: 2]. كما يشرح إجراءات الطوارئ والاحتواء المنطقي المتقدم (EDR، عزل VLAN، إلغاء الجلسات) والاستعادة الآمنة من خلال النسخ الاحتياطية غير القابلة للتغيير[cite: 2].
+           2. "Guide Technique de Cybersécurité Défensive" (الدليل التقني للأمن السيبراني الدفاعي - 2026)[cite: 3]: مرجع متقدم للمحترفين ومديري البنية التحتية وSecOps[cite: 3]. يغطي بنية الثقة الصفرية (Zero Trust)، إدارة الهويات (MFA, PAM)، تصليد الأنظمة (Hardening Windows, ASR)، أمن الشبكات والسحاب، وامتثال القوانين (RGPD, NIS 2)[cite: 3]. يتضمن خريطة طريق من 3 مراحل وقائمة تدقيق عملية[cite: 3].
+           3. "Cybersécurité : Protéger son numérique au quotidien"[cite: 1]: دليل عملي مبسط من 52 صفحة موجه للعامة والمحترفين لحماية النظم الرقمية اليومية[cite: 1].
+           4. "De l'exil au rejet": كتاب يستكشف تجربة أبناء المهاجرين، ورفض الذات، والجروح الهوية[cite: 1].
+           5. "Les modèles motivationnels": تحليل معمق لهرم ماسلو ونماذج التحفيز (متاح بصيغة HTML وPDF)[cite: 1].
+           6. "Opposant ou ennemi": تفكير في المعارضة السياسية المشروعة مقارنة بالعداء الوطني (متاح بصيغة PDF)[cite: 1].
 
            معلومات الاتصال[cite: 1]:
            - الهاتف / واتساب: +213 771 46 86 69[cite: 1]
@@ -73,11 +74,12 @@ export default async function handler(req, res) {
            CRITICAL: Do not use any asterisks (*) or markdown formatting for bold text in your answers[cite: 1].
 
            Rabah Loudjani's Books and Works[cite: 1]:
-           - "Cybersécurité : Protéger son numérique au quotidien" (Recently added)[cite: 1]: A 52-page simplified practical guide without technical jargon, targeting the general public and professionals[cite: 1]. It covers digital hygiene under Windows 11, the impact of AI (phishing, deepfakes, malwares), AI in defense (EDR, XDR, SIEM), IoT security, Zero Trust architecture, and legal frameworks (GDPR, NIS 2). Includes a practical checklist and a glossary[cite: 1].
-           - "De l'exil au rejet" (From Exile to Rejection): A book exploring the experience of children of immigrants, internalized xenophobia, and identity wounds[cite: 1].
-           - "Cybersécurité : protégez-vous vraiment": A previous work on digital security[cite: 1].
-           - "Les modèles motivationnels" (Motivational Models): An in-depth analysis of Maslow's hierarchy of needs and motivational dynamics (Available in HTML and PDF formats)[cite: 1].
-           - "Opposant ou ennemi" (Opponent or Enemy): Reflections on legitimate political opposition versus national hostility (Available in PDF format)[cite: 1].
+           1. "Cyber-Résistance: L'Art du Piège Numérique" (2026 Edition)[cite: 2]: A pedagogical and preventive guide analyzing hackers' tactics such as social engineering, QR code phishing (Quishing), and double extension file trickery[cite: 2]. It details emergency response procedures, advanced logical containment (EDR, VLAN isolation, session revocation), and secure restoration using immutable backups[cite: 2].
+           2. "Guide Technique de Cybersécurité Defensive" (Finalized in 2026)[cite: 3]: An advanced technical reference framework tailored for IT administrators, infrastructure managers, and SecOps profiles[cite: 3]. Covers Zero Trust architecture implementation, Identity & Access Management (MFA, PAM), endpoint hardening (Windows hardening, ASR rules), network/cloud security, and regulatory compliance (GDPR, NIS 2 directive)[cite: 3]. Includes a 3-horizon temporal roadmap and an operational checklist[cite: 3].
+           3. "Cybersécurité : Protéger son numérique au quotidien"[cite: 1]: A 52-page simplified practical guide for day-to-day digital hygiene and protection[cite: 1].
+           4. "De l'exil au rejet" (From Exile to Rejection): A book exploring the experience of children of immigrants, internalized xenophobia, and identity wounds[cite: 1].
+           5. "Les modèles motivationnels" (Motivational Models): An in-depth analysis of Maslow's hierarchy of needs and motivational dynamics (Available in HTML and PDF)[cite: 1].
+           6. "Opposant ou ennemi" (Opponent or Enemy): Reflections on legitimate political opposition versus national hostility (Available in PDF)[cite: 1].
 
            Contact Information[cite: 1]:
            - Phone / WhatsApp: +213 771 46 86 69[cite: 1]
@@ -93,11 +95,12 @@ export default async function handler(req, res) {
            IMPORTANT : N'utilise jamais d'astérisques (*) ou de syntaxe Markdown pour mettre du texte en gras dans tes réponses[cite: 1].
 
            Livres et travaux de Rabah Loudjani[cite: 1] :
-           - "Cybersécurité : Protéger son numérique au quotidien" (Récemment ajouté)[cite: 1] : Guide pratique vulgarisé de 52 pages, sans jargon technique, ciblant le grand public et les professionnels[cite: 1]. Aborde l'hygiène numérique sous Windows 11, l'impact de l'IA (phishing, deepfakes, malwares), l'usage de l'IA en défense (EDR, XDR, SIEM), la sécurité IoT, l'architecture Zero Trust, et les cadres légaux (RGPD, NIS 2). Contient une checklist pratique et un glossaire[cite: 1].
-           - "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires (Disponible en PDF)[cite: 1].
-           - "Cybersécurité : protégez-vous vraiment" : Ouvrage précédent sur la sécurité numérique[cite: 1].
-           - "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels (Disponible en HTML et PDF)[cite: 1].
-           - "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale (Disponible en PDF)[cite: 1].
+           1. "Cyber-Résistance : L'Art du Piège Numérique" (Édition 2026)[cite: 2] : Guide pédagogique, informatif et préventif décortiquant l'anatomie des ruses des hackers : ingénierie sociale, hameçonnage par QR Code (Quishing), et leurre de la double extension[cite: 2]. Présente les procédures de réaction immédiate face aux anomalies physiques, les techniques de confinement logique avancé (EDR, isolation VLAN, révocation de jetons OAuth/Kerberos) et la restauration via sauvegardes immuables[cite: 2].
+           2. "Guide Technique de Cybersécurité Défensive" (Finalisé en 2026)[cite: 3] : Référentiel technique et cadre d'architecture destiné aux administrateurs, responsables d'infrastructures et profils SecOps[cite: 3]. Traite de la mise en œuvre du Zero Trust, de la gestion des identités (MFA, PAM, accès conditionnel), du durcissement des endpoints (Hardening Windows, règles ASR), de la sécurité réseau/cloud, et de la conformité (RGPD, Directive NIS 2)[cite: 3]. Propose une feuille de route en 3 horizons et une checklist opérationnelle[cite: 3].
+           3. "Cybersécurité : Protéger son numérique au quotidien"[cite: 1] : Guide pratique vulgarisé de 52 pages, sans jargon technique, ciblant le grand public et les professionnels pour sécuriser l'environnement numérique quotidien[cite: 1].
+           4. "De l'exil au rejet" : Ouvrage explorant l'expérience des fils de migrants, la xénophobie intériorisée et les blessures identitaires (Disponible en PDF)[cite: 1].
+           5. "Les modèles motivationnels" : Analyse approfondie de la pyramide de Maslow et des modèles motivationnels (Disponible en HTML et PDF)[cite: 1].
+           6. "Opposant ou ennemi" : Réflexion sur l'opposition politique légitime par rapport à l'hostilité nationale (Disponible en PDF)[cite: 1].
 
            Informations de contact[cite: 1] :
            - Téléphone/WhatsApp : +213 771 46 86 69[cite: 1]
