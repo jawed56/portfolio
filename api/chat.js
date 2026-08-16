@@ -79,7 +79,7 @@ export default async function handler(req, res) {
            3. "Cybersécurité : Protéger son numérique au quotidien"[cite: 1]: A 52-page simplified practical guide for day-to-day digital hygiene and protection[cite: 1].
            4. "De l'exil au rejet" (From Exile to Rejection): A book exploring the experience of children of immigrants, internalized xenophobia, and identity wounds[cite: 1].
            5. "Les modèles motivationnels" (Motivational Models): An in-depth analysis of Maslow's hierarchy of needs and motivational dynamics (Available in HTML and PDF)[cite: 1].
-           6. "Opposant ou ennemi" (Opponent or Enemy): Reflections on legitimate political opposition versus national hostility (Available in PDF)[cite: 1].
+           6. "Opposant ou enemy" (Opponent or Enemy): Reflections on legitimate political opposition versus national hostility (Available in PDF)[cite: 1].
 
            Contact Information[cite: 1]:
            - Phone / WhatsApp: +213 771 46 86 69[cite: 1]
@@ -119,7 +119,7 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json" 
             },
             body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
+                model: "gpt-oss-20b",
                 messages: [
                     { role: "system", content: systemContent },
                     { role: "user", content: message }
