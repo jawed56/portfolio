@@ -1,9 +1,6 @@
 {
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
-  ]
+  "name": "portfolio-rabah",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module"
 }
