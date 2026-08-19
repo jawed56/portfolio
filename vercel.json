@@ -1,6 +1,7 @@
 {
-  "name": "portfolio-rabah",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module"
+  "functions": {
+    "api/chat.js": {
+      "runtime": "@vercel/node"
+    }
+  }
 }
