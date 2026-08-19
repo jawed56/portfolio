@@ -48,7 +48,7 @@
             overflow-x: hidden;
         }
 
-        /* Barre de navigation moderne */
+        /* Barre de navigation */
         nav {
             background: rgba(6, 9, 19, 0.7);
             backdrop-filter: blur(16px);
@@ -367,7 +367,7 @@
         .ai-rtl { direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; }
         .error { background: #450a0a !important; color: #fca5a5; border-color: #7f1d1d; }
 
-        /* Suggestions modernisées */
+        /* Suggestions */
         #ai-suggestions {
             display: none;
             padding: 10px 18px;
@@ -397,7 +397,7 @@
             color: white;
         }
 
-        /* Barre d'action basse de l'IA */
+        /* Barre d'action IA */
         #ai-input-area {
             display: none; 
             padding: 14px 18px; 
@@ -453,7 +453,6 @@
         }
         #ai-send:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* Animation Ondes Micro */
         .listening-wave {
             display: inline-block;
             width: 12px;
@@ -526,6 +525,17 @@
             <h2 id="projects-title">Mes Réalisations</h2>
             <div class="projects-container">
                 <div class="project-card">
+                    <h3 id="proj-sim-title">Cyber-Trap Simulator</h3>
+                    <p style="color: var(--text-muted); margin: 12px 0 20px 0; font-size: 0.95rem;" id="proj-sim-desc">
+                        Simulateur interactif d'évaluation de cyber-vigilance face au Quishing, faux fichiers .exe, attaques MFA Push et consentements cloud abusifs.
+                    </p>
+                    <div class="project-techs">
+                        <span>Cybersécurité</span> <span>Ingénierie Sociale</span> <span>JavaScript</span>
+                    </div>
+                    <a href="https://jawed56.github.io/phishing-simulator/" target="_blank" class="project-btn" id="proj-sim-link">Lancer le test</a>
+                </div>
+
+                <div class="project-card">
                     <h3 id="proj-calc-title">Calculatrice Scientifique</h3>
                     <p style="color: var(--text-muted); margin: 12px 0 20px 0; font-size: 0.95rem;" id="proj-calc-desc">
                         Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.
@@ -589,30 +599,43 @@
     </footer>
 
     <script>
-        // Player Audio Radio
+        // 1. Initialisation sécurisée du lecteur Radio
         const radioPlayer = document.getElementById('radio-player');
-        document.getElementById('play-audio').addEventListener('click', () => {
-            radioPlayer.style.display = 'block';
-            radioPlayer.play();
-        });
-        document.getElementById('station-select').addEventListener('change', function() {
-            if (this.value) {
-                radioPlayer.style.display = 'block';
-                radioPlayer.src = this.value;
-                radioPlayer.play();
-            }
-        });
+        const playAudioBtn = document.getElementById('play-audio');
+        const stationSelect = document.getElementById('station-select');
 
-        // Toggle Bibliothèque
+        if (playAudioBtn && radioPlayer) {
+            playAudioBtn.addEventListener('click', () => {
+                radioPlayer.style.display = 'block';
+                radioPlayer.play().catch(e => console.warn("Lecture audio bloquée :", e));
+            });
+        }
+
+        if (stationSelect && radioPlayer) {
+            stationSelect.addEventListener('change', function() {
+                if (this.value) {
+                    radioPlayer.style.display = 'block';
+                    radioPlayer.src = this.value;
+                    radioPlayer.play().catch(e => console.warn("Lecture audio bloquée :", e));
+                }
+            });
+        }
+
+        // 2. Initialisation sécurisée du menu Bibliothèque
         const btnBiblio = document.getElementById('btn-biblio');
         const menuBiblio = document.getElementById('menu-biblio');
-        btnBiblio.addEventListener('click', (e) => { 
-            e.stopPropagation(); 
-            menuBiblio.style.display = menuBiblio.style.display === 'block' ? 'none' : 'block'; 
-        });
-        document.addEventListener('click', () => menuBiblio.style.display = 'none');
 
-        // Agent IA - DOM
+        if (btnBiblio && menuBiblio) {
+            btnBiblio.addEventListener('click', (e) => { 
+                e.stopPropagation(); 
+                menuBiblio.style.display = (menuBiblio.style.display === 'block') ? 'none' : 'block'; 
+            });
+            document.addEventListener('click', () => {
+                menuBiblio.style.display = 'none';
+            });
+        }
+
+        // 3. Dictionnaires et gestion de l'Agent IA
         const chat = document.getElementById('ai-chat');
         const input = document.getElementById('ai-input');
         const sendBtn = document.getElementById('ai-send');
@@ -625,7 +648,6 @@
         let isOpen = false;
         let currentLang = 'fr';
 
-        // Dictionnaire complet UI, Contenus et suggestions Trilingues
         const uiText = {
             fr: {
                 title: "Agent IA Rabah",
@@ -640,6 +662,9 @@
                 aboutDesc: "Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀",
                 btnBiblio: "Ma bibliothèque numérique ▾",
                 projectsTitle: "Mes Réalisations",
+                projSimTitle: "Cyber-Trap Simulator",
+                projSimDesc: "Simulateur interactif d'évaluation de cyber-vigilance face au Quishing, faux fichiers .exe, attaques MFA Push et consentements cloud abusifs.",
+                projSimLink: "Lancer le test",
                 projCalcTitle: "Calculatrice Scientifique",
                 projCalcDesc: "Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.",
                 projCalcLink: "Découvrir l'outil",
@@ -657,8 +682,8 @@
                     "📗 Opposant ou ennemi"
                 ],
                 suggestions: [
-                    "Présente-moi le livre 'Cyber-Résistance'",
-                    "Quels sont tes projets récents ?",
+                    "Présente-moi le projet 'Cyber-Trap Simulator'",
+                    "Quels sont tes ouvrages récents ?",
                     "Comment contacter Rabah ?"
                 ]
             },
@@ -675,6 +700,9 @@
                 aboutDesc: "مستكشف للتكنولوجيات الجديدة يحول الأفكار إلى ابتكارات! 🚀",
                 btnBiblio: "مكتبتي الرقمية ▾",
                 projectsTitle: "إنجازاتي",
+                projSimTitle: "محاكي الفخاخ السيبرانية (Cyber-Trap)",
+                projSimDesc: "محاكي تفاعلي لتقييم اليقظة الأمنية ضد الاحتيال برمز الاستجابة السريعة (Quishing)، الامتدادات المزدوجة، وهجمات MFA.",
+                projSimLink: "بدء الاختبار",
                 projCalcTitle: "آلة حاسبة علمية",
                 projCalcDesc: "تطبيق ويب تفاعلي لإجراء الحسابات القياسية والعلمية المعقدة.",
                 projCalcLink: "اكتشف الأداة",
@@ -692,8 +720,8 @@
                     "📗 معارض أم عدو"
                 ],
                 suggestions: [
-                    "حدثني عن كتاب 'المقاومة السيبرانية'",
-                    "ما هي مشاريعك الأخيرة؟",
+                    "حدثني عن مشروع 'Cyber-Trap Simulator'",
+                    "ما هي مؤلفاتك الأخيرة؟",
                     "كيف يمكنني الاتصال برابح؟"
                 ]
             },
@@ -710,6 +738,9 @@
                 aboutDesc: "An explorer of new technologies who transforms ideas into innovations! 🚀",
                 btnBiblio: "My Digital Library ▾",
                 projectsTitle: "My Projects",
+                projSimTitle: "Cyber-Trap Simulator",
+                projSimDesc: "Interactive cyber-vigilance assessment simulator covering Quishing, double-extension trickery, MFA push fatigue, and malicious OAuth apps.",
+                projSimLink: "Launch test",
                 projCalcTitle: "Scientific Calculator",
                 projCalcDesc: "An interactive web application allowing to perform standard and complex scientific calculations.",
                 projCalcLink: "Discover the tool",
@@ -727,8 +758,8 @@
                     "📗 Opponent or Enemy"
                 ],
                 suggestions: [
-                    "Tell me about 'Cyber-Resistance' book",
-                    "What are your recent projects?",
+                    "Tell me about 'Cyber-Trap Simulator'",
+                    "What are your recent books?",
                     "How can I contact Rabah?"
                 ]
             }
@@ -736,78 +767,97 @@
 
         function updateUI() {
             const data = uiText[currentLang];
+            if (!data) return;
+
+            if (aiTitle) aiTitle.textContent = data.title;
+            if (aiStatus) aiStatus.textContent = data.status;
+            if (input) input.placeholder = data.placeholder;
+
+            const mainTitle = document.getElementById('main-title');
+            const mainSub = document.getElementById('main-subtitle');
+            const aboutDesc = document.getElementById('about-desc');
+            const projTitle = document.getElementById('projects-title');
             
-            // Mise à jour de l'Agent IA
-            aiTitle.textContent = data.title;
-            aiStatus.textContent = data.status;
-            input.placeholder = data.placeholder;
+            const projSimT = document.getElementById('proj-sim-title');
+            const projSimD = document.getElementById('proj-sim-desc');
+            const projSimL = document.getElementById('proj-sim-link');
+
+            const projCalcT = document.getElementById('proj-calc-title');
+            const projCalcD = document.getElementById('proj-calc-desc');
+            const projCalcL = document.getElementById('proj-calc-link');
+
+            const contactT = document.getElementById('contact-title');
+            const lblEmail = document.getElementById('label-email');
+            const lblPhone = document.getElementById('label-phone');
+            const lblFb = document.getElementById('label-fb');
+
+            if (mainTitle) mainTitle.textContent = data.mainTitle;
+            if (mainSub) mainSub.textContent = data.mainSubtitle;
+            if (aboutDesc) aboutDesc.textContent = data.aboutDesc;
+            if (btnBiblio && btnBiblio.firstChild) btnBiblio.firstChild.textContent = data.btnBiblio + " ";
+            if (projTitle) projTitle.textContent = data.projectsTitle;
             
-            // Mise à jour du contenu global du portfolio (Traduction en temps réel)
-            document.getElementById('main-title').textContent = data.mainTitle;
-            document.getElementById('main-subtitle').textContent = data.mainSubtitle;
-            document.getElementById('about-desc').textContent = data.aboutDesc;
-            document.getElementById('btn-biblio').firstChild.textContent = data.btnBiblio + " ";
-            document.getElementById('projects-title').textContent = data.projectsTitle;
-            document.getElementById('proj-calc-title').textContent = data.projCalcTitle;
-            document.getElementById('proj-calc-desc').textContent = data.projCalcDesc;
-            document.getElementById('proj-calc-link').textContent = data.projCalcLink;
-            document.getElementById('contact-title').textContent = data.contactTitle;
-            document.getElementById('label-email').textContent = data.email;
-            document.getElementById('label-phone').textContent = data.phone;
-            document.getElementById('label-fb').textContent = data.fb;
-            
-            // Traduction des titres de livres du menu
+            if (projSimT) projSimT.textContent = data.projSimTitle;
+            if (projSimD) projSimD.textContent = data.projSimDesc;
+            if (projSimL) projSimL.textContent = data.projSimLink;
+
+            if (projCalcT) projCalcT.textContent = data.projCalcTitle;
+            if (projCalcD) projCalcD.textContent = data.projCalcDesc;
+            if (projCalcL) projCalcL.textContent = data.projCalcLink;
+
+            if (contactT) contactT.textContent = data.contactTitle;
+            if (lblEmail) lblEmail.textContent = data.email;
+            if (lblPhone) lblPhone.textContent = data.phone;
+            if (lblFb) lblFb.textContent = data.fb;
+
             for (let i = 1; i <= 7; i++) {
                 const bookEl = document.getElementById(`book-${i}`);
-                if (bookEl && data.books[i-1]) {
+                if (bookEl && data.books && data.books[i-1]) {
                     bookEl.textContent = data.books[i-1];
                 }
             }
 
-            // Gestion de l'orientation RTL / LTR
             if (currentLang === 'ar') {
-                input.classList.add('ai-rtl');
-                suggestionsContainer.classList.add('ai-rtl');
+                if (input) input.classList.add('ai-rtl');
+                if (suggestionsContainer) suggestionsContainer.classList.add('ai-rtl');
                 document.body.style.direction = 'rtl';
-                menuBiblio.style.textAlign = 'right';
+                if (menuBiblio) menuBiblio.style.textAlign = 'right';
             } else {
-                input.classList.remove('ai-rtl');
-                suggestionsContainer.classList.remove('ai-rtl');
+                if (input) input.classList.remove('ai-rtl');
+                if (suggestionsContainer) suggestionsContainer.classList.remove('ai-rtl');
                 document.body.style.direction = 'ltr';
-                menuBiblio.style.textAlign = 'left';
+                if (menuBiblio) menuBiblio.style.textAlign = 'left';
             }
-            
-            // Rechargement des boutons de suggestions
-            suggestionsContainer.innerHTML = '';
-            data.suggestions.forEach(text => {
-                const btn = document.createElement('button');
-                btn.className = 'suggestion-btn';
-                btn.textContent = text;
-                btn.addEventListener('click', () => {
-                    input.value = text;
-                    sendMessage();
+
+            if (suggestionsContainer && data.suggestions) {
+                suggestionsContainer.innerHTML = '';
+                data.suggestions.forEach(text => {
+                    const btn = document.createElement('button');
+                    btn.className = 'suggestion-btn';
+                    btn.textContent = text;
+                    btn.addEventListener('click', () => {
+                        if (input) input.value = text;
+                        sendMessage();
+                    });
+                    suggestionsContainer.appendChild(btn);
                 });
-                suggestionsContainer.appendChild(btn);
-            });
+            }
         }
 
-        langSelect.addEventListener('change', (e) => {
-            currentLang = e.target.value;
-            updateUI();
-            if (chat.children.length <= 1) {
-                chat.innerHTML = '';
-                addMessage("bot", uiText[currentLang].welcome);
-            }
-            if (SpeechRecognition) {
-                if (currentLang === 'ar') recognition.lang = 'ar-DZ';
-                else if (currentLang === 'en') recognition.lang = 'en-US';
-                else recognition.lang = 'fr-FR';
-            }
-        });
-
-        langSelect.addEventListener('click', (e) => { e.stopPropagation(); });
+        if (langSelect) {
+            langSelect.addEventListener('change', (e) => {
+                currentLang = e.target.value;
+                updateUI();
+                if (chat && chat.children.length <= 1) {
+                    chat.innerHTML = '';
+                    addMessage("bot", uiText[currentLang].welcome);
+                }
+            });
+            langSelect.addEventListener('click', (e) => e.stopPropagation());
+        }
 
         function addMessage(sender, text, extraClass = '') {
+            if (!chat) return null;
             const msg = document.createElement('div');
             msg.className = `ai-message ${sender === 'user' ? 'ai-user' : 'ai-bot'} ${extraClass}`;
             if (currentLang === 'ar') msg.classList.add('ai-rtl');
@@ -817,79 +867,49 @@
             return msg;
         }
 
-        // --- SYSTÈME AUDIO BUFFERISÉ ---
-        let mobileVoices = [];
-        let globalUtterance = null;
-
-        function loadVoices() {
-            if ('speechSynthesis' in window) {
-                mobileVoices = window.speechSynthesis.getVoices();
-            }
-        }
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = loadVoices;
-            loadVoices();
-        }
-
-        function unlockAudioMobile() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                globalUtterance = new SpeechSynthesisUtterance(' ');
-                globalUtterance.rate = 1.0;
-                globalUtterance.volume = 0.01;
-                window.speechSynthesis.speak(globalUtterance);
-            }
-        }
-
         function speakText(text) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
             const cleanedText = text.replace(/\*/g, '');
-            globalUtterance = new SpeechSynthesisUtterance(cleanedText);
-            const voices = mobileVoices.length > 0 ? mobileVoices : window.speechSynthesis.getVoices();
-            
+            const utter = new SpeechSynthesisUtterance(cleanedText);
+            const voices = window.speechSynthesis.getVoices() || [];
+
             if (currentLang === 'ar') {
-                globalUtterance.lang = 'ar-SA';
-                const arVoice = voices.find(v => v.lang.includes('ar'));
-                if (arVoice) globalUtterance.voice = arVoice;
+                utter.lang = 'ar-SA';
+                const arV = voices.find(v => v.lang && v.lang.includes('ar'));
+                if (arV) utter.voice = arV;
             } else if (currentLang === 'en') {
-                globalUtterance.lang = 'en-US';
-                const enVoice = voices.find(v => v.lang.includes('en') && (v.name.includes('Google') || v.name.includes('Android'))) || voices.find(v => v.lang.includes('en'));
-                if (enVoice) globalUtterance.voice = enVoice;
+                utter.lang = 'en-US';
+                const enV = voices.find(v => v.lang && v.lang.includes('en'));
+                if (enV) utter.voice = enV;
             } else {
-                globalUtterance.lang = 'fr-FR';
-                const frVoice = voices.find(v => v.lang.includes('fr') && (v.name.includes('Google') || v.name.includes('Android'))) || voices.find(v => v.lang.includes('fr'));
-                if (frVoice) globalUtterance.voice = frVoice;
+                utter.lang = 'fr-FR';
+                const frV = voices.find(v => v.lang && v.lang.includes('fr'));
+                if (frV) utter.voice = frV;
             }
 
-            globalUtterance.rate = 1.0;
-            globalUtterance.pitch = 1.0;
-            globalUtterance.volume = 1.0;
-            
-            window.speechSynthesis.speak(globalUtterance);
+            window.speechSynthesis.speak(utter);
         }
 
         async function callGroqAPI(userMessage) {
-    const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage, lang: currentLang })
-    });
-    if (!response.ok) {
-        const errResult = await response.json().catch(() => ({}));
-        throw new Error(errResult.error || "Erreur serveur API");
-    }
-    const data = await response.json();
-    return data.reply;
-}
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMessage, lang: currentLang })
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                throw new Error(err.error || "Erreur serveur API");
+            }
+            const data = await response.json();
+            return data.reply;
         }
 
         async function sendMessage() {
+            if (!input) return;
             const message = input.value.trim();
             if (!message) return;
-            
-            unlockAudioMobile();
 
             addMessage('user', message);
             input.value = '';
@@ -897,21 +917,19 @@
 
             try {
                 const reply = await callGroqAPI(message);
-                chat.removeChild(thinking);
+                if (thinking && thinking.parentNode) chat.removeChild(thinking);
                 addMessage('bot', reply);
                 speakText(reply);
             } catch (error) {
-                chat.removeChild(thinking);
+                if (thinking && thinking.parentNode) chat.removeChild(thinking);
                 addMessage('bot', uiText[currentLang].errorAPI, "error");
             }
         }
 
-        // RECONNAISSANCE VOCALE (STT)
+        // Reconnaissance vocale (STT)
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        let recognition;
-
-        if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
+        if (SpeechRecognition && micBtn) {
+            const recognition = new SpeechRecognition();
             recognition.lang = 'fr-FR';
             recognition.continuous = false;
             recognition.interimResults = false;
@@ -920,7 +938,10 @@
 
             micBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                unlockAudioMobile();
+                if (currentLang === 'ar') recognition.lang = 'ar-DZ';
+                else if (currentLang === 'en') recognition.lang = 'en-US';
+                else recognition.lang = 'fr-FR';
+
                 if (!isListening) recognition.start();
                 else recognition.stop();
             });
@@ -938,35 +959,43 @@
             };
 
             recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                input.value = transcript;
-                sendMessage();
+                if (input) {
+                    input.value = event.results[0][0].transcript;
+                    sendMessage();
+                }
             };
 
             recognition.onerror = () => {
                 addMessage('bot', uiText[currentLang].errorMic, "error");
             };
-        } else {
+        } else if (micBtn) {
             micBtn.style.display = 'none';
         }
 
-        header.addEventListener('click', () => {
-            isOpen = !isOpen;
-            chat.style.display = isOpen ? 'flex' : 'none';
-            suggestionsContainer.style.display = isOpen ? 'flex' : 'none';
-            document.getElementById('ai-input-area').style.display = isOpen ? 'flex' : 'none';
-            if (isOpen && chat.children.length === 0) {
-                updateUI();
-                addMessage("bot", uiText[currentLang].welcome);
-            }
-        });
-
-        sendBtn.addEventListener('click', sendMessage);
-        input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-        
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.getVoices();
+        // Gestion de l'ouverture/fermeture du volet IA
+        if (header) {
+            header.addEventListener('click', () => {
+                isOpen = !isOpen;
+                if (chat) chat.style.display = isOpen ? 'flex' : 'none';
+                if (suggestionsContainer) suggestionsContainer.style.display = isOpen ? 'flex' : 'none';
+                const inputArea = document.getElementById('ai-input-area');
+                if (inputArea) inputArea.style.display = isOpen ? 'flex' : 'none';
+                if (isOpen && chat && chat.children.length === 0) {
+                    updateUI();
+                    addMessage("bot", uiText[currentLang].welcome);
+                }
+            });
         }
+
+        if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+        if (input) {
+            input.addEventListener('keypress', (e) => { 
+                if (e.key === 'Enter') sendMessage(); 
+            });
+        }
+
+        // Initialisation au chargement
+        updateUI();
     </script>
 </body>
 </html>
