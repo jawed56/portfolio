@@ -48,7 +48,7 @@
             overflow-x: hidden;
         }
 
-        /* Barre de navigation */
+        /* Barre de navigation moderne */
         nav {
             background: rgba(6, 9, 19, 0.7);
             backdrop-filter: blur(16px);
@@ -367,7 +367,7 @@
         .ai-rtl { direction: rtl; text-align: right; font-family: system-ui, -apple-system, sans-serif; }
         .error { background: #450a0a !important; color: #fca5a5; border-color: #7f1d1d; }
 
-        /* Suggestions */
+        /* Suggestions modernisées */
         #ai-suggestions {
             display: none;
             padding: 10px 18px;
@@ -397,7 +397,7 @@
             color: white;
         }
 
-        /* Barre d'action IA */
+        /* Barre d'action basse de l'IA */
         #ai-input-area {
             display: none; 
             padding: 14px 18px; 
@@ -453,6 +453,7 @@
         }
         #ai-send:hover { transform: scale(1.05); filter: brightness(1.1); }
 
+        /* Animation Ondes Micro */
         .listening-wave {
             display: inline-block;
             width: 12px;
@@ -524,17 +525,6 @@
         <section id="projects">
             <h2 id="projects-title">Mes Réalisations</h2>
             <div class="projects-container">
-                <div class="project-card">
-                    <h3 id="proj-sim-title">Cyber-Trap Simulator</h3>
-                    <p style="color: var(--text-muted); margin: 12px 0 20px 0; font-size: 0.95rem;" id="proj-sim-desc">
-                        Simulateur interactif d'évaluation de cyber-vigilance face au Quishing, faux fichiers .exe, attaques MFA Push et consentements cloud abusifs.
-                    </p>
-                    <div class="project-techs">
-                        <span>Cybersécurité</span> <span>Ingénierie Sociale</span> <span>JavaScript</span>
-                    </div>
-                    <a href="https://jawed56.github.io/phishing-simulator/" target="_blank" class="project-btn" id="proj-sim-link">Lancer le test</a>
-                </div>
-
                 <div class="project-card">
                     <h3 id="proj-calc-title">Calculatrice Scientifique</h3>
                     <p style="color: var(--text-muted); margin: 12px 0 20px 0; font-size: 0.95rem;" id="proj-calc-desc">
@@ -635,7 +625,7 @@
         let isOpen = false;
         let currentLang = 'fr';
 
-        // Dictionnaire UI, Contenus et suggestions Trilingues
+        // Dictionnaire complet UI, Contenus et suggestions Trilingues
         const uiText = {
             fr: {
                 title: "Agent IA Rabah",
@@ -650,9 +640,6 @@
                 aboutDesc: "Un explorateur des nouvelles technologies qui transforme les idées en innovations ! 🚀",
                 btnBiblio: "Ma bibliothèque numérique ▾",
                 projectsTitle: "Mes Réalisations",
-                projSimTitle: "Cyber-Trap Simulator",
-                projSimDesc: "Simulateur interactif d'évaluation de cyber-vigilance face au Quishing, faux fichiers .exe, attaques MFA Push et consentements cloud abusifs.",
-                projSimLink: "Lancer le test",
                 projCalcTitle: "Calculatrice Scientifique",
                 projCalcDesc: "Une application web interactive permettant de réaliser des calculs standards et scientifiques complexes.",
                 projCalcLink: "Découvrir l'outil",
@@ -670,8 +657,8 @@
                     "📗 Opposant ou ennemi"
                 ],
                 suggestions: [
-                    "Présente-moi le projet 'Cyber-Trap Simulator'",
-                    "Quels sont tes ouvrages récents ?",
+                    "Présente-moi le livre 'Cyber-Résistance'",
+                    "Quels sont tes projets récents ?",
                     "Comment contacter Rabah ?"
                 ]
             },
@@ -688,9 +675,6 @@
                 aboutDesc: "مستكشف للتكنولوجيات الجديدة يحول الأفكار إلى ابتكارات! 🚀",
                 btnBiblio: "مكتبتي الرقمية ▾",
                 projectsTitle: "إنجازاتي",
-                projSimTitle: "محاكي الفخاخ السيبرانية (Cyber-Trap)",
-                projSimDesc: "محاكي تفاعلي لتقييم اليقظة الأمنية ضد الاحتيال برمز الاستجابة السريعة (Quishing)، الامتدادات المزدوجة، وهجمات MFA.",
-                projSimLink: "بدء الاختبار",
                 projCalcTitle: "آلة حاسبة علمية",
                 projCalcDesc: "تطبيق ويب تفاعلي لإجراء الحسابات القياسية والعلمية المعقدة.",
                 projCalcLink: "اكتشف الأداة",
@@ -708,8 +692,8 @@
                     "📗 معارض أم عدو"
                 ],
                 suggestions: [
-                    "حدثني عن مشروع 'Cyber-Trap Simulator'",
-                    "ما هي مؤلفاتك الأخيرة؟",
+                    "حدثني عن كتاب 'المقاومة السيبرانية'",
+                    "ما هي مشاريعك الأخيرة؟",
                     "كيف يمكنني الاتصال برابح؟"
                 ]
             },
@@ -726,9 +710,6 @@
                 aboutDesc: "An explorer of new technologies who transforms ideas into innovations! 🚀",
                 btnBiblio: "My Digital Library ▾",
                 projectsTitle: "My Projects",
-                projSimTitle: "Cyber-Trap Simulator",
-                projSimDesc: "Interactive cyber-vigilance assessment simulator covering Quishing, double-extension trickery, MFA push fatigue, and malicious OAuth apps.",
-                projSimLink: "Launch test",
                 projCalcTitle: "Scientific Calculator",
                 projCalcDesc: "An interactive web application allowing to perform standard and complex scientific calculations.",
                 projCalcLink: "Discover the tool",
@@ -746,8 +727,8 @@
                     "📗 Opponent or Enemy"
                 ],
                 suggestions: [
-                    "Tell me about 'Cyber-Trap Simulator'",
-                    "What are your recent books?",
+                    "Tell me about 'Cyber-Resistance' book",
+                    "What are your recent projects?",
                     "How can I contact Rabah?"
                 ]
             }
@@ -756,29 +737,26 @@
         function updateUI() {
             const data = uiText[currentLang];
             
+            // Mise à jour de l'Agent IA
             aiTitle.textContent = data.title;
             aiStatus.textContent = data.status;
             input.placeholder = data.placeholder;
             
+            // Mise à jour du contenu global du portfolio (Traduction en temps réel)
             document.getElementById('main-title').textContent = data.mainTitle;
             document.getElementById('main-subtitle').textContent = data.mainSubtitle;
             document.getElementById('about-desc').textContent = data.aboutDesc;
             document.getElementById('btn-biblio').firstChild.textContent = data.btnBiblio + " ";
             document.getElementById('projects-title').textContent = data.projectsTitle;
-            
-            document.getElementById('proj-sim-title').textContent = data.projSimTitle;
-            document.getElementById('proj-sim-desc').textContent = data.projSimDesc;
-            document.getElementById('proj-sim-link').textContent = data.projSimLink;
-
             document.getElementById('proj-calc-title').textContent = data.projCalcTitle;
             document.getElementById('proj-calc-desc').textContent = data.projCalcDesc;
             document.getElementById('proj-calc-link').textContent = data.projCalcLink;
-
             document.getElementById('contact-title').textContent = data.contactTitle;
             document.getElementById('label-email').textContent = data.email;
             document.getElementById('label-phone').textContent = data.phone;
             document.getElementById('label-fb').textContent = data.fb;
             
+            // Traduction des titres de livres du menu
             for (let i = 1; i <= 7; i++) {
                 const bookEl = document.getElementById(`book-${i}`);
                 if (bookEl && data.books[i-1]) {
@@ -786,6 +764,7 @@
                 }
             }
 
+            // Gestion de l'orientation RTL / LTR
             if (currentLang === 'ar') {
                 input.classList.add('ai-rtl');
                 suggestionsContainer.classList.add('ai-rtl');
@@ -798,6 +777,7 @@
                 menuBiblio.style.textAlign = 'left';
             }
             
+            // Rechargement des boutons de suggestions
             suggestionsContainer.innerHTML = '';
             data.suggestions.forEach(text => {
                 const btn = document.createElement('button');
