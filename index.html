@@ -893,17 +893,18 @@
         }
 
         async function callGroqAPI(userMessage) {
-            const response = await fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage, lang: currentLang })
-            });
-            if (!response.ok) {
-                const err = await response.json().catch(() => ({}));
-                throw new Error(err.error || "Erreur serveur API");
-            }
-            const data = await response.json();
-            return data.reply;
+    const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage, lang: currentLang })
+    });
+    if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.error || "Erreur serveur API");
+    }
+    const data = await response.json();
+    return data.reply;
+
         }
 
         async function sendMessage() {
